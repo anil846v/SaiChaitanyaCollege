@@ -10,7 +10,7 @@ export default function ResultsAchievements() {
   };
 
   const allToppers = [
-    { name: 'Priya Sharma', rank: 'State 3rd', stream: 'MPC', marks: '965/1000', year: '2024', image: 'https://images.unsplash.com/photo-1494790108755-2616c9c0e8e0?w=200&h=200&fit=crop&crop=face' },
+    { name: 'Sneha Patel', rank: 'State 7th', stream: 'MEC', marks: '972/1000', year: '2023', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face' },
     { name: 'Arjun Reddy', rank: 'District 1st', stream: 'BiPC', marks: '978/1000', year: '2024', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face' },
     { name: 'Rahul Verma', rank: 'State 1st', stream: 'MPC', marks: '985/1000', year: '2024', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face' },
     { name: 'Kavya Singh', rank: 'District 1st', stream: 'BiPC', marks: '982/1000', year: '2024', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face' },
