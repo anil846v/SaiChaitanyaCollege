@@ -6,7 +6,7 @@ import AboutUs from "./AboutUs";
 // import Announcements from "./Announcements";
 import Gallery from "./Gallery";
 import Academic from "./Academic";
-import ResultsAchievements from "./ResultsAchievements";
+import ResultsAchievements from "./Resultsachievements";
 
 const AppRoutes = () => {
   return (
