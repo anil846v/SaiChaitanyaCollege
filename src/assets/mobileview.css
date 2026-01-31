@@ -1,0 +1,1205 @@
+/* Mobile-First Responsive Header Design */
+@media (max-width: 768px) {
+  /* Global Mobile Fixes */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+  }
+
+  /* CRITICAL: Header and Footer Static Protection */
+  .navbar,
+  .footer {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 16px 8px !important;
+    box-sizing: border-box !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: relative !important;
+    z-index: 1000 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+  }
+
+  /* Enhanced Header Mobile Styles */
+  .navbar {
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80px;
+    display: flex;
+  }
+
+  .navbar-logo {
+    flex-shrink: 0;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    order: 1;
+  }
+
+  .mobile-menu-toggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .logo-image {
+    width: 48px !important;
+    height: 48px !important;
+    margin-right: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .logo-text {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 0.4px;
+  }
+
+  /* Professional Centered Form Layout */
+  .page-layout {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    padding: 20px 16px;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e8eaed;
+    padding: 40px 32px;
+    margin: 0 auto;
+  }
+
+  .form-title {
+    font-size: 2rem !important;
+    text-align: center;
+    margin-bottom: 32px;
+    color: #202124;
+    font-weight: 500;
+  }
+
+  .form-input {
+    width: 100% !important;
+    padding: 16px 20px !important;
+    font-size: 16px !important;
+    border-radius: 12px;
+    border: 2px solid #e8eaed;
+    box-sizing: border-box !important;
+    transition: all 0.3s ease;
+    background: #fafafa;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+    background: white;
+  }
+
+  .form-button {
+    width: 100% !important;
+    padding: 18px !important;
+    font-size: 16px !important;
+    border-radius: 12px;
+    margin-top: 32px;
+    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(26, 115, 232, 0.3);
+  }
+
+  .form-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26, 115, 232, 0.4);
+  }
+
+  .form-button:disabled {
+    background: #dadce0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 15px;
+    color: #5f6368;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .form-links {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid #f1f3f4;
+  }
+
+  .form-links p {
+    color: #5f6368;
+    font-size: 15px;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .form-links a {
+    display: inline-block;
+    margin: 8px 0;
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+
+  .form-links a:hover {
+    color: #1557b0;
+    background: rgba(26, 115, 232, 0.1);
+  }
+
+  .success-message {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+    color: #137333;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 2px solid #ceead6;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .error-message {
+    background: linear-gradient(135deg, #fce8e6 0%, #fef7f0 100%);
+    color: #d93025;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 2px solid #f9dedc;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* Prevent horizontal scroll */
+  .homepage-container,
+  .page-layout,
+  .page-container,
+  .dashboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Homepage Mobile Fixes */
+  .hero-slider {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .slide {
+    width: 100% !important;
+  }
+
+  .slide img {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+  }
+
+  .about-section,
+  .features {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .vision-mission {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px 16px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    grid-template-columns: none !important;
+  }
+
+  .vision-card {
+    width: 100% !important;
+    aspect-ratio: auto !important;
+    padding: 20px !important;
+    margin: 0 !important;
+  }
+
+  .feature-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .feature-card {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* News & Announcements Mobile */
+  .news-container {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .news-card,
+  .announcement-item {
+    margin: 0 0 16px 0 !important;
+    padding: 16px !important;
+    border-radius: 8px;
+  }
+
+  .announcements-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Page Titles Mobile */
+  .page-title {
+    font-size: 1.8rem !important;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Student Dashboard Mobile - Complete Fix */
+  .dashboard-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dashboard-header {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    padding: 20px 16px !important;
+    border-radius: 12px;
+    text-align: center;
+    box-sizing: border-box !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .logout-btn {
+    position: static !important;
+    margin-top: 16px !important;
+    width: auto !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+
+  .dashboard-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+  }
+
+  .dashboard-nav .nav-btn {
+    width: 100% !important;
+    padding: 16px 20px !important;
+    text-align: left !important;
+    border-radius: 8px !important;
+    font-size: 15px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard-content {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    flex: 1;
+    overflow: visible;
+  }
+
+  .content-section {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px !important;
+    margin: 0 !important;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-sizing: border-box !important;
+    position: relative;
+  }
+
+  /* Profile Section - Card Layout, No Horizontal Scroll */
+  .content-section h2 {
+    font-size: 1.5rem !important;
+    text-align: center;
+    margin-bottom: 20px !important;
+    color: #2c3e50;
+  }
+
+  .content-section div[style*="maxWidth: '800px'"] {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .content-section div[style*="display: 'flex'"] {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 16px !important;
+    align-items: center !important;
+  }
+
+  .content-section div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .content-section img {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
+    margin: 0 auto 16px auto !important;
+  }
+
+  /* Timetable Mobile - Enable Horizontal Scroll */
+  .content-section .current-time {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 16px;
+    color: #666;
+  }
+
+  .timetable-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+
+  .timetable-table {
+    min-width: 700px !important;
+    width: auto !important;
+    font-size: 11px !important;
+    border-collapse: collapse;
+    margin: 0;
+  }
+
+  .timetable-table th,
+  .timetable-table td {
+    padding: 6px 4px !important;
+    font-size: 10px !important;
+    white-space: nowrap;
+    min-width: 60px;
+    border: 1px solid #e9ecef;
+  }
+
+  .day-header,
+  .time-header,
+  .break-header {
+    font-size: 9px !important;
+    padding: 4px 2px !important;
+    min-width: 50px;
+    background: #f8f9fa;
+    font-weight: 600;
+  }
+
+  .period-cell {
+    min-width: 70px !important;
+    padding: 4px 2px !important;
+    cursor: pointer;
+  }
+
+  .subject-name {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Exam Results Mobile - Enable Horizontal Scroll */
+  .exam-type-tabs {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    margin-bottom: 16px !important;
+  }
+
+  .exam-type-tabs button {
+    width: 100% !important;
+    padding: 12px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .exam-results-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+
+  .exam-results-table {
+    min-width: 600px !important;
+    width: auto !important;
+    font-size: 11px !important;
+    border-collapse: collapse;
+    margin: 0;
+  }
+
+  .exam-results-table th,
+  .exam-results-table td {
+    padding: 6px 4px !important;
+    font-size: 10px !important;
+    white-space: nowrap;
+    min-width: 80px;
+    border: 1px solid #e9ecef;
+  }
+
+  .exam-results-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+  }
+
+  /* Courses Mobile - No Horizontal Scroll */
+  .courses-container {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .course-card {
+    width: 100% !important;
+    padding: 16px !important;
+    border-radius: 8px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+
+  .course-header h3 {
+    font-size: 1.1rem !important;
+    margin: 0 0 8px 0 !important;
+    color: #2c3e50;
+  }
+
+  .teacher-name {
+    font-size: 0.9rem !important;
+    color: #666 !important;
+    margin: 0 0 12px 0 !important;
+  }
+
+  .lessons-list h4 {
+    font-size: 1rem !important;
+    margin: 12px 0 8px 0 !important;
+    color: #2c3e50;
+  }
+
+  .lessons-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .lesson-item {
+    width: 100% !important;
+    padding: 12px !important;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+
+  .lesson-item h5 {
+    font-size: 1rem !important;
+    margin: 0 0 6px 0 !important;
+    color: #2c3e50;
+  }
+
+  .lesson-description {
+    font-size: 0.85rem !important;
+    color: #666 !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.4;
+  }
+
+  .lesson-meta {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .lesson-meta small {
+    font-size: 0.8rem !important;
+    color: #999;
+  }
+
+  .lesson-file {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+    background: #e3f2fd;
+    color: #1976d2;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .no-lessons {
+    padding: 15px !important;
+    font-size: 0.9rem !important;
+    color: #999;
+    text-align: center;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  /* Hamburger Menu Button */
+  .mobile-menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .mobile-menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  /* Hamburger Animation */
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Mobile Navigation Menu */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 80px 0 20px 0;
+    gap: 0;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links a {
+    padding: 16px 24px;
+    margin: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .nav-links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    padding-left: 32px;
+    color: white;
+    border-radius: 0;
+  }
+
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: white;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links a:hover::before {
+    transform: scaleY(1);
+  }
+
+  /* Login Dropdown Mobile */
+  .login-dropdown {
+    position: relative;
+  }
+
+  .login-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    backdrop-filter: blur(10px);
+  }
+
+  .dropdown-item {
+    padding: 12px 32px !important;
+    font-size: 14px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding-left: 40px !important;
+  }
+
+  /* Mobile Overlay */
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Hide desktop menu toggle behavior */
+  .login-dropdown:hover .dropdown-menu {
+    display: none;
+  }
+
+  /* Mobile menu icons */
+  .nav-links a::after {
+    content: '›';
+    font-size: 18px;
+    margin-left: auto;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links a:hover::after {
+    transform: translateX(4px);
+  }
+}
+
+/* Desktop Form Centering */
+@media (min-width: 769px) {
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-image {
+    width: 64px !important;
+    height: 64px !important;
+    margin-right: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .logo-text {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+  }
+
+  .page-layout {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    padding: 40px 20px;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 450px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e8eaed;
+    padding: 48px 40px;
+    margin: 0 auto;
+  }
+
+  .form-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #202124;
+    font-weight: 500;
+  }
+
+  .form-links {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid #f1f3f4;
+  }
+
+  .form-links p {
+    color: #5f6368;
+    font-size: 15px;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .form-links a {
+    display: inline-block;
+    margin: 8px 0;
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+
+  .form-links a:hover {
+    color: #1557b0;
+    background: rgba(26, 115, 232, 0.1);
+  }
+}
+
+/* Hide mobile menu toggle on desktop */
+@media (min-width: 769px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+/* Student Dashboard Mobile Fixes */
+@media (max-width: 768px) {
+  /* Ensure header and footer are full width */
+  .navbar {
+    width: 100vw !important;
+    margin: 0 !important;
+    padding: 10px 15px !important;
+    box-sizing: border-box !important;
+    position: relative;
+  }
+
+  .footer {
+    width: 100vw !important;
+    margin: 0 !important;
+    padding: 20px 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fix dashboard container to not interfere with header/footer */
+  .dashboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure main content doesn't overflow */
+  main {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fix dashboard header */
+  .dashboard-header {
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    padding: 20px 15px !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+  }
+
+  /* Fix dashboard navigation */
+  .dashboard-nav {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 0 20px 0 !important;
+    box-sizing: border-box !important;
+    gap: 8px !important;
+  }
+
+  .nav-btn {
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Fix content sections */
+  .content-section {
+    width: 100% !important;
+    padding: 15px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Enable horizontal scroll for specific dashboard elements */
+  .timetable-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 8px !important;
+    border: 1px solid #e9ecef !important;
+  }
+
+  .exam-results-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 8px !important;
+    border: 1px solid #e9ecef !important;
+  }
+
+  /* Ensure tables maintain minimum width for horizontal scroll */
+  .timetable-table {
+    min-width: 800px !important;
+    width: auto !important;
+  }
+
+  .exam-results-table {
+    min-width: 600px !important;
+    width: auto !important;
+  }
+
+  /* Keep header and footer static - no horizontal overflow */
+  body {
+    overflow-x: hidden !important;
+  }
+
+  html {
+    overflow-x: hidden !important;
+  }
+
+  /* Ensure header stays fixed width */
+  .navbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+  }
+
+  .footer {
+    position: relative !important;
+    z-index: 100 !important;
+  }
+}
+
+/* Horizontal scroll for specific dashboard sections only */
+@media (max-width: 768px) {
+  /* Timetable horizontal scroll */
+  .content-section .timetable-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .timetable-table {
+    min-width: 900px !important;
+  }
+
+  /* Exam Results horizontal scroll */
+  .content-section .exam-results-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .exam-results-table {
+    min-width: 700px !important;
+  }
+
+  /* Attendance History uses same timetable structure */
+  .content-section:has(.timetable-container) {
+    overflow-x: visible !important;
+  }
+}
+/* Teacher Dashboard Mobile Horizontal Scroll Fix */
+@media (max-width: 768px) {
+  /* Remove overflow hidden from parent containers */
+  .dashboard-container,
+  .dashboard-content {
+    overflow-x: visible !important;
+  }
+
+  /* Periods Tab - Force horizontal scroll */
+  .dashboard-content > div > div[style*="overflowX: 'auto'"] {
+    width: 100vw !important;
+    margin-left: -16px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 16px !important;
+  }
+
+  /* Periods table */
+  .dashboard-content table[style*="minWidth: '1200px'"] {
+    min-width: 1400px !important;
+    width: auto !important;
+  }
+
+  /* Attendance History Tab - Force horizontal scroll */
+  .dashboard-content .page-container {
+    overflow-x: visible !important;
+  }
+
+  .dashboard-content .page-container table {
+    min-width: 800px !important;
+    width: auto !important;
+  }
+
+  .dashboard-content .page-container > div[style*="background: white"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+/* Teacher Dashboard - Match Header.jsx Layout */
+@media (max-width: 768px) {
+  /* Dashboard container - no overflow issues */
+  .dashboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Dashboard content - prevent layout shifts */
+  .dashboard-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Navigation - fixed width like header */
+  .dashboard-nav {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    padding: 12px 16px !important;
+    box-sizing: border-box !important;
+    background: white !important;
+    border-radius: 0 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  }
+
+  /* Content scroll containers only */
+  .dashboard-content div[style*="overflowX: 'auto'"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .dashboard-content .page-container > div[style*="background: white"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+/* Teacher Dashboard - Match StudentDashboard Scroll Implementation */
+@media (max-width: 768px) {
+  /* Periods Tab - Horizontal scroll container */
+  .dashboard-content div[style*="overflowX: 'auto'"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+    background: white !important;
+  }
+
+  /* Periods table - minimum width for scroll */
+  .dashboard-content table[style*="minWidth: '1200px'"] {
+    min-width: 1200px !important;
+    width: auto !important;
+  }
+
+  /* Attendance History - page container scroll */
+  .dashboard-content .page-container > div[style*="background: white"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+  }
+
+  /* Attendance table - minimum width */
+  .dashboard-content .page-container table {
+    min-width: 800px !important;
+    width: auto !important;
+  }
+
+  /* Sticky first column like StudentDashboard */
+  .dashboard-content table td:first-child {
+    position: sticky !important;
+    left: 0 !important;
+    background: #f8f9fa !important;
+    z-index: 10 !important;
+  }
+}
+/* StudentDashboard Mobile Scroll Fix */
+@media (max-width: 768px) {
+  /* Ensure no overflow restrictions on containers */
+  body, html {
+    overflow-x: hidden !important;
+  }
+  
+  .dashboard-container {
+    overflow-x: hidden !important;
+  }
+  
+  .dashboard-content {
+    overflow-x: hidden !important;
+  }
+  
+  .content-section {
+    overflow-x: visible !important;
+  }
+  
+  /* Force horizontal scroll on timetable */
+  .timetable-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+    background: white !important;
+  }
+  
+  .timetable-table {
+    min-width: 1200px !important;
+    width: auto !important;
+    table-layout: fixed !important;
+  }
+  
+  /* Force horizontal scroll on exam results */
+  .exam-results-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+    background: white !important;
+  }
+  
+  .exam-results-table {
+    min-width: 800px !important;
+    width: auto !important;
+    table-layout: fixed !important;
+  }
+}
