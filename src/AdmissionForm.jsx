@@ -70,7 +70,7 @@ export default function AdmissionForm() {
     <div className="page-layout">
       <div className="page-container">
         <div className="form-container">
-          <h1 className="form-title">Admission Form</h1>
+          <h1 className="section-heading center-text" style={{ fontFamily: 'Poppins, sans-serif', color: '#111827' }}>Admission Form</h1>
 
           {message && <p className="success-message">{message}</p>}
           {error && <p className="error-message">{error}</p>}

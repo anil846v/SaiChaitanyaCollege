@@ -6,54 +6,54 @@ import logoImage from "./assets/logo.png";
 // PDF generation function with enhanced logo, title and tabular formatting
 const generatePDF = () => {
   const doc = new jsPDF();
-  
+
   // Add logo with better positioning
   try {
     doc.addImage(logoImage, 'PNG', 85, 10, 40, 40);
   } catch (e) {
     console.log('Logo not loaded, continuing without logo');
   }
-  
+
   // Enhanced header with proper styling
   doc.setTextColor(185, 28, 28);
   doc.setFontSize(20);
   doc.setFont(undefined, 'bold');
-  doc.text("SAI CHAITANYA", 105, 60, { align: 'center' });
-  
+  doc.text(" SAI CHAITANYA", 105, 60, { align: 'center' });
+
   doc.setFontSize(14);
   doc.text("JUNIOR COLLEGE", 105, 70, { align: 'center' });
-  
+
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(16);
-  doc.text("FEE STRUCTURE 2024-25", 105, 85, { align: 'center' });
-  
+  doc.text("FEE STRUCTURE 2026-27", 105, 85, { align: 'center' });
+
   // Add decorative line
   doc.setLineWidth(0.5);
   doc.line(20, 95, 190, 95);
-  
+
   // Table header
   let yPos = 105;
   doc.setFontSize(10);
   doc.setFont(undefined, 'bold');
-  
+
   // Draw table borders and headers
   doc.rect(20, yPos, 170, 10);
   doc.setFillColor(240, 240, 240);
   doc.rect(20, yPos, 170, 10, 'F');
-  
+
   // Table headers
   doc.text("Course", 25, yPos + 7);
   doc.text("Tuition Fee", 70, yPos + 7);
   doc.text("Lab Fee", 110, yPos + 7);
   doc.text("Total Fee", 150, yPos + 7);
-  
+
   // Vertical lines for table
   doc.line(65, yPos, 65, yPos + 10);
   doc.line(105, yPos, 105, yPos + 10);
   doc.line(145, yPos, 145, yPos + 10);
-  
+
   yPos += 10;
-  
+
   // Course data in tabular format
   const courseData = [
     ["MPC", "Rs.25,000", "Rs.6,000", "Rs.31,000"],
@@ -63,68 +63,68 @@ const generatePDF = () => {
     ["HEC", "Rs.20,000", "Rs.2,500", "Rs.22,500"],
     ["Vocational", "Rs.18,000", "Rs.3,500", "Rs.21,500"]
   ];
-  
+
   doc.setFont(undefined, 'normal');
   doc.setFontSize(9);
-  
+
   courseData.forEach((row, index) => {
     // Alternate row colors
     if (index % 2 === 0) {
       doc.setFillColor(250, 250, 250);
       doc.rect(20, yPos, 170, 10, 'F');
     }
-    
+
     // Draw table borders
     doc.rect(20, yPos, 170, 10);
-    
+
     // Add data
     doc.text(row[0], 25, yPos + 7);
     doc.text(row[1], 70, yPos + 7);
     doc.text(row[2], 110, yPos + 7);
     doc.text(row[3], 150, yPos + 7);
-    
+
     // Vertical lines
     doc.line(65, yPos, 65, yPos + 10);
     doc.line(105, yPos, 105, yPos + 10);
     doc.line(145, yPos, 145, yPos + 10);
-    
+
     yPos += 10;
   });
-  
+
   // Additional charges section
   yPos += 10;
   doc.setFont(undefined, 'bold');
   doc.setFontSize(12);
   doc.text("ADDITIONAL CHARGES", 20, yPos);
-  
+
   yPos += 8;
   doc.setFontSize(9);
   doc.setFont(undefined, 'normal');
-  
+
   doc.text("Library Fee: Rs.1,000", 25, yPos);
   doc.text("Sports Fee: Rs.800", 25, yPos + 6);
   doc.text("Development Fee: Rs.1,500", 25, yPos + 12);
   doc.text("Exam Fee: Rs.2,500", 25, yPos + 18);
-  
+
   // Payment options
   yPos += 30;
   doc.setFont(undefined, 'bold');
   doc.setFontSize(12);
   doc.text("PAYMENT OPTIONS", 20, yPos);
-  
+
   yPos += 8;
   doc.setFont(undefined, 'normal');
   doc.setFontSize(9);
   doc.text("Annual payment: 5% discount on total fees", 25, yPos);
   doc.text("Monthly installments available", 25, yPos + 6);
   doc.text("Scholarship programs for meritorious students", 25, yPos + 12);
-  
+
   // Contact information
   yPos += 25;
   doc.setFont(undefined, 'bold');
   doc.setFontSize(12);
   doc.text("CONTACT INFORMATION", 20, yPos);
-  
+
   yPos += 8;
   doc.setFont(undefined, 'normal');
   doc.setFontSize(9);
@@ -132,13 +132,13 @@ const generatePDF = () => {
   doc.text("Email: info@saichaitanyajuniorcollege.edu.in", 25, yPos + 6);
   doc.text("Address: D.No: 3/145-9-6-4-A-8, Prasanth Nagar Extension,", 25, yPos + 12);
   doc.text("Sai Raghavendra Nagar, Madanapalle - 517325, Chittoor District, AP", 25, yPos + 18);
-  
+
   // Footer
   doc.setFontSize(8);
   doc.setTextColor(128, 128, 128);
   doc.text("Generated on: " + new Date().toLocaleDateString(), 105, 270, { align: 'center' });
-  
-  doc.save('Sai-Chaitanya-Fee-Structure-2024.pdf');
+
+  doc.save('-Sai-Chaitanya-Fee-Structure-2026.pdf');
 };
 
 const Contact = () => {
@@ -187,7 +187,7 @@ const Contact = () => {
 
   return (
     <div style={{ fontFamily: 'Inter, Roboto, sans-serif', color: '#333', background: '#ffffff', minHeight: 'calc(100vh - 160px)', paddingTop: '2rem' }}>
-      
+
       <style>
         {`
           @media (max-width: 768px) {
@@ -328,17 +328,17 @@ const Contact = () => {
         `}
       </style>
 
-    
-      
+
+
       {/* ADMISSION PROCESS STRIP */}
       <section className="mobile-section" style={{ padding: '3rem 0', background: '#f8f9fa' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 className="section-heading" style={{ ...contactStyles.headings, fontSize: '2rem', textAlign: 'center', marginBottom: '2rem', color: '#111827' }}>Admission Process</h2>
+          <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: '#111827' }}>Admission Process</h2>
           <div className="admission-process-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
               <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                 </svg>
               </div>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.25rem', color: '#111827' }}>Application Form</h3>
@@ -347,7 +347,7 @@ const Contact = () => {
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
               <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z"/>
+                  <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z" />
                 </svg>
               </div>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.25rem', color: '#111827' }}>Document Submission</h3>
@@ -356,7 +356,7 @@ const Contact = () => {
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
               <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12,2A3,3 0 0,1 15,5V7H9V5A3,3 0 0,1 12,2M21,8V7H19V5A7,7 0 0,0 5,5V7H3V8A1,1 0 0,0 2,9V19A3,3 0 0,0 5,22H19A3,3 0 0,0 22,19V9A1,1 0 0,0 21,8M20,19A1,1 0 0,1 19,20H5A1,1 0 0,1 4,19V10H20V19M10.5,15.25L9,13.75L7.75,15L10.5,17.75L16.25,12L15,10.75L10.5,15.25Z"/>
+                  <path d="M12,2A3,3 0 0,1 15,5V7H9V5A3,3 0 0,1 12,2M21,8V7H19V5A7,7 0 0,0 5,5V7H3V8A1,1 0 0,0 2,9V19A3,3 0 0,0 5,22H19A3,3 0 0,0 22,19V9A1,1 0 0,0 21,8M20,19A1,1 0 0,1 19,20H5A1,1 0 0,1 4,19V10H20V19M10.5,15.25L9,13.75L7.75,15L10.5,17.75L16.25,12L15,10.75L10.5,15.25Z" />
                 </svg>
               </div>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.25rem', color: '#111827' }}>Interview</h3>
@@ -365,7 +365,7 @@ const Contact = () => {
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
               <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+                  <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
                 </svg>
               </div>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.25rem', color: '#111827' }}>Admission Confirmation</h3>
@@ -378,7 +378,7 @@ const Contact = () => {
       {/* ELIGIBILITY CRITERIA STRIP */}
       <section className="mobile-section" style={{ padding: '3rem 0', background: 'white' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 className="section-heading" style={{ ...contactStyles.headings, fontSize: '2rem', textAlign: 'center', marginBottom: '2rem', color: '#111827' }}>Eligibility Criteria</h2>
+          <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: '#111827' }}>Eligibility Criteria</h2>
           <div className="eligibility-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>MPC</h3>
@@ -411,9 +411,9 @@ const Contact = () => {
       {/* FEE DETAILS STRIP */}
       <section style={{ padding: '3rem 0', background: 'linear-gradient(135deg, #dc2626, #b91c1c)', color: 'white', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', textAlign: 'center' }}>
-          <h2 className="section-heading" style={{ ...contactStyles.headings, fontSize: '2rem', marginBottom: '1rem', color: 'white' }}>Fee Structure 2024-25</h2>
+          <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: 'white' }}>Fee Structure 2026-27</h2>
           <p style={{ fontSize: '1rem', marginBottom: '2rem', opacity: '0.9' }}>Course-wise fee details</p>
-          
+
           {/* Course-wise Fee Grid */}
           <div className="fee-structure-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
             <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
@@ -447,17 +447,17 @@ const Contact = () => {
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
             </div>
           </div>
-          
-         
-          
-          <button 
+
+
+
+          <button
             onClick={generatePDF}
             style={{
               background: 'white',
               color: '#dc2626',
               border: 'none',
               padding: '0.75rem 2rem',
-              borderRadius: '25px',
+              borderRadius: '10px',
               fontSize: '1rem',
               fontWeight: '600',
               cursor: 'pointer',
@@ -477,7 +477,7 @@ const Contact = () => {
         </div>
       </section>
       {/* HERO SECTION */}
-      <section className="hero-section" style={{ 
+      <section className="hero-section" style={{
         padding: '2rem 0',
         textAlign: 'center',
         color: '#111827',
@@ -486,7 +486,7 @@ const Contact = () => {
         marginRight: 'calc(-50vw + 50%)'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.25rem', color: '#111827', ...contactStyles.headings }}>
+          <h1 className="section-heading center-text" style={{ ...contactStyles.headings, color: '#111827' }}>
             Contact Us
           </h1>
           <p style={{ fontSize: '1rem', opacity: '0.7', color: '#4b5563', ...contactStyles.body }}>
@@ -494,17 +494,17 @@ const Contact = () => {
           </p>
         </div>
       </section>
-        {/* CONTACT INFORMATION & FORM */}
-      <section id="contact-form" style={{ padding: '1.5rem 1rem' }}>
+      {/* CONTACT INFORMATION & FORM */}
+      <section id="contact-form" style={{ padding: '1.5rem 1.5rem' }}>
         <div className="contact-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
-          
+
           {/* Contact Information */}
           <div className="contact-info-card" style={{ background: 'linear-gradient(135deg, #dc2626, #b91c1c)', borderRadius: '16px', padding: '2.5rem', color: 'white' }}>
-            <h2 style={{ ...contactStyles.headings, fontSize: '1.5rem', fontWeight: '700', marginBottom: '2rem', color: 'white' }}>Get In Touch</h2>
-            
+            <h2 style={{ ...contactStyles.headings, fontSize: '1.5rem', fontWeight: '600', marginBottom: '2rem', color: 'white' }}>Get In Touch</h2>
+
             <div style={{ marginBottom: '2rem' }}>
               <h3 style={{ ...contactStyles.headings, fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem', color: 'white' }}>Contact Information</h3>
-              
+
               <div style={{ marginBottom: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <span style={{ fontSize: '1.25rem' }}>📞</span>
@@ -513,7 +513,7 @@ const Contact = () => {
                     <a href="tel:+919642433777" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>+91 9642433777</a>
                   </div>
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <span style={{ fontSize: '1.25rem' }}>✉️</span>
                   <div>
@@ -521,7 +521,7 @@ const Contact = () => {
                     <a href="mailto:info@saichaitanyajuniorcollege.edu.in" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>info@saichaitanyajuniorcollege.edu.in</a>
                   </div>
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
                   <span style={{ fontSize: '1.25rem' }}>📍</span>
                   <div>
@@ -531,7 +531,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 style={{ ...contactStyles.headings, fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem', color: 'white' }}>Office Hours</h3>
               <div style={{ ...contactStyles.body, fontSize: '0.875rem', lineHeight: '1.6' }}>
@@ -540,16 +540,16 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          
-          
+
+
           {/* Contact Form */}
           <div className="contact-form-card" style={{ background: '#ffffff', borderRadius: '16px', padding: '2.5rem', boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1)', border: '1px solid #e5e7eb' }}>
             {showSuccess ? (
-              <div style={{ 
-                background: '#10b981', 
-                color: 'white', 
-                padding: '2rem', 
-                borderRadius: '8px', 
+              <div style={{
+                background: '#10b981',
+                color: 'white',
+                padding: '2rem',
+                borderRadius: '8px',
                 textAlign: 'center',
                 fontSize: '1.125rem',
                 fontWeight: '600',
@@ -562,8 +562,8 @@ const Contact = () => {
               </div>
             ) : (
               <>
-                <h2 style={{ ...contactStyles.headings, fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#111827' }}>Send us a Message</h2>
-                
+                <h2 style={{ ...contactStyles.headings, fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem', color: '#111827' }}>Send us a Message</h2>
+
                 <form onSubmit={handleSubmit}>
                   <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                     <label style={{ ...contactStyles.body, display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>Full Name *</label>
@@ -577,7 +577,7 @@ const Contact = () => {
                       placeholder="Enter your full name"
                     />
                   </div>
-                  
+
                   <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                     <label style={{ ...contactStyles.body, display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>Email Address *</label>
                     <input
@@ -590,7 +590,7 @@ const Contact = () => {
                       placeholder="Enter your email address"
                     />
                   </div>
-                  
+
                   <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                     <label style={{ ...contactStyles.body, display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>Phone Number</label>
                     <input
@@ -602,7 +602,7 @@ const Contact = () => {
                       placeholder="Enter your phone number"
                     />
                   </div>
-                  
+
                   <div className="form-group" style={{ marginBottom: '2rem' }}>
                     <label style={{ ...contactStyles.body, display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>Message *</label>
                     <textarea
@@ -610,12 +610,12 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      rows="5"
+                      rows="3"
                       style={{ width: '100%', padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '1rem', resize: 'vertical' }}
                       placeholder="Tell us about your inquiry..."
                     />
                   </div>
-                  
+
                   <button
                     type="submit"
                     style={{ width: '100%', background: '#dc2626', color: 'white', border: 'none', padding: '0.875rem', borderRadius: '8px', fontSize: '1rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.3s ease' }}
@@ -629,12 +629,12 @@ const Contact = () => {
             )}
           </div>
         </div>
-        
+
       </section>
-      
+
       {/* MAP SECTION */}
-      <section 
-        style={{ 
+      <section
+        style={{
           padding: '2rem 0',
           background: '#f8f9fa',
           width: '100vw',
@@ -654,35 +654,35 @@ const Contact = () => {
             }
           `}
         </style>
-        <div className="map-section" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 
-            style={{ 
-              ...contactStyles.headings, 
-              fontSize: '2rem', 
-              fontWeight: '700', 
-              textAlign: 'center', 
+        <div className="map-section" style={{ width: '100%', margin: '0', padding: '0' }}>
+          <h2
+            style={{
+              ...contactStyles.headings,
+              fontSize: '2rem',
+              fontWeight: '700',
+              textAlign: 'center',
               marginBottom: '1.5rem',
-              color: '#111827'
+              color: '#111827',
+              paddingTop: '2rem'
             }}
           >
             Our Campus Location
           </h2>
 
-          <div 
+          <div
             style={{
               marginTop: '1.5rem',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              boxShadow: '0 10px 30px -5px rgba(0,0,0,0.15)'
+              width: '100%',
+              boxShadow: 'none'
             }}
           >
             <iframe
               className="map-iframe"
-              title="Sri Sai Chaitanya Junior College - Madanapalle Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.0!2d78.501!3d13.560!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb267323a02b485%3A0x99a4090847f1dfdf!2sSRI%20SAI%20CHAITANYA%20JUNIOR%20COLLEGE!5e0!3m2!1sen!2sin!4v1730000000000!5m2!1sen!2sin"
+              title=" Sai Chaitanya Junior College - Madanapalle Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.0!2d78.501!3d13.560!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb267323a02b485%3A0x99a4090847f1dfdf!2s%20SAI%20CHAITANYA%20JUNIOR%20COLLEGE!5e0!3m2!1sen!2sin!4v1730000000000!5m2!1sen!2sin"
               width="100%"
-              height="420"
-              style={{ border: 0 }}
+              height="450"
+              style={{ border: 0, display: 'block' }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
@@ -692,7 +692,7 @@ const Contact = () => {
       </section>
 
     </div>
-    
+
   );
 };
 
