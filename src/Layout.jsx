@@ -8,14 +8,13 @@ import { useLocation } from "react-router-dom";
 const Layout = ({ children }) => {
   const location = useLocation();
   const isGalleryPage = location.pathname.startsWith('/gallery');
-  
+
   return (
     <div>
       <SocialHeader />
       <Header />
-      <main style={{ 
-        minHeight: "80vh", 
-        padding: isGalleryPage ? "0" : "20px" 
+      <main style={{
+        minHeight: "80vh"
       }}>
         {children}
       </main>

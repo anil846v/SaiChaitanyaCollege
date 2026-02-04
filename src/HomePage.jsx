@@ -21,36 +21,36 @@ export default function HomePage() {
   const [statCounts, setStatCounts] = useState({ years: 25, students: 2000, faculty: 60, success: 100 });
 
   const slides = [
-    { 
-      image: image0, 
-      title: "Admissions Open 2025-26", 
+    {
+      image: image0,
+      title: "Admissions Open 2026-27",
       subtitle: "Shape Your Future with Excellence",
       description: "Join India's leading junior college with 95% success rate in competitive exams",
       cta: "Apply Now",
       ctaLink: "/contact",
       badge: "Limited Seats"
     },
-    { 
-      image: image2, 
-      title: "Modern Infrastructure", 
+    {
+      image: image2,
+      title: "Modern Infrastructure",
       subtitle: "State-of-the-art Learning Environment",
       description: "Experience world-class facilities with smart classrooms, advanced labs, and digital learning resources",
       cta: "Virtual Tour",
       ctaLink: "/gallery",
       badge: "New Campus"
     },
-    { 
-      image: image0, 
-      title: "Expert Faculty", 
+    {
+      image: image0,
+      title: "Expert Faculty",
       subtitle: "Learn from the Best Educators",
       description: "Our experienced teachers with proven track record in IIT-JEE, NEET, and Board exam preparation",
       cta: "Meet Faculty",
       ctaLink: "/about",
       badge: "25+ Years Experience"
     },
-    { 
-      image: image2, 
-      title: "100% Placement Support", 
+    {
+      image: image2,
+      title: "100% Placement Support",
       subtitle: "Your Success is Our Mission",
       description: "Comprehensive career guidance and placement assistance for engineering, medical, and commerce streams",
       cta: "Enquire Now",
@@ -84,10 +84,10 @@ export default function HomePage() {
         ticking = true;
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [statsAnimated]);
 
@@ -96,19 +96,19 @@ export default function HomePage() {
     const duration = 2000;
     const steps = 60;
     const stepTime = duration / steps;
-    
+
     let currentStep = 0;
     const timer = setInterval(() => {
       currentStep++;
       const progress = currentStep / steps;
-      
+
       setStatCounts({
         years: Math.floor(targets.years * progress),
         students: Math.floor(targets.students * progress),
         faculty: Math.floor(targets.faculty * progress),
         success: Math.floor(targets.success * progress)
       });
-      
+
       if (currentStep >= steps) {
         clearInterval(timer);
         setStatCounts(targets);
@@ -123,7 +123,7 @@ export default function HomePage() {
 
   const groupsOffered = [
     {
-      title: "MPC", 
+      title: "MPC",
       subtitle: "Mathematics, Physics, Chemistry",
       description: "Ideal for students aiming for Engineering, IIT-JEE, Architecture, and pure sciences. Strong focus on problem-solving and competitive exam preparation.",
       medium: "English / Telugu Medium",
@@ -168,7 +168,7 @@ export default function HomePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Determine contact method based on filled fields
     let contactMethod = '';
     if (formData.email && formData.phone) {
@@ -180,13 +180,13 @@ export default function HomePage() {
     } else {
       contactMethod = 'We\'ll contact you soon';
     }
-    
+
     setSuccessMessage(`Thank you ${formData.name}! Your inquiry has been submitted successfully. ${contactMethod} within 24 hours.`);
     setShowSuccess(true);
-    
+
     // Reset form
     setFormData({ name: '', email: '', phone: '', message: '' });
-    
+
     // Hide success message after 5 seconds
     setTimeout(() => {
       setShowSuccess(false);
@@ -197,9 +197,26 @@ export default function HomePage() {
     <div className="homepage-container">
 
       {/* HERO SECTION */}
-      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', height: '0', paddingBottom: '45%', overflow: 'hidden' }}>
+      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', height: '450px', overflow: 'hidden', minHeight: '425px !important' }}>
+        <style>
+          {`
+            @media (max-width: 768px) {
+              .hero-strip {
+                height: 60vh !important;
+                min-height: 350px !important;
+              }
+              .hero-slideshow {
+                height: 100% !important;
+              }
+              .hero-slideshow .slide img {
+                object-fit: cover !important;
+                object-position: top !important;
+              }
+            }
+          `}
+        </style>
         {/* Slideshow Background */}
-        <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '450px' }}>
           {slides.map((slide, index) => (
             <div
               key={index}
@@ -215,14 +232,14 @@ export default function HomePage() {
                 zIndex: currentSlide === index ? 1 : 0
               }}
             >
-              <img 
-                src={slide.image} 
+              <img
+                src={slide.image}
                 alt={slide.title}
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center'
+                  objectFit: 'fill',
+                  objectPosition: 'top'
                 }}
               />
             </div>
@@ -249,22 +266,22 @@ export default function HomePage() {
             maxWidth: '600px',
             position: 'relative'
           }}>
-           
-            
-            <h1 className="hero-main-heading" style={{
+
+
+            <h1 style={{
               ...homePageStyles.headings,
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-              fontWeight: '800',
+              fontSize: '35px',
+              fontWeight: '600',
               textShadow: '2px 2px 8px rgba(0,0,0,0.8)',
               marginBottom: '1rem',
               lineHeight: '1.1'
             }}>
               {slides[currentSlide]?.title}
             </h1>
-            
+
             <h2 style={{
               ...homePageStyles.headings,
-              fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+              fontSize: '20px',
               fontWeight: '400',
               color: 'rgba(255,255,255,0.95)',
               marginBottom: '1.5rem',
@@ -272,10 +289,10 @@ export default function HomePage() {
             }}>
               {slides[currentSlide]?.subtitle}
             </h2>
-            
+
             <p style={{
               ...homePageStyles.body,
-              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+              fontSize: '16px',
               color: 'rgba(255,255,255,0.9)',
               marginBottom: '2.5rem',
               maxWidth: '600px',
@@ -285,10 +302,10 @@ export default function HomePage() {
             }}>
               {slides[currentSlide]?.description}
             </p>
-            
+
             {/* CTA Buttons */}
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-              <Link 
+              <Link
                 to={slides[currentSlide]?.ctaLink === '/contact' ? '/contact#contact-form' : slides[currentSlide]?.ctaLink || '/contact#contact-form'}
                 onClick={(e) => {
                   if (slides[currentSlide]?.ctaLink === '/contact') {
@@ -297,13 +314,13 @@ export default function HomePage() {
                   }
                 }}
                 style={{
-                  padding: '0.75rem 1.5rem',
+                  padding: '10px 15px',
                   background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
                   color: 'white',
                   border: 'none',
                   borderRadius: '12px',
-                  fontSize: '0.875rem',
-                  fontWeight: '600',
+                  fontSize: '13px',
+                  fontWeight: '500',
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -324,12 +341,12 @@ export default function HomePage() {
                 }}
               >
                 {slides[currentSlide]?.cta}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                <svg width="12" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
                 </svg>
               </Link>
-              
-              <a 
+
+              <a
                 href="tel:+919642433777"
                 onClick={(e) => {
                   if (!/Mobi|Android/i.test(navigator.userAgent)) {
@@ -367,7 +384,7 @@ export default function HomePage() {
                 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                 </svg>
                 Call Now
               </a>
@@ -376,16 +393,42 @@ export default function HomePage() {
         </div>
       </section>
 
- {/* ABOUT STRIP */}
-      <section className="about-strip" style={{ 
-        padding: '4rem 0', 
-        background: '#ffffff'
+      {/* STATS STRIP - Acts as a divider between Hero and About */}
+      <section className="stats-strip" style={{
+        padding: '2.5rem 0',
+        background: '#ffffff',
+        borderBottom: '1px solid #e5e7eb'
       }}>
         <div className="strip-container">
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            {/* <h2 className="section-heading" style={{ ...homePageStyles.headings, fontSize: '2rem', color: '#111827', marginBottom: '0.5rem' }}>About Sai Chaitanya Junior College</h2> */}
+          <div className="stats-grid">
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
+              <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
+              <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
+              <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
+              <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
+            </div>
           </div>
-          
+        </div>
+      </section>
+
+      {/* ABOUT STRIP */}
+      <section className="about-strip" style={{
+        padding: '50px 30px',
+        background: '#fcfaf6',
+        width: '100%'
+      }}>
+        <div className="strip-container">
+
           {/* Main Content Layout */}
           <style>
             {`
@@ -395,37 +438,68 @@ export default function HomePage() {
                   gap: 2rem !important;
                 }
                 .about-image {
-                  display: none !important;
+                  order: 2; /* Move image below text on mobile */
+                }
+                .about-text {
+                  order: 1;
                 }
               }
             `}
           </style>
-          <div className="about-content-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="about-content-grid" style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '4rem',
+            alignItems: 'center', // Center vertically and keep natural heights
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
             {/* Left Side - Image */}
-            <div className="about-image" style={{ position: 'relative' }}>
+            <div className="about-image" style={{ display: 'flex', position: 'relative' }}>
+              {/* Industry Style Decorative Background Border */}
+              <div style={{
+                position: 'absolute',
+                top: '-20px',
+                left: '-20px',
+                width: '60px',
+                height: '60px',
+                borderTop: '1px solid #dc2626',
+                borderLeft: '6px solid #dc2626',
+                zIndex: 0,
+                borderRadius: '15px 0 0 0'
+              }}></div>
+
+              <div style={{
+                position: 'absolute',
+                bottom: '-20px',
+                right: '-20px',
+                width: '60px',
+                height: '60px',
+                borderBottom: '6px solid #dc2626',
+                borderRight: '1px solid #dc2626',
+                zIndex: 0,
+                borderRadius: '0 0 15px 0'
+              }}></div>
+
               <div style={{
                 position: 'relative',
+                zIndex: 1,
                 borderRadius: '20px',
                 overflow: 'hidden',
                 boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
-                border: '2px solid #dc262620'
+                border: '2px solid #dc262620',
+                width: '100%',
+                display: 'flex'
               }}>
-                <div style={{
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: '4px',
-                  background: 'linear-gradient(to right, #dc2626, #dc2626dd)'
-                }}></div>
-                <img 
-                  src={image2} 
-                  alt="Sai Chaitanya Junior College" 
-                  style={{ 
-                    width: '100%', 
-                    height: '450px', 
-                    objectFit: 'fill'
-                  }} 
+
+                <img
+                  src={image0}
+                  alt="Sai Chaitanya Junior College"
+                  style={{
+                    width: '100%',
+                    aspectRatio: '16 / 9',
+                    objectFit: 'cover'
+                  }}
                 />
                 <div style={{
                   position: 'absolute',
@@ -433,45 +507,98 @@ export default function HomePage() {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(3, 105, 161, 0.1))'
+                  background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(3, 105, 161, 0.1))',
+                  zIndex: 1
                 }}></div>
+                {/* Badge Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(4px)',
+                  padding: '0.6rem 1rem',
+                  boxShadow: '-4px -4px 15px rgba(0,0,0,0.05)',
+                  zIndex: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  border: '1px solid rgba(220, 38, 38, 0.1)'
+                }}>
+                  <span style={{
+                    fontSize: '1.75rem',
+                    fontWeight: '800',
+                    color: '#dc2626',
+                    lineHeight: '1',
+                    marginBottom: '0.1rem',
+                    fontFamily: 'Poppins, sans-serif'
+                  }}>25+</span>
+                  <span style={{
+                    fontSize: '0.75rem',
+                    fontWeight: '600',
+                    color: '#1f2937',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                  }}>Years of<br />Excellence</span>
+                </div>
               </div>
-              
-              {/* Floating Stats Card */}
-             
             </div>
-            
-            {/* Right Side - Content */}
-            <div>
-              <div style={{ marginBottom: '2rem' }}>
-                {/* <div style={{ display: 'inline-block', background: 'linear-gradient(135deg, #dc2626, #b91c1c)', color: 'white', padding: '0.5rem 1rem', borderRadius: '25px', fontSize: '0.875rem', fontWeight: '600', marginBottom: '1rem' }}>🏆 Premier Educational Institution</div> */}
-                <h3 style={{ ...homePageStyles.headings, fontSize: '2rem', color: '#111827', marginBottom: '1rem', lineHeight: '1.3' }}>Shaping Tomorrow's Leaders Through Academic Excellence</h3>
-                <p style={{ ...homePageStyles.body, fontSize: '0.875rem', lineHeight: '1.7', color: '#4b5563', marginBottom: '1.5rem' }}>
-                  Since 1995, Sai Chaitanya Junior College has been synonymous with academic excellence and holistic development. We have successfully mentored over 10,000+ students, helping them achieve their dreams in medical, engineering, and other professional fields.                  Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges.
-                  Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges.
 
+            {/* Right Side - Content */}
+            <div className="about-text" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ marginBottom: '2rem' }}>
+                <h3 style={{
+                  ...homePageStyles.headings,
+                  fontSize: '18px',
+                  color: '#111827',
+                  marginBottom: '1.25rem',
+                  lineHeight: '1.3',
+                  fontWeight: '600'
+                }}>
+                  Shaping Tomorrow's Leaders Through Academic Excellence
+                </h3>
+                <p style={{
+                  ...homePageStyles.body,
+                  fontSize: '12px',
+                  lineHeight: '1.8',
+                  color: '#4b5563',
+                  textAlign: 'justify'
+                }}>
+                  Since 1995,  Sai Chaitanya Junior College has been synonymous with academic excellence and holistic development. We have successfully mentored over 10,000+ students, helping them achieve their dreams in medical, engineering, and other professional fields.Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges.
+                </p>
+                <p style={{
+                  ...homePageStyles.body,
+                  fontSize: '12px',
+                  lineHeight: '1.8',
+                  color: '#4b5563',
+                  marginTop: '1rem',
+                  textAlign: 'justify'
+                }}>
+                  Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges. Our approach combines rigorous academic training with personal mentorship to ensure every student reaches their full potential.
                 </p>
               </div>
-              
+
               {/* Key Features */}
-              
-                  
-                  
-                  
-                 
-                  
-                 
+
+
+
+
+
+
+
               {/* CTA Buttons */}
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <Link 
+                <Link
                   to="/academics"
+                  onClick={() => window.scrollTo(0, 0)}
                   style={{
-                    padding: '0.75rem 1.5rem',
+                    padding: '10px 15px',
                     background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '12px',
-                    fontSize: '0.875rem',
+                    fontSize: '13px',
                     fontWeight: '600',
                     textDecoration: 'none',
                     display: 'inline-flex',
@@ -491,11 +618,11 @@ export default function HomePage() {
                 >
                   Explore Academics
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
                   </svg>
                 </Link>
-                
-                <Link 
+
+                <Link
                   to="/results"
                   onClick={() => window.scrollTo(0, 0)}
                   style={{
@@ -526,57 +653,39 @@ export default function HomePage() {
                 >
                   View Results & Achievements
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
                   </svg>
                 </Link>
-               
+
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* STATS STRIP */}
-      <section className="stats-strip" style={{ 
-        padding: '2rem 0'
-      }}>
-        <div className="strip-container">
-          <div className="stats-grid">
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
-              <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
-              <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
-              <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
-              <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
-            </div>
-          </div>
-        </div>
-      </section>
-       {/* WHY CHOOSE STRIP */}
+      {/* STATS STRIP PREVIOUSLY HERE - MOVED UP */}
+      {/* WHY CHOOSE STRIP */}
       <section className="why-choose-strip" style={{ padding: '3rem 0', background: '#ffffff' }}>
         <div className="strip-container">
-          <h2 className="section-heading center-text" style={{ ...homePageStyles.headings, marginBottom: '3rem' }}>Why Choose Sai Chaitanya Junior College</h2>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="section-heading center-text" style={{
+              ...homePageStyles.headings,
+              color: '#111827'
+            }}>
+              Why Choose Sai Chaitanya
+            </h2>
+          </div>
           <style>
             {`
               @media (max-width: 768px) {
                 .why-choose-grid {
-                  display: flex !important;
-                  overflow-x: auto !important;
-                  gap: 1rem !important;
-                  padding-bottom: 1rem !important;
+                  display: grid !important;
+                  grid-template-columns: 1fr !important;
+                  gap: 1.5rem !important;
+                  padding: 0 1rem !important;
                 }
                 .why-choose-card {
-                  min-width: 280px !important;
-                  flex-shrink: 0 !important;
+                  min-width: unset !important;
                 }
               }
             `}
@@ -587,62 +696,63 @@ export default function HomePage() {
                 title: 'Proven Academic Excellence',
                 description: 'Year after year, our students secure top ranks in Board exams, JEE, NEET & other entrances',
                 color: '#dc2626',
-                svg: <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               },
               {
                 title: 'Highly Experienced Faculty',
                 description: 'Dedicated team of expert lecturers with proven track record in competitive exam coaching',
                 color: '#059669',
-                svg: <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+                svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" /></svg>
               },
               {
                 title: 'Personalized Attention & Mentorship',
                 description: 'Limited batch sizes for individual guidance, doubt-clearing & personalized study plans',
                 color: '#7c3aed',
-                svg: <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><path d="M19 13v-2h-2v2h-2v2h2v2h2v-2h2v-2h-2z"/></svg>
+                svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /><path d="M19 13v-2h-2v2h-2v2h2v2h2v-2h2v-2h-2z" /></svg>
               },
               {
                 title: 'World-Class Infrastructure',
                 description: 'Modern labs, digital classrooms, library, sports facilities & safe campus environment',
                 color: '#ea580c',
-                svg: <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/><path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z" /><path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" /></svg>
               },
               {
                 title: 'Holistic & Balanced Development',
                 description: 'Focus on academics + extracurriculars, sports, life skills & mental well-being',
                 color: '#0369a1',
-                svg: <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/><circle cx="12" cy="12" r="3"/></svg>
+                svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" /><circle cx="12" cy="12" r="3" /></svg>
               },
               {
                 title: 'Strong Career Guidance',
                 description: 'Comprehensive support for higher education, counseling & future-ready skills',
                 color: '#be185d',
-                svg: <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/><path d="M12 6v6l4 2-4-2V6z"/></svg>
+                svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /><path d="M12 6v6l4 2-4-2V6z" /></svg>
               }
             ].map((feature, index) => (
               <div key={index} className="why-choose-card" style={{
                 background: `linear-gradient(135deg, ${feature.color}08, ${feature.color}15)`,
                 borderRadius: '16px',
-                padding: '2.5rem',
+                padding: '15px',
                 boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1)',
                 border: `1px solid ${feature.color}25`,
                 transition: 'all 0.3s ease',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                height: '222px'
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.1)';
-              }}>
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.1)';
+                }}>
                 <div style={{
-                  width: '80px',
-                  height: '80px',
+                  width: '50px',
+                  height: '50px',
                   background: `linear-gradient(135deg, ${feature.color}, ${feature.color}dd)`,
-                  borderRadius: '20px',
+                  borderRadius: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -652,21 +762,30 @@ export default function HomePage() {
                 }}>
                   {feature.svg}
                 </div>
-                <h4 style={{ ...homePageStyles.headings, fontSize: '1rem', color: '#111827', marginBottom: '1rem', fontWeight: '600' }}>
+                <h4 style={{ ...homePageStyles.headings, fontSize: '15px', color: '#111827', marginBottom: '1rem', fontWeight: '600', letterSpacing: '-0.01em' }}>
                   {feature.title}
                 </h4>
-                <p style={{ ...homePageStyles.body, fontSize: '0.75rem', color: '#6b7280', lineHeight: '1.6' }}>
+                <p style={{
+                  ...homePageStyles.body,
+                  fontSize: '13px',
+                  color: '#6b7280',
+                  lineHeight: '1.8',
+                  textAlign: 'justify',
+                  marginTop: 'auto',
+                  hyphens: 'auto',
+                  WebkitHyphens: 'auto',
+                  wordSpacing: '-0.5px'
+                }}>
                   {feature.description}
                 </p>
               </div>
             ))}
           </div>
-          
+
           {/* View Gallery Button */}
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <Link 
-              to="/gallery"
-              onClick={() => window.scrollTo(0, 0)}
+            <Link
+              to="/academics#teaching-methodology"
               style={{
                 padding: '0.75rem 1.5rem',
                 background: 'transparent',
@@ -693,9 +812,9 @@ export default function HomePage() {
                 e.target.style.borderColor = '#dc262620';
               }}
             >
-              View Gallery
+              View Our Teaching Methodologies
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
               </svg>
             </Link>
           </div>
@@ -868,23 +987,30 @@ export default function HomePage() {
           </div>
         </div> */}
       {/* </section> */}
-  
+
       {/* FINAL CTA STRIP */}
-      <section className="cta-strip" style={{ 
+      <section className="cta-strip" style={{
         padding: '3rem 0',
         background: '#ffffff'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 style={{ ...homePageStyles.headings, fontSize: '2.5rem', textAlign: 'center', marginBottom: '3rem', color: '#111827' }}>Ready to Join Us?</h2>
+          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <h2 className="section-heading center-text" style={{
+              ...homePageStyles.headings,
+              color: '#111827'
+            }}>
+              Ready to Join Us?
+            </h2>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-            
+
             {/* Contact Information */}
             <div style={{ background: 'linear-gradient(135deg, #dc2626, #b91c1c)', borderRadius: '16px', padding: '2.5rem', color: 'white' }}>
               <h3 style={{ ...homePageStyles.headings, fontSize: '1.5rem', fontWeight: '700', marginBottom: '2rem', color: 'white' }}>Get In Touch</h3>
-              
+
               <div style={{ marginBottom: '2rem' }}>
                 <h4 style={{ ...homePageStyles.headings, fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem', color: 'white' }}>Contact Information</h4>
-                
+
                 <div style={{ marginBottom: '1.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                     <div>
@@ -892,14 +1018,14 @@ export default function HomePage() {
                       <a href="tel:+919642433777" style={{ ...homePageStyles.body, color: 'white', textDecoration: 'none' }}>+91 9642433777</a>
                     </div>
                   </div>
-                  
+
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                     <div>
                       <p style={{ ...homePageStyles.body, fontWeight: '600', marginBottom: '0.25rem' }}>Email</p>
                       <a href="mailto:office@viswamengg.in" style={{ ...homePageStyles.body, color: 'white', textDecoration: 'none' }}>info@saichaitanyajuniorcollege.edu.in</a>
                     </div>
                   </div>
-                  
+
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
                     <div>
                       <p style={{ ...homePageStyles.body, fontWeight: '600', marginBottom: '0.25rem' }}>Address</p>
@@ -908,24 +1034,24 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <h4 style={{ ...homePageStyles.headings, fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem', color: 'white' }}>Office Hours</h4>
                 <div style={{ ...homePageStyles.body, fontSize: '0.875rem', lineHeight: '1.6' }}>
                   <p><strong>Monday - Saturday:</strong> 9:00 AM - 6:00 PM</p>
                   <p><strong>Sunday:</strong> Closed</p>
                 </div>
-              </div> 
+              </div>
             </div>
-            
+
             {/* CTA Content */}
             <div style={{ background: '#ffffff', borderRadius: '16px', padding: '2.5rem', boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1)', border: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h3 style={{ ...homePageStyles.headings, fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#111827' }}>Start Your Journey</h3>
+              <h3 style={{ ...homePageStyles.headings, fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem', color: '#111827' }}>Start Your Journey</h3>
               <p style={{ ...homePageStyles.body, fontSize: '0.875rem', color: '#4b5563', marginBottom: '2rem', lineHeight: '1.6' }}>
                 Take the first step towards academic excellence. Contact us today to learn more about admissions, courses, and how we can help shape your future.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
-                <Link 
+                <Link
                   to="/contact#contact-form"
                   onClick={(e) => {
                     e.preventDefault();
@@ -954,7 +1080,7 @@ export default function HomePage() {
                 >
                   Contact Us
                 </Link>
-                <a 
+                <a
                   href="tel:+919642433777"
                   onClick={(e) => {
                     if (!/Mobi|Android/i.test(navigator.userAgent)) {
@@ -991,8 +1117,8 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
-    </div>
+    </div >
   );
 }

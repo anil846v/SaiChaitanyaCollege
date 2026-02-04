@@ -15,45 +15,24 @@ const FallbackImage = ({ src, alt, className, style }) => {
 
   if (hasError || !src) {
     return (
-      <div 
+      <div
         className={className}
         style={{
           ...style,
-          background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-          backgroundSize: '200% 100%',
-          animation: 'shimmer 1.5s infinite',
+          objectFit: undefined, // Remove objectFit constraints for the div
+          width: '100%',
+          height: '100%',
+          background: '#f3f4f6',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: '#9ca3af'
         }}
       >
-        <style>
-          {`
-            @keyframes shimmer {
-              0% { background-position: -200% 0; }
-              100% { background-position: 200% 0; }
-            }
-          `}
-        </style>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{
-            width: '20px',
-            height: '20px',
-            border: '2px solid #d1d5db',
-            borderTop: '2px solid #6b7280',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite'
-          }}></div>
-          <style>
-            {`
-              @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-              }
-            `}
-          </style>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40%" height="40%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
       </div>
     );
   }
@@ -61,7 +40,7 @@ const FallbackImage = ({ src, alt, className, style }) => {
   return (
     <>
       {isLoading && (
-        <div 
+        <div
           className={className}
           style={{
             ...style,
