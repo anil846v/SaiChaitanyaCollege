@@ -35,8 +35,8 @@ export default function Footer() {
             <div className="footer-logo">
               {/* <img src={logoImage} alt="Viswam School" className="footer-logo-image" /> */}
               <div className="footer-brand-text">
-                <h3 className="footer-school-name" style={footerStyles.headings}> Sai Chaithanya Junior College</h3>
-                <p className="footer-tagline" style={footerStyles.body}>Excellence in Education Since 1995</p>
+                <h3 className="footer-school-name" style={footerStyles.headings}> Sai Chaitanya Junior College</h3>
+                <p className="footer-tagline" style={footerStyles.body}>Excellence in Education Since 2007</p>
               </div>
             </div>
           </div>
@@ -54,8 +54,8 @@ export default function Footer() {
           <div className="footer-contact">
             <h4 className="footer-section-title" style={footerStyles.headings}>Contact</h4>
             <div className="contact-info" style={footerStyles.body}>
-              <p>📞 +91 9642433777</p>
-              <p>✉️ info@saichaitanyajuniorcollege.edu.in</p>
+              <p>📞 +91 8309440507</p>
+              <p>✉️ srisaichaitanya222@gmail.com</p>
               <p>📍 D.No: 3/145-9-6-4-A-8, Prasanth Nagar Extension,<br />
                 Sai Raghavendra Nagar, Madanapalle – 517325,<br />
                 Chittoor District, Andhra Pradesh</p>
@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p style={footerStyles.body}>&copy; 2025  Sai Chaitanya Junior College. All rights reserved.</p>
+          <p style={footerStyles.body}>&copy; 2026  Sai Chaitanya Junior College. All rights reserved.</p>
         </div>
       </div>
     </footer>

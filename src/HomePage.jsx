@@ -3,8 +3,20 @@ import "./assets/styles.css";
 import { heroSliderData, aboutContent, visionMissionData, featuresData } from "./data/staticData";
 import { Link } from "react-router-dom";
 import image0 from "./assets/Heroic/image0.png";
+import image from "./assets/Heroic/image.png";
+import image1 from "./assets/Heroic/image1.png";
 import image2 from "./assets/Heroic/image2.png";
+import image3 from "./assets/Heroic/image3.png";
+import image4 from "./assets/Heroic/image4.png";
+import image5 from "./assets/Heroic/image5.jpeg";
+import ceoImage from "./assets/Photos/AboutUs/ceo.png";
+// Import additional Heroic images
+import image10 from "./assets/Heroic/image10.png";
+import image611 from "./assets/Heroic/image611.png";
+import image100 from "./assets/Heroic/image100.png";
 import { galleryData } from "./utils/imageLoader";
+import MobileHeroSlider from "./components/MobileHeroSlider";
+import { useResponsive } from "./hooks/useResponsive";
 
 export default function HomePage() {
   const [formData, setFormData] = useState({
@@ -18,44 +30,64 @@ export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [statsAnimated, setStatsAnimated] = useState(false);
-  const [statCounts, setStatCounts] = useState({ years: 25, students: 2000, faculty: 60, success: 100 });
+  const [statCounts, setStatCounts] = useState({ years: 19, students: 800, faculty: 35, success: 100 });
+  const [tickerPosition, setTickerPosition] = useState(0);
+  const { isMobile, isTablet, isDesktop } = useResponsive();
 
   const slides = [
     {
-      image: image0,
-      title: "Admissions Open 2026-27",
-      subtitle: "Shape Your Future with Excellence",
-      description: "Join India's leading junior college with 95% success rate in competitive exams",
-      cta: "Apply Now",
-      ctaLink: "/contact",
-      badge: "Limited Seats"
+      image: image100,
+      title: "Premium Education",
+      subtitle: "Excellence Redefined",
+      description: "World-class education with premium facilities and experienced faculty",
+      cta: "Explore Excellence",
+      ctaLink: "/academics",
+      badge: "Premium Quality"
     },
     {
-      image: image2,
-      title: "Modern Infrastructure",
-      subtitle: "State-of-the-art Learning Environment",
-      description: "Experience world-class facilities with smart classrooms, advanced labs, and digital learning resources",
-      cta: "Virtual Tour",
-      ctaLink: "/gallery",
-      badge: "New Campus"
+      image: image4,
+      title: "Empowering Students",
+      subtitle: "A Community of Achievers",
+      description: "Join a vibrant community of passionate learners and future leaders",
+      cta: "View Achievements",
+      ctaLink: "/results",
+      badge: "Student Success"
     },
     {
-      image: image0,
-      title: "Expert Faculty",
-      subtitle: "Learn from the Best Educators",
-      description: "Our experienced teachers with proven track record in IIT-JEE, NEET, and Board exam preparation",
-      cta: "Meet Faculty",
-      ctaLink: "/about",
-      badge: "25+ Years Experience"
+      image: image10,
+      title: "Sports Excellence",
+      subtitle: "Champions in Making",
+      description: "Comprehensive sports programs fostering physical fitness and team spirit",
+      cta: "Sports Programs",
+      ctaLink: "/academics",
+      badge: "Sports Champions"
     },
     {
-      image: image2,
-      title: "100% Placement Support",
-      subtitle: "Your Success is Our Mission",
-      description: "Comprehensive career guidance and placement assistance for engineering, medical, and commerce streams",
-      cta: "Enquire Now",
-      ctaLink: "/contact",
-      badge: "Guaranteed Support"
+      image: image,
+      title: "Excellence in Education",
+      subtitle: "Building Future Leaders",
+      description: "Comprehensive academic programs with focus on holistic development",
+      cta: "Explore Programs",
+      ctaLink: "/academics",
+      badge: "Quality Education"
+    },
+    {
+      image: image611,
+      title: "Research & Innovation",
+      subtitle: "Pushing Boundaries",
+      description: "Encouraging scientific temper and research mindset among students",
+      cta: "Research Initiatives",
+      ctaLink: "/academics",
+      badge: "Innovation Hub"
+    },
+    {
+      image: image3,
+      title: "Holistic Development",
+      subtitle: "Beyond Just Academics",
+      description: "Fostering overall growth through sports, cultural activities, and leadership programs",
+      cta: "Explore Activities",
+      ctaLink: "/academics",
+      badge: "All-round Growth"
     }
   ];
 
@@ -64,7 +96,7 @@ export default function HomePage() {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(slideInterval);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     let ticking = false;
@@ -91,8 +123,54 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [statsAnimated]);
 
+  useEffect(() => {
+    const tickerElement = document.querySelector('.ticker-content');
+    if (!tickerElement) return;
+
+    let animationId;
+    let position = 0;
+    const speed = window.innerWidth <= 768 ? 0.5 : 0.3; // Slower speed for mobile
+    let isPaused = false; // declare isPaused here
+
+    const animate = () => {
+      if (!isPaused) {
+        position -= speed;
+
+        // Reset position when content has fully scrolled
+        if (position <= -tickerElement.scrollWidth / 2) {
+          position = 0;
+        }
+
+        tickerElement.style.transform = `translateX(${position}px)`;
+      }
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    // Start animation immediately
+    animate();
+
+    // Pause on hover
+    const handleMouseEnter = () => {
+      isPaused = true;
+    };
+
+    const handleMouseLeave = () => {
+      isPaused = false;
+    };
+
+    tickerElement.addEventListener('mouseenter', handleMouseEnter);
+    tickerElement.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      tickerElement.removeEventListener('mouseenter', handleMouseEnter);
+      tickerElement.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   const animateStats = () => {
-    const targets = { years: 25, students: 2000, faculty: 60, success: 100 };
+    const targets = { years: 19, students: 800, faculty: 35, success: 100 };
     const duration = 2000;
     const steps = 60;
     const stepTime = duration / steps;
@@ -194,29 +272,17 @@ export default function HomePage() {
   };
 
   return (
-    <div className="homepage-container">
+  <div className="homepage-container">
 
-      {/* HERO SECTION */}
-      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', height: '450px', overflow: 'hidden', minHeight: '425px !important' }}>
-        <style>
-          {`
-            @media (max-width: 768px) {
-              .hero-strip {
-                height: 60vh !important;
-                min-height: 350px !important;
-              }
-              .hero-slideshow {
-                height: 100% !important;
-              }
-              .hero-slideshow .slide img {
-                object-fit: cover !important;
-                object-position: top !important;
-              }
-            }
-          `}
-        </style>
+    {/* HERO SECTION - Responsive Component Switch */}
+    {isMobile ? (
+      <div style={{ marginTop: '60px' }}>
+        <MobileHeroSlider />
+      </div>
+    ) : (
+      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', marginTop: '115px', height: 'calc(100vh - 115px)', overflow: 'hidden', minHeight: '500px !important' }}>
         {/* Slideshow Background */}
-        <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '450px' }}>
+        <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
           {slides.map((slide, index) => (
             <div
               key={index}
@@ -245,189 +311,276 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+      </section>
+    )}
 
-        {/* Hero Content Overlay */}
-        <div className="hero-content-wrapper" style={{
+    {/* RESULTS TICKER - Only show on desktop */}
+    {!isMobile && (
+      <section className="results-ticker" style={{
+        height: '60px',
+        background: 'linear-gradient(135deg, #dc2626, #eb7932ff)',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        borderBottom: '2px solid rgba(255, 255, 255, 0.2)'
+      }}>
+        <style>
+          {`
+            .ticker-content {
+              white-space: nowrap;
+              display: inline-block;
+              will-change: transform;
+            }
+          `}
+        </style>
+
+        {/* Static Label */}
+        <div style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
+          left: '0',
+          top: '0',
           height: '100%',
+          background: 'rgba(0, 0, 0, 0.3)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-start',
-          zIndex: 2,
-          padding: '0 2rem',
-          background: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.2) 40%, transparent 50%)'
+          padding: '0 1rem',
+          zIndex: '10',
+          backdropFilter: 'blur(5px)'
         }}>
-          <div className="hero-content" style={{
-            textAlign: 'left',
+          <span style={{
             color: 'white',
-            maxWidth: '600px',
-            position: 'relative'
+            fontWeight: '700',
+            fontSize: '16px',
+            fontFamily: 'Poppins, sans-serif',
+            textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
           }}>
+            🏆AP RESULTS 2026
+          </span>
+        </div>
 
-
-            <h1 style={{
-              ...homePageStyles.headings,
-              fontSize: '35px',
-              fontWeight: '600',
-              textShadow: '2px 2px 8px rgba(0,0,0,0.8)',
-              marginBottom: '1rem',
-              lineHeight: '1.1'
-            }}>
-              {slides[currentSlide]?.title}
-            </h1>
-
-            <h2 style={{
-              ...homePageStyles.headings,
-              fontSize: '20px',
-              fontWeight: '400',
-              color: 'rgba(255,255,255,0.95)',
-              marginBottom: '1.5rem',
-              textShadow: '1px 1px 4px rgba(0,0,0,0.7)'
-            }}>
-              {slides[currentSlide]?.subtitle}
-            </h2>
-
-            <p style={{
-              ...homePageStyles.body,
-              fontSize: '16px',
-              color: 'rgba(255,255,255,0.9)',
-              marginBottom: '2.5rem',
-              maxWidth: '600px',
-              margin: '0 auto 2.5rem',
-              lineHeight: '1.6',
-              textShadow: '1px 1px 3px rgba(0,0,0,0.7)'
-            }}>
-              {slides[currentSlide]?.description}
-            </p>
-
-            {/* CTA Buttons */}
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-              <Link
-                to={slides[currentSlide]?.ctaLink === '/contact' ? '/contact#contact-form' : slides[currentSlide]?.ctaLink || '/contact#contact-form'}
-                onClick={(e) => {
-                  if (slides[currentSlide]?.ctaLink === '/contact') {
-                    e.preventDefault();
-                    window.location.href = '/contact#contact-form';
-                  }
-                }}
-                style={{
-                  padding: '10px 15px',
-                  background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '12px',
-                  fontSize: '13px',
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                  transform: 'translateY(0)',
-                  ...homePageStyles.body
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.transform = 'translateY(-3px)';
-                  e.target.style.boxShadow = '0 12px 35px rgba(220, 38, 38, 0.5)';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 8px 25px rgba(220, 38, 38, 0.4)';
-                }}
-              >
-                {slides[currentSlide]?.cta}
-                <svg width="12" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
-                </svg>
-              </Link>
-
+        {/* Scrolling Content */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+          paddingLeft: '120px'
+        }}>
+          <div className="ticker-content" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4rem',
+            color: 'white',
+            fontSize: '14px',
+            fontFamily: 'Inter, sans-serif',
+            fontWeight: '500'
+          }}>
+            {/* AP 10th Results */}
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              🏫 <strong>AP 10th (SSC) Results 2026:</strong>
               <a
-                href="tel:+919642433777"
-                onClick={(e) => {
-                  if (!/Mobi|Android/i.test(navigator.userAgent)) {
-                    e.preventDefault();
-                    alert('Please call us at +91 9642433777');
-                  }
-                }}
+                href="https://bse.ap.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  padding: '0.75rem 1.5rem',
-                  background: 'transparent',
-                  color: 'white',
-                  border: '2px solid #dc262620',
-                  borderRadius: '12px',
-                  fontSize: '0.875rem',
-                  fontWeight: '600',
+                  color: '#ffffff',
                   textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                  transform: 'translateY(0)',
-                  ...homePageStyles.body
+                  fontWeight: '700',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s ease'
                 }}
                 onMouseOver={(e) => {
-                  e.target.style.background = 'rgba(255,255,255,0.25)';
-                  e.target.style.borderColor = 'rgba(255,255,255,0.5)';
-                  e.target.style.transform = 'translateY(-3px)';
+                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.transform = 'scale(1.05)';
                 }}
                 onMouseOut={(e) => {
-                  e.target.style.background = 'rgba(255,255,255,0.15)';
-                  e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.transform = 'scale(1)';
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                </svg>
-                Call Now
+                BSEAP Official
               </a>
-            </div>
+              <a
+                href="https://results.bse.ap.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  fontWeight: '700',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                Results Portal
+              </a>
+              <span style={{ opacity: '0.8' }}>| Expected: April 23, 2026</span>
+            </span>
+
+            {/* AP Intermediate Results */}
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              🎓 <strong>AP Intermediate (1st & 2nd Year) Results 2026:</strong>
+              <a
+                href="https://bie.ap.gov.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  fontWeight: '700',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                BIEAP Official
+              </a>
+              <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
+            </span>
+
+            {/* Repeat for continuous scrolling */}
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              🏫 <strong>AP 10th (SSC) Results 2026:</strong>
+              <a
+                href="https://bse.ap.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  fontWeight: '700',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                BSEAP Official
+              </a>
+              <a
+                href="https://results.bse.ap.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  fontWeight: '700',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                Results Portal
+              </a>
+              <span style={{ opacity: '0.8' }}>| Expected: April 23, 2026</span>
+            </span>
+
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              🎓 <strong>AP Intermediate (1st & 2nd Year) Results 2026:</strong>
+              <a
+                href="https://bie.ap.gov.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  fontWeight: '700',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                BIEAP Official
+              </a>
+              <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
+            </span>
           </div>
         </div>
       </section>
+    )}
 
-      {/* STATS STRIP - Acts as a divider between Hero and About */}
-      <section className="stats-strip" style={{
-        padding: '2.5rem 0',
-        background: '#ffffff',
-        borderBottom: '1px solid #e5e7eb'
-      }}>
-        <div className="strip-container">
-          <div className="stats-grid">
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
-              <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
-              <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
-              <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
-              <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
-            </div>
+    {/* STATS STRIP - Acts as a divider between Hero and About */}
+    <section className="stats-strip" style={{
+      padding: '2.5rem 0',
+      background: '#ffffff',
+      borderBottom: '1px solid #e5e7eb'
+    }}>
+      <div className="strip-container">
+        <div className="stats-grid">
+          <div className="stat-card">
+            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
+            <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
+          </div>
+          <div className="stat-card">
+            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
+            <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
+          </div>
+          <div className="stat-card">
+            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
+            <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
+          </div>
+          <div className="stat-card">
+            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
+            <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* ABOUT STRIP */}
-      <section className="about-strip" style={{
-        padding: '50px 30px',
-        background: '#fcfaf6',
-        width: '100%'
-      }}>
-        <div className="strip-container">
+    {/* ABOUT STRIP */}
+    <section className="about-strip" style={{
+      padding: '50px 30px',
+      background: '#fcfaf6',
+      width: '100%'
+    }}>
+      <div className="strip-container">
 
           {/* Main Content Layout */}
           <style>
@@ -463,8 +616,8 @@ export default function HomePage() {
                 left: '-20px',
                 width: '60px',
                 height: '60px',
-                borderTop: '1px solid #dc2626',
-                borderLeft: '6px solid #dc2626',
+                borderTop: '1px solid #eb7932ff',
+                borderLeft: '6px solid #eb7932ff',
                 zIndex: 0,
                 borderRadius: '15px 0 0 0'
               }}></div>
@@ -475,8 +628,8 @@ export default function HomePage() {
                 right: '-20px',
                 width: '60px',
                 height: '60px',
-                borderBottom: '6px solid #dc2626',
-                borderRight: '1px solid #dc2626',
+                borderBottom: '6px solid #eb7932ff',
+                borderRight: '1px solid #eb7932ff',
                 zIndex: 0,
                 borderRadius: '0 0 15px 0'
               }}></div>
@@ -527,15 +680,15 @@ export default function HomePage() {
                   border: '1px solid rgba(220, 38, 38, 0.1)'
                 }}>
                   <span style={{
-                    fontSize: '1.75rem',
+                    fontSize: isMobile ? '1.2rem' : '1.75rem',
                     fontWeight: '800',
                     color: '#dc2626',
                     lineHeight: '1',
                     marginBottom: '0.1rem',
                     fontFamily: 'Poppins, sans-serif'
-                  }}>25+</span>
+                  }}>19+</span>
                   <span style={{
-                    fontSize: '0.75rem',
+                    fontSize: isMobile ? '0.6rem' : '0.75rem',
                     fontWeight: '600',
                     color: '#1f2937',
                     textTransform: 'uppercase',
@@ -565,7 +718,7 @@ export default function HomePage() {
                   color: '#4b5563',
                   textAlign: 'justify'
                 }}>
-                  Since 1995,  Sai Chaitanya Junior College has been synonymous with academic excellence and holistic development. We have successfully mentored over 10,000+ students, helping them achieve their dreams in medical, engineering, and other professional fields.Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges.
+                  Since 2007,  Sai Chaitanya Junior College has been synonymous with academic excellence and holistic development. We have successfully mentored over 10,000+ students, helping them achieve their dreams in medical, engineering, and other professional fields.Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges.
                 </p>
                 <p style={{
                   ...homePageStyles.body,
@@ -594,7 +747,7 @@ export default function HomePage() {
                   onClick={() => window.scrollTo(0, 0)}
                   style={{
                     padding: '10px 15px',
-                    background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
+                    background: 'linear-gradient(135deg, #dc2626, #eb7932ff)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '12px',
@@ -628,7 +781,7 @@ export default function HomePage() {
                   style={{
                     padding: '0.75rem 1.5rem',
                     background: 'transparent',
-                    color: '#dc2626',
+                    color: '#eb7932ff',
                     border: '2px solid #dc262620',
                     borderRadius: '12px',
                     fontSize: '0.875rem',
@@ -643,7 +796,7 @@ export default function HomePage() {
                   onMouseOver={(e) => {
                     e.target.style.transform = 'translateY(-2px)';
                     e.target.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-                    e.target.style.borderColor = '#dc2626';
+                    e.target.style.borderColor = '#eb7932ff';
                   }}
                   onMouseOut={(e) => {
                     e.target.style.transform = 'translateY(0)';
@@ -789,7 +942,7 @@ export default function HomePage() {
               style={{
                 padding: '0.75rem 1.5rem',
                 background: 'transparent',
-                color: '#dc2626',
+                color: '#eb7932ff',
                 border: '2px solid #dc262620',
                 borderRadius: '12px',
                 fontSize: '0.875rem',
@@ -804,7 +957,7 @@ export default function HomePage() {
               onMouseOver={(e) => {
                 e.target.style.transform = 'translateY(-2px)';
                 e.target.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-                e.target.style.borderColor = '#dc2626';
+                e.target.style.borderColor = '#eb7932ff';
               }}
               onMouseOut={(e) => {
                 e.target.style.transform = 'translateY(0)';
@@ -1005,7 +1158,7 @@ export default function HomePage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
 
             {/* Contact Information */}
-            <div style={{ background: 'linear-gradient(135deg, #dc2626, #b91c1c)', borderRadius: '16px', padding: '2.5rem', color: 'white' }}>
+            <div style={{ background: '#eb7932ff', borderRadius: '16px', padding: '2.5rem', color: 'white' }}>
               <h3 style={{ ...homePageStyles.headings, fontSize: '1.5rem', fontWeight: '700', marginBottom: '2rem', color: 'white' }}>Get In Touch</h3>
 
               <div style={{ marginBottom: '2rem' }}>
@@ -1015,14 +1168,14 @@ export default function HomePage() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                     <div>
                       <p style={{ ...homePageStyles.body, fontWeight: '600', marginBottom: '0.25rem' }}>Phone</p>
-                      <a href="tel:+919642433777" style={{ ...homePageStyles.body, color: 'white', textDecoration: 'none' }}>+91 9642433777</a>
+                      <a href="tel:+8309440507" style={{ ...homePageStyles.body, color: 'white', textDecoration: 'none' }}>+91 8309440507</a>
                     </div>
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                     <div>
                       <p style={{ ...homePageStyles.body, fontWeight: '600', marginBottom: '0.25rem' }}>Email</p>
-                      <a href="mailto:office@viswamengg.in" style={{ ...homePageStyles.body, color: 'white', textDecoration: 'none' }}>info@saichaitanyajuniorcollege.edu.in</a>
+                      <a href="mailto:srisaichaitanya222@gmail.com" style={{ ...homePageStyles.body, color: 'white', textDecoration: 'none' }}>srisaichaitanya222@gmail.com</a>
                     </div>
                   </div>
 
@@ -1059,7 +1212,7 @@ export default function HomePage() {
                   }}
                   style={{
                     padding: '0.75rem 1.5rem',
-                    background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
+                    background: 'linear-gradient(135deg, #dc2626, #eb7932ff)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '12px',
@@ -1072,20 +1225,20 @@ export default function HomePage() {
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                   }}
                   onMouseOver={(e) => {
-                    e.target.style.background = '#b91c1c';
+                    e.target.style.background = '#eb7932ff';
                   }}
                   onMouseOut={(e) => {
-                    e.target.style.background = '#dc2626';
+                    e.target.style.background = 'linear-gradient(135deg, #dc2626, #eb7932ff)';
                   }}
                 >
                   Contact Us
                 </Link>
                 <a
-                  href="tel:+919642433777"
+                  href="tel:+918309440507"
                   onClick={(e) => {
                     if (!/Mobi|Android/i.test(navigator.userAgent)) {
                       e.preventDefault();
-                      alert('Please call us at +91 9642433777');
+                      alert('Please call us at +91 8309440507');
                     }
                   }}
                   style={{
@@ -1103,7 +1256,7 @@ export default function HomePage() {
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                   }}
                   onMouseOver={(e) => {
-                    e.target.style.background = '#dc2626';
+                    e.target.style.background = '#eb7932ff';
                     e.target.style.color = 'white';
                   }}
                   onMouseOut={(e) => {
@@ -1117,8 +1270,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section >
-
-    </div >
+      </section>
+    </div>
   );
 }

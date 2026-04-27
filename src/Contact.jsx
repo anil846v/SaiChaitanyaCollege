@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./assets/styles.css";
 import jsPDF from 'jspdf';
 import logoImage from "./assets/logo.png";
+import mpcImage from "./assets/Academics/mpc.png";
+import bipcImage from "./assets/Academics/bipc.png";
+import cecImage from "./assets/Academics/cec.png";
+import mecImage from "./assets/Academics/mec.png";
+import hecImage from "./assets/Academics/hec.png";
+import vocationalImage from "./assets/Gallery/Campus and Classrooms/image.png";
 
 // PDF generation function with enhanced logo, title and tabular formatting
 const generatePDF = () => {
@@ -128,8 +134,8 @@ const generatePDF = () => {
   yPos += 8;
   doc.setFont(undefined, 'normal');
   doc.setFontSize(9);
-  doc.text("Phone: +91 9642433777", 25, yPos);
-  doc.text("Email: info@saichaitanyajuniorcollege.edu.in", 25, yPos + 6);
+  doc.text("Phone: +91  8309440507", 25, yPos);
+  doc.text("Email: srisaichaitanya222@gmail.com", 25, yPos + 6);
   doc.text("Address: D.No: 3/145-9-6-4-A-8, Prasanth Nagar Extension,", 25, yPos + 12);
   doc.text("Sai Raghavendra Nagar, Madanapalle - 517325, Chittoor District, AP", 25, yPos + 18);
 
@@ -149,6 +155,7 @@ const Contact = () => {
     message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Handle hash navigation on component mount
   useEffect(() => {
@@ -175,15 +182,35 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for contacting us! We will get back to you soon.');
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
+
+    // Simulate form submission
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Show success message
+      setSuccessMessage('Thank you for contacting us! Your message has been received successfully. Please Call us at 8309440507 for any further assistance.');
+      setShowSuccess(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
-    }, 5000);
+
+    } catch (error) {
+      console.error('Form submission failed:', error);
+      setSuccessMessage('Failed to send message. Please try again or call us directly.');
+      setShowSuccess(true);
+    }
   };
+
+  useEffect(() => {
+    if (showSuccess) {
+      const timer = setTimeout(() => {
+        setShowSuccess(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccess]);
+
 
   return (
     <div style={{ fontFamily: 'Inter, Roboto, sans-serif', color: '#333', background: '#ffffff', minHeight: 'calc(100vh - 160px)', paddingTop: '2rem' }}>
@@ -226,13 +253,13 @@ const Contact = () => {
               padding: 0.5rem !important;
             }
             .eligibility-card h3 {
-              font-size: 0.75rem !important;
-              margin-bottom: 0.125rem !important;
+              font-size: 1rem !important;
+              margin-bottom: 0.5rem !important;
             }
             .eligibility-card p {
-              font-size: 0.5rem !important;
+              font-size: 0.75rem !important;
               margin: 0 !important;
-              line-height: 1.2 !important;
+              line-height: 1.4 !important;
             }
             .fee-structure-grid {
               grid-template-columns: repeat(3, 1fr) !important;
@@ -331,12 +358,12 @@ const Contact = () => {
 
 
       {/* ADMISSION PROCESS STRIP */}
-      <section className="mobile-section" style={{ padding: '3rem 0', background: '#f8f9fa' }}>
+      <section className="mobile-section" style={{ padding: '5em 0', background: '#f8f9fa' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
           <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: '#111827' }}>Admission Process</h2>
           <div className="admission-process-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-              <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
+              <div className="icon-circle" style={{ background: 'linear-gradient(135deg, #dc2626, #eb7932ff)', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                 </svg>
@@ -345,7 +372,7 @@ const Contact = () => {
               <p style={{ fontSize: '0.75rem', color: '#6b7280', lineHeight: '1.4' }}>Fill out the admission application form with required details</p>
             </div>
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-              <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
+              <div className="icon-circle" style={{ background: 'linear-gradient(135deg, #dc2626, #eb7932ff)', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z" />
                 </svg>
@@ -354,7 +381,7 @@ const Contact = () => {
               <p style={{ fontSize: '0.75rem', color: '#6b7280', lineHeight: '1.4' }}>Submit required documents and certificates</p>
             </div>
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-              <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
+              <div className="icon-circle" style={{ background: 'linear-gradient(135deg, #dc2626, #eb7932ff)', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12,2A3,3 0 0,1 15,5V7H9V5A3,3 0 0,1 12,2M21,8V7H19V5A7,7 0 0,0 5,5V7H3V8A1,1 0 0,0 2,9V19A3,3 0 0,0 5,22H19A3,3 0 0,0 22,19V9A1,1 0 0,0 21,8M20,19A1,1 0 0,1 19,20H5A1,1 0 0,1 4,19V10H20V19M10.5,15.25L9,13.75L7.75,15L10.5,17.75L16.25,12L15,10.75L10.5,15.25Z" />
                 </svg>
@@ -363,7 +390,7 @@ const Contact = () => {
               <p style={{ fontSize: '0.75rem', color: '#6b7280', lineHeight: '1.4' }}>Attend counseling session with parents/guardians</p>
             </div>
             <div className="admission-process-card" style={{ background: 'white', padding: '1rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-              <div className="icon-circle" style={{ background: '#dc2626', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
+              <div className="icon-circle" style={{ background: 'linear-gradient(135deg, #dc2626, #eb7932ff)', color: 'white', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.5rem' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
                 </svg>
@@ -380,68 +407,86 @@ const Contact = () => {
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
           <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: '#111827' }}>Eligibility Criteria</h2>
           <div className="eligibility-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>MPC</h3>
-              <p style={{ fontSize: '0.75rem', color: '#374151', lineHeight: '1.4' }}>Min 60% in Class 10th • Age: 15-17 years</p>
+            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
+              <img src={mpcImage} alt="MPC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>MPC</h3>
+                <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 60% in Class 10th • Age: 15-17 years</p>
+              </div>
             </div>
-            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>BiPC</h3>
-              <p style={{ fontSize: '0.75rem', color: '#374151', lineHeight: '1.4' }}>Min 60% in Class 10th • Age: 15-17 years</p>
+            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
+              <img src={bipcImage} alt="BiPC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>BiPC</h3>
+                <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 60% in Class 10th • Age: 15-17 years</p>
+              </div>
             </div>
-            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>CEC</h3>
-              <p style={{ fontSize: '0.75rem', color: '#374151', lineHeight: '1.4' }}>Min 55% in Class 10th • Age: 15-17 years</p>
+            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
+              <img src={cecImage} alt="CEC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>CEC</h3>
+                <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 55% in Class 10th • Age: 15-17 years</p>
+              </div>
             </div>
-            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>MEC</h3>
-              <p style={{ fontSize: '0.75rem', color: '#374151', lineHeight: '1.4' }}>Min 55% in Class 10th • Age: 15-17 years</p>
+            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
+              <img src={mecImage} alt="MEC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>MEC</h3>
+                <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 55% in Class 10th • Age: 15-17 years</p>
+              </div>
             </div>
-            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>HEC</h3>
-              <p style={{ fontSize: '0.75rem', color: '#374151', lineHeight: '1.4' }}>Min 50% in Class 10th • Age: 15-17 years</p>
+            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
+              <img src={hecImage} alt="HEC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>HEC</h3>
+                <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 50% in Class 10th • Age: 15-17 years</p>
+              </div>
             </div>
-            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '12px', border: '2px solid #dc262620' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#dc2626' }}>Vocational</h3>
-              <p style={{ fontSize: '0.75rem', color: '#374151', lineHeight: '1.4' }}>Min 50% in Class 10th • Age: 15-17 years</p>
+            <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px', opacity: '0.8' }}>
+              <img src={vocationalImage} alt="Vocational" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Vocational</h3>
+                <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 50% in Class 10th • Age: 15-17 years</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* FEE DETAILS STRIP */}
-      <section style={{ padding: '3rem 0', background: 'linear-gradient(135deg, #dc2626, #b91c1c)', color: 'white', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+      <section style={{ padding: '2rem 0', background: '#eb7932ff', color: 'white', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', textAlign: 'center' }}>
           <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: 'white' }}>Fee Structure 2026-27</h2>
           <p style={{ fontSize: '1rem', marginBottom: '2rem', opacity: '0.9' }}>Course-wise fee details</p>
 
           {/* Course-wise Fee Grid */}
           <div className="fee-structure-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>MPC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹31,000</p>
+              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹35,000</p>
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>BiPC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹32,000</p>
+              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹35,000</p>
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>CEC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹25,000</p>
+              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹18,000</p>
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>MEC</h3>
               <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹27,000</p>
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>HEC</h3>
               <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹22,500</p>
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Vocational</h3>
               <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹21,500</p>
               <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
@@ -451,7 +496,18 @@ const Contact = () => {
 
 
           <button
-            onClick={generatePDF}
+            onClick={() => {
+              // Check if it's mobile or desktop
+              const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+              
+              if (isMobile) {
+                // Direct call on mobile
+                window.location.href = 'tel:+918309440507';
+              } else {
+                // Show alert on desktop
+                alert('Please call us at: +91 8309440507\n\nOr email us at: srisaichaitanya222@gmail.com');
+              }
+            }}
             style={{
               background: 'white',
               color: '#dc2626',
@@ -472,7 +528,7 @@ const Contact = () => {
               e.target.style.transform = 'translateY(0)';
               e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
             }}>
-            Download Complete Fee Details
+            Call Us for More Details
           </button>
         </div>
       </section>
@@ -499,7 +555,7 @@ const Contact = () => {
         <div className="contact-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
 
           {/* Contact Information */}
-          <div className="contact-info-card" style={{ background: 'linear-gradient(135deg, #dc2626, #b91c1c)', borderRadius: '16px', padding: '2.5rem', color: 'white' }}>
+          <div className="contact-info-card" style={{ background: '#eb7932ff', borderRadius: '16px', padding: '2.5rem', color: 'white' }}>
             <h2 style={{ ...contactStyles.headings, fontSize: '1.5rem', fontWeight: '600', marginBottom: '2rem', color: 'white' }}>Get In Touch</h2>
 
             <div style={{ marginBottom: '2rem' }}>
@@ -510,7 +566,7 @@ const Contact = () => {
                   <span style={{ fontSize: '1.25rem' }}>📞</span>
                   <div>
                     <p style={{ ...contactStyles.body, fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>Phone</p>
-                    <a href="tel:+919642433777" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>+91 9642433777</a>
+                    <a href="tel:+8309440507" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>+91 8309440507</a>
                   </div>
                 </div>
 
@@ -518,7 +574,7 @@ const Contact = () => {
                   <span style={{ fontSize: '1.25rem' }}>✉️</span>
                   <div>
                     <p style={{ ...contactStyles.body, fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>Email</p>
-                    <a href="mailto:info@saichaitanyajuniorcollege.edu.in" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>info@saichaitanyajuniorcollege.edu.in</a>
+                    <a href="mailto:info@saichaitanyajuniorcollege.edu.in" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>srisaichaitanya222@gmail.com</a>
                   </div>
                 </div>
 
@@ -558,7 +614,7 @@ const Contact = () => {
                 justifyContent: 'center',
                 minHeight: '200px'
               }}>
-                ✓ Thank you for Contacting Us.
+                ✓ {successMessage || 'Thank you for contacting us!'}
               </div>
             ) : (
               <>
@@ -618,9 +674,9 @@ const Contact = () => {
 
                   <button
                     type="submit"
-                    style={{ width: '100%', background: '#dc2626', color: 'white', border: 'none', padding: '0.875rem', borderRadius: '8px', fontSize: '1rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.3s ease' }}
-                    onMouseOver={(e) => e.target.style.background = '#b91c1c'}
-                    onMouseOut={(e) => e.target.style.background = '#dc2626'}
+                    style={{ width: '100%', background: 'linear-gradient(135deg, #dc2626, #eb7932ff)', color: 'white', border: 'none', padding: '0.875rem', borderRadius: '8px', fontSize: '1rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.3s ease' }}
+                    onMouseOver={(e) => e.target.style.background = 'linear-gradient(135deg, #dc2626, #eb7932ff)'}
+                    onMouseOut={(e) => e.target.style.background = '#eb7932ff'}
                   >
                     Send Message
                   </button>
