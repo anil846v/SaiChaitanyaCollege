@@ -93,6 +93,7 @@ const MobileHeroSlider = () => {
             <img
               src={slide.image}
               alt={slide.title}
+              loading={index <= 1 ? "eager" : "lazy"}
               style={{
                 width: '100%',
                 height: '100%',

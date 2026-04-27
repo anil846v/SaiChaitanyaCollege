@@ -10,7 +10,6 @@ import image3 from "./assets/Heroic/image3.png";
 import image4 from "./assets/Heroic/image4.png";
 import image5 from "./assets/Heroic/image5.jpeg";
 import ceoImage from "./assets/Photos/AboutUs/ceo.png";
-// Import additional Heroic images
 import image10 from "./assets/Heroic/image10.png";
 import image611 from "./assets/Heroic/image611.png";
 import image100 from "./assets/Heroic/image100.png";
@@ -301,6 +300,7 @@ export default function HomePage() {
               <img
                 src={slide.image}
                 alt={slide.title}
+                loading={index <= 1 ? "eager" : "lazy"}
                 style={{
                   width: '100%',
                   height: '100%',
