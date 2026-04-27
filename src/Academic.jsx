@@ -4,12 +4,21 @@ import { Link } from "react-router-dom";
 import "./assets/styles.css";
 import classroomBg from "./assets/Gallery/Campus and Classrooms/image.png";
 import image1 from "./assets/Heroic/image1.png";
-import faculty1 from "./assets/Photos/Faculty/Faculty1.png";
-import faculty2 from "./assets/Photos/Faculty/Faculty2.png";
-import faculty3 from "./assets/Photos/Faculty/Faculty3.png";
-import faculty4 from "./assets/Photos/Faculty/Faculty4.png";
-import faculty5 from "./assets/Photos/Faculty/Faculty5.png";
+
 import teachingImage1 from "./assets/Photos/Teaching Methdodolgy/image.png";
+// Dynamic image loading for Academic courses
+const academicImages = import.meta.glob('./assets/Academics/*.{png,jpg,jpeg,svg,webp}', { eager: true });
+
+const getCourseImage = (courseName) => {
+  let searchTerms = [courseName.toLowerCase()];
+  if (courseName === "MPC") searchTerms.push("mp");
+  
+  const foundPath = Object.keys(academicImages).find(path => {
+    const lowerPath = path.toLowerCase();
+    return searchTerms.some(term => lowerPath.includes(term));
+  });
+  return foundPath ? academicImages[foundPath].default : null;
+};
 
 export default function Academic() {
   const [scrollY, setScrollY] = useState(0);
@@ -52,7 +61,8 @@ export default function Academic() {
       medium: "English / Telugu Medium",
       strength: "Multiple sections available",
       features: ["IIT-JEE Coaching", "Advanced Labs", "Problem Solving"],
-      color: "#dc2626"
+      color: "#dc2626",
+      backgroundImage: getCourseImage("MPC")
     },
     {
       title: "BiPC",
@@ -61,25 +71,8 @@ export default function Academic() {
       medium: "English / Telugu Medium",
       strength: "Multiple sections available",
       features: ["NEET Preparation", "Medical Labs", "Clinical Training"],
-      color: "#dc2626"
-    },
-    {
-      title: "HEC",
-      subtitle: "History, Economics, Civics",
-      description: "Suited for humanities, social sciences, civil services (UPSC/APPSC), law, journalism, and teaching careers.",
-      medium: "English / Telugu Medium",
-      strength: "Available sections",
-      features: ["UPSC Guidance", "Research Skills", "Essay Writing"],
-      color: "#dc2626"
-    },
-    {
-      title: "CEC",
-      subtitle: "Civics, Economics, Commerce",
-      description: "Focuses on commerce fundamentals – great foundation for B.Com, CA, CS, Banking, Business Management, and entrepreneurship.",
-      medium: "English / Telugu Medium",
-      strength: "Available sections",
-      features: ["CA Foundation", "Business Skills", "Accounting"],
-      color: "#dc2626"
+      color: "#dc2626",
+      backgroundImage: getCourseImage("BiPC")
     },
     {
       title: "MEC",
@@ -88,8 +81,31 @@ export default function Academic() {
       medium: "English / Telugu Medium",
       strength: "Available sections",
       features: ["IPMAT Prep", "Data Analytics", "Finance Basics"],
-      color: "#dc2626"
-    }
+      color: "#dc2626",
+      backgroundImage: getCourseImage("MEC")
+    },
+   
+    {
+      title: "CEC",
+      subtitle: "Civics, Economics, Commerce",
+      description: "Focuses on commerce fundamentals – great foundation for B.Com, CA, CS, Banking, Business Management, and entrepreneurship.",
+      medium: "English / Telugu Medium",
+      strength: "Available sections",
+      features: ["CA Foundation", "Business Skills", "Accounting"],
+      color: "#dc2626",
+      backgroundImage: getCourseImage("CEC")
+    },
+     {
+      title: "HEC",
+      subtitle: "History, Economics, Civics",
+      description: "Suited for humanities, social sciences, civil services (UPSC/APPSC), law, journalism, and teaching careers.",
+      medium: "English / Telugu Medium",
+      strength: "Available sections",
+      features: ["UPSC Guidance", "Research Skills", "Essay Writing"],
+      color: "#dc2626",
+      backgroundImage: getCourseImage("HEC")
+    },
+    
   ];
 
   return (
@@ -150,17 +166,19 @@ export default function Academic() {
           boxSizing: 'border-box'
         }}>
           {groupsOffered.map((course, index) => (
-            <div key={index} className="course-card" style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              padding: '2rem',
-              boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1)',
-              border: `2px solid ${course.color}20`,
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              overflow: 'hidden',
-              backgroundImage: 'linear-gradient(135deg, #fefcf8 0%, #faf7f0 100%)'
-            }}
+            <div key={index}
+              className="course-card"
+              style={{
+                borderRadius: '16px',
+                boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1)',
+                border: `0.5px solid ${course.color}20`,
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+                background: '#ffffff',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-8px)';
                 e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.15)';
@@ -170,48 +188,92 @@ export default function Academic() {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.1)';
                 e.currentTarget.style.borderColor = `${course.color}20`;
-              }}>
+              }}
+            >
+              {/* Top Half: Image */}
               <div style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '4px',
-                background: `linear-gradient(to bottom, ${course.color}, ${course.color}dd)`
-              }}></div>
-
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                background: `linear-gradient(135deg, ${course.color}, ${course.color}dd)`,
-                color: 'white',
-                padding: '0.5rem 1rem',
-                borderBottomLeftRadius: '12px',
-                fontSize: '0.875rem',
-                fontWeight: '600'
+                width: '100%',
+                height: '200px',
+                position: 'relative',
+                background: '#f3f4f6'
               }}>
-                {course.title}
+                {course.backgroundImage ? (
+                  <img 
+                    src={course.backgroundImage} 
+                    alt={course.title} 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#9ca3af',
+                    fontSize: '0.875rem',
+                    fontWeight: '500'
+                  }}>
+                    Photo coming soon
+                  </div>
+                )}
+                <div style={{
+                  position: 'absolute',
+                  top: '0',
+                  left: '0',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  background: 'rgba(0,0,0,0.4)'
+                }}>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>{course.title}</h3>
+                </div>
               </div>
 
-              <div style={{ marginTop: '1rem' }}>
-                <h3 className="process-title" style={{ ...homePageStyles.headings, fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '0.5rem' }}>
-                  {course.subtitle}
-                </h3>
+              {/* Bottom Half: Text Details */}
+              <div style={{ 
+                padding: '1.5rem', 
+                position: 'relative', 
+                flex: 1, 
+                display: 'flex', 
+                flexDirection: 'column' 
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: '4px',
+                  background: `linear-gradient(to bottom, ${course.color}, ${course.color}dd)`
+                }}></div>
 
-                <p className="process-description" style={{
-                  ...homePageStyles.body,
-                  fontSize: '12px',
-                  color: '#4b5563',
-                  lineHeight: '1.6',
-                  marginBottom: '1rem'
-                }}>
-                  {course.description}
-                </p>
+                <div style={{ paddingLeft: '0.5rem' }}>
+                  <h3 className="process-title" style={{ ...homePageStyles.headings, fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '0.5rem' }}>
+                    {course.subtitle}
+                  </h3>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ color: course.color, fontWeight: '600', fontSize: '0.875rem' }}>Medium:</span>
-                  <span style={{ color: '#374151', fontSize: '0.875rem' }}>{course.medium}</span>
+                  <p className="process-description" style={{
+                    ...homePageStyles.body,
+                    fontSize: '12px',
+                    color: '#4b5563',
+                    lineHeight: '1.6',
+                    marginBottom: '1.5rem'
+                  }}>
+                    {course.description}
+                  </p>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ color: course.color, fontWeight: '600', fontSize: '0.875rem' }}>Medium:</span>
+                    <span style={{ color: '#374151', fontSize: '0.875rem' }}>{course.medium}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,7 +297,7 @@ export default function Academic() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
+              background: 'linear-gradient(135deg, #eb7932ff, #eb7932ff)',
               color: 'white',
               padding: '0.75rem 1.5rem',
               borderRadius: '12px',
@@ -534,7 +596,7 @@ export default function Academic() {
               onClick={() => window.scrollTo(0, 0)}
               style={{
                 padding: '0.75rem 1.5rem',
-                color: '#c75e5eff',
+                color: '#eb7932ff',
                 border: '2px solid #dc262620',
                 borderRadius: '12px',
                 fontSize: '0.875rem',
@@ -550,7 +612,7 @@ export default function Academic() {
               onMouseOver={(e) => {
                 e.target.style.transform = 'translateY(-2px)';
                 e.target.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-                e.target.style.borderColor = '#dc2626';
+                e.target.style.borderColor = '#eb7932ff';
               }}
               onMouseOut={(e) => {
                 e.target.style.transform = 'translateY(0)';
@@ -653,83 +715,6 @@ export default function Academic() {
 
 
 
-      {/* <div className="faculty-scroll" style={{
-            display: 'flex',
-            overflowX: 'auto',
-            gap: '2rem',
-            paddingBottom: '1rem'
-          }}>
-            {[
-              { name: 'Dr. Ramesh Babu', position: 'Head of MPC Department', subjects: 'Mathematics, Physics, Chemistry', experience: '18+ Years', qualification: 'M.Sc Physics, Ph.D', color: '#dc2626', image: faculty1 },
-              { name: 'Dr. Lakshmi Devi', position: 'Head of BiPC Department', subjects: 'Biology, Physics, Chemistry', experience: '15+ Years', qualification: 'M.Sc Botany, Ph.D', color: '#059669', image: faculty2 },
-              { name: 'Prof. nivas Rao', position: 'Head of MEC Department', subjects: 'Mathematics, Economics, Commerce', experience: '12+ Years', qualification: 'M.Com, MBA, CA', color: '#7c3aed', image: faculty3 },
-              { name: 'Dr. Madhavi Reddy', position: 'Head of CEC Department', subjects: 'Civics, Economics, Commerce', experience: '14+ Years', qualification: 'M.A Economics, Ph.D', color: '#d97706', image: faculty4 },
-              { name: 'Prof. Venkatesh Kumar', position: 'Head of HEC Department', subjects: 'History, Economics, Civics', experience: '16+ Years', qualification: 'M.A History, M.Phil', color: '#2563eb', image: faculty5 }
-            ].map((faculty, index) => (
-              <div key={index} className="faculty-card" style={{
-                background: '#ffffff',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                border: '2px solid #dc262620',
-                transition: 'all 0.3s ease',
-                position: 'relative',
-                minHeight: '320px',
-                width: '300px',
-                flexShrink: 0,
-                backgroundImage: 'linear-gradient(135deg, #fefcf8 0%, #faf7f0 100%)',
-                cursor: 'pointer'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-                e.currentTarget.style.borderColor = '#dc2626';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-                e.currentTarget.style.borderColor = '#dc262620';
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  width: '4px',
-                  background: 'linear-gradient(to bottom, #dc2626, #dc2626dd)'
-                }}></div>
-
-                <div style={{ height: '200px', overflow: 'hidden' }}>
-                  <img
-                    src={faculty.image}
-                    alt={faculty.name}
-                    loading="lazy"
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                  />
-                </div>
-
-                <div style={{ padding: '1.25rem', textAlign: 'center' }}>
-                  <h3 style={{ fontSize: '1.2rem', fontWeight: '700', color: '#111827', marginBottom: '0.5rem', ...homePageStyles.headings }}>
-                    {faculty.name}
-                  </h3>
-                  <div style={{ color: '#dc2626', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem', ...homePageStyles.body }}>
-                    {faculty.expert}
-                  </div>
-                  <div style={{ fontSize: '0.85rem', color: '#6b7280', ...homePageStyles.body }}>
-                    {faculty.exp}
-                  </div>
-                </div>
- style={{ fontSize: '0.7rem', color: '#6b7280', ...homePageStyles.body }}>
-                    {faculty.qualification}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>*/}
-
-
-
-
       {/* Academic Calendar - Simple Grid */}
       <section className="calendar-bg-section" style={{
         backgroundImage: `url(${image1})`,
@@ -772,7 +757,7 @@ export default function Academic() {
           `}
         </style>
         <div className="calendar-section" style={{
-          maxWidth: '1400px', margin: '0 auto', padding: '30px 2rem',
+          maxWidth: '100%', margin: '0 auto', padding: '30px 2rem',
           backgroundColor: ' rgba(255, 255, 255, 0.9)'
         }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
@@ -798,18 +783,18 @@ export default function Academic() {
             gap: '2rem'
           }}>
             {[
-              { month: 'JAN', title: 'Admissions Open', desc: 'New student admissions\nSankranti holidays', color: '#dc2626', date: '1-31' },
+              { month: 'JAN', title: 'Prefinal 2 Exams & JEE Mains Exams', desc: 'New student admissions\nSankranti holidays', color: '#dc2626', date: '1-31' },
               { month: 'FEB', title: 'Practical Exams', desc: 'Lab practicals\nRevision classes', color: '#2563eb', date: '1-28' },
-              { month: 'MAR', title: 'Board Exams', desc: 'IPE theory exams\nFinal assessments', color: '#059669', date: '1-31' },
-              { month: 'APR', title: 'Summer Break', desc: 'Vacation period\nSummer activities', color: '#d97706', date: '1-30' },
-              { month: 'MAY', title: 'Results', desc: 'Result declaration\nCounseling sessions', color: '#d97706', date: '1-31' },
-              { month: 'JUN', title: 'New Session', desc: 'Classes begin\nOrientation program', color: '#7c3aed', date: '1-30' },
+              { month: 'MAR', title: 'Public Exams', desc: 'IPE theory exams\nFinal assessments', color: '#059669', date: '1-31' },
+              { month: 'APR', title: 'EAPCET Coaching', desc: 'Vacation period\nSummer activities', color: '#d97706', date: '1-30' },
+              { month: 'MAY', title: 'Results & EAPCET/JEE Mains Exams', desc: 'Result declaration\nCounseling sessions', color: '#d97706', date: '1-31' },
+              { month: 'JUN', title: 'New AcademicYear', desc: 'Classes begin\nOrientation program', color: '#7c3aed', date: '1-30' },
               { month: 'JUL', title: 'Regular Classes', desc: 'Full curriculum\nSyllabus coverage', color: '#7c3aed', date: '1-31' },
               { month: 'AUG', title: 'First Term', desc: 'Unit tests\nAssessments', color: '#dc2626', date: '1-31' },
               { month: 'SEP', title: 'Quarterly Exams', desc: 'First quarter exams\nDussehra holidays', color: '#dc2626', date: '1-30' },
-              { month: 'OCT', title: 'Festivals', desc: 'Diwali celebrations\nRevision classes', color: '#2563eb', date: '1-31' },
-              { month: 'NOV', title: 'Half-Yearly', desc: 'Mid-term exams\nProgress evaluation', color: '#059669', date: '1-30' },
-              { month: 'DEC', title: 'Winter Activities', desc: 'Cultural events\nPre-final prep', color: '#d97706', date: '1-31' }
+              { month: 'OCT', title: 'Term 3 Exams', desc: 'Diwali celebrations\nRevision classes', color: '#2563eb', date: '1-31' },
+              { month: 'NOV', title: 'Term 3 Exams', desc: 'Mid-term exams\nProgress evaluation', color: '#059669', date: '1-30' },
+              { month: 'DEC', title: 'Prefinal 1 Exams', desc: 'Cultural events\nPre-final prep', color: '#d97706', date: '1-31' }
             ].map((event, index) => (
               <div key={index} style={{
                 background: '#ffffff',

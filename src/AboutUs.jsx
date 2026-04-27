@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./assets/styles.css";
 import FallbackImage from "./components/FallbackImage";
-import logo from "./assets/logo.png";
+// import logo from "./assets/logo.png";
 import heroicImage from "./assets/Heroic/image2.png";
-import managementImage1 from "./assets/Photos/ManagementTEam/image1.png";
-import managementImage2 from "./assets/Photos/ManagementTEam/image2.png";
-import managementImage3 from "./assets/Photos/ManagementTEam/image3.png";
-import managementImage4 from "./assets/Photos/ManagementTEam/image4.png";
+// Management team images will be added when available
+// Import specific leadership photos
+import chairmanPhoto from "./assets/Photos/AboutUs/Chairman.png";
+import principalPhoto from "./assets/Photos/AboutUs/principal.png";
+import ceophoto from "./assets/Photos/AboutUs/ceo.png";
 // Dynamic image loading for Leaders
 const leaderImages = import.meta.glob('./assets/Photos/Leaders/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 
@@ -22,16 +23,16 @@ const getLeaderImage = (keywords) => {
   return foundPath ? leaderImages[foundPath].default : null;
 };
 
-const chairmanImage = getLeaderImage('Chairman');
-const principalImage = getLeaderImage(['Principal', '!Vice']);
-const vicePrincipalImage = getLeaderImage(['Vice']);
+const chairmanImage = chairmanPhoto;
+const principalImage = principalPhoto;
+const vicePrincipalImage = ceophoto;
 
 const AboutUs = () => {
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [statsAnimated, setStatsAnimated] = useState(false);
-  const [statCounts, setStatCounts] = useState({ years: 29, students: 10000, success: 100 });
+  const [statCounts, setStatCounts] = useState({ years: 19, students: 10000, success: 100 });
 
   const phrases = [
     "A nurturing & dynamic space for curious minds",
@@ -98,7 +99,7 @@ const AboutUs = () => {
   }, [statsAnimated]);
 
   const animateStats = () => {
-    const targets = { years: 25, students: 10000, success: 100 };
+    const targets = { years: 19, students: 10000, success: 100 };
     const duration = 2000;
     const steps = 60;
     const stepTime = duration / steps;
@@ -124,7 +125,7 @@ const AboutUs = () => {
     <div style={{ fontFamily: 'Inter, Roboto, sans-serif', color: '#333', background: '#ffffff', minHeight: 'calc(100vh - 160px)' }}>
 
       {/* HERO SECTION */}
-      <section style={{
+      <section className="hero-section" style={{
         position: 'relative',
         height: '40vh',
         minHeight: '300px',
@@ -137,6 +138,56 @@ const AboutUs = () => {
         marginLeft: 'calc(-50vw + 50%)',
         marginRight: 'calc(-50vw + 50%)'
       }}>
+        <style>
+          {`
+            @media (max-width: 768px) {
+              .hero-section {
+                height: 50vh !important;
+                min-height: 400px !important;
+              }
+              .hero-content {
+                padding: 1rem !important;
+                max-width: 95% !important;
+              }
+              .hero-title {
+                font-size: 1.75rem !important;
+                line-height: 1.2 !important;
+                margin-bottom: 0.75rem !important;
+              }
+              .hero-subtitle {
+                font-size: 0.95rem !important;
+                line-height: 1.4 !important;
+              }
+            }
+            @media (max-width: 480px) {
+              .hero-section {
+                height: 60vh !important;
+                min-height: 450px !important;
+              }
+              .hero-content {
+                padding: 0.75rem !important;
+                max-width: 90% !important;
+              }
+              .hero-title {
+                font-size: 1.5rem !important;
+                line-height: 1.3 !important;
+                margin-bottom: 0.5rem !important;
+              }
+              .hero-subtitle {
+                font-size: 0.875rem !important;
+                line-height: 1.5 !important;
+              }
+            }
+            @media (max-width: 360px) {
+              .hero-title {
+                font-size: 1.25rem !important;
+              }
+              .hero-subtitle {
+                font-size: 0.75rem !important;
+              }
+            }
+          `}
+        </style>
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <FallbackImage
             src={heroicImage}
@@ -152,11 +203,11 @@ const AboutUs = () => {
             background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))'
           }}></div>
         </div>
-        <div style={{ maxWidth: '850px', padding: '2rem ', position: 'relative', zIndex: 2 }}>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '1rem', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+        <div className="hero-content" style={{ maxWidth: '850px', padding: '2rem', position: 'relative', zIndex: 2 }}>
+          <h1 className="hero-title" style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '0rem', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
             About  Sai Chaitanya Junior College
           </h1>
-          <p style={{ fontSize: '1.125rem', opacity: 0.9, textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
+          <p className="hero-subtitle" style={{ fontSize: '1.125rem', opacity: 0.9, textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
             Shaping Futures Since 1995 • Excellence in Intermediate Education
           </p>
         </div>
@@ -187,7 +238,7 @@ const AboutUs = () => {
             margin: '0 auto 3rem',
             textAlign: 'justify'
           }}>
-            Founded in 1995,  Sai Chaitanya Junior College has grown from a modest institution
+            Founded in 2007,  Sai Chaitanya Junior College has grown from a modest institution
             to a premier intermediate college in Madanapalle, consistently delivering exceptional
             academic results and holistic student development.Education is the key to cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's setbacks and challenges .
 
@@ -375,7 +426,7 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <div className="leadership-flex" style={{ display: 'flex', gap: '2rem', maxWidth: '850px', margin: '0 auto' }}>
+          <div className="leadership-flex" style={{ display: 'flex', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
 
             {/* CHAIRMAN MESSAGE */}
             <div className="leadership-card" style={{
@@ -388,12 +439,21 @@ const AboutUs = () => {
             }}>
               <div style={{
                 width: '100%',
-                height: '280px'
+                height: '280px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#ffffff'
               }}>
                 <FallbackImage
                   src={chairmanImage}
                   alt="Chairman"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top'
+                  }}
                 />
               </div>
 
@@ -403,7 +463,8 @@ const AboutUs = () => {
                     Chairman's Message
                   </h3>
                   <p style={{ color: '#4b5563', fontSize: '0.9rem', fontWeight: '600', marginBottom: '1rem', ...homePageStyles.body }}>
-                    [Chairman Name]
+                    Dr. K. Nirmal Reddy
+                    <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: '400', color: '#6b7280', marginTop: '0.25rem' }}>M.Com, MBA, Ph.D</span>
                   </p>
 
                   <h4 style={{ fontSize: '1.0rem', fontWeight: '600', color: '#dc2626', marginBottom: '1rem', ...homePageStyles.headings }}>
@@ -428,12 +489,21 @@ const AboutUs = () => {
             }}>
               <div style={{
                 width: '100%',
-                height: '280px'
+                height: '280px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#ffffff'
               }}>
                 <FallbackImage
                   src={principalImage}
                   alt="Principal"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top'
+                  }}
                 />
               </div>
 
@@ -443,7 +513,8 @@ const AboutUs = () => {
                     Principal's Message
                   </h3>
                   <p style={{ color: '#4b5563', fontSize: '0.9rem', fontWeight: '600', marginBottom: '1rem', ...homePageStyles.body }}>
-                    Dr. [Principal Name]
+                    R. Dhananjaya Reddy
+                    <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: '400', color: '#6b7280', marginTop: '0.25rem' }}>M.Sc Mathematics</span>
                   </p>
 
                   <h4 style={{ fontSize: '1.0rem', fontWeight: '600', color: '#059669', marginBottom: '1rem', ...homePageStyles.headings }}>
@@ -456,133 +527,61 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* MANAGEMENT DETAILS SECTION */}
-      <section style={{
-        background: '#f8f9fa',
-        padding: '3rem 0',
-        width: '100vw',
-        marginLeft: 'calc(-50vw + 50%)',
-        marginRight: 'calc(-50vw + 50%)'
-      }}>
-        <style>
-          {`
-            @media (max-width: 768px) {
-              .management-section {
-                padding: 2rem 1rem !important;
-              }
-              .management-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1.5rem !important;
-              }
-            }
-          `}
-        </style>
-        <div className="management-section" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 className="section-heading center-text" style={{
-            ...homePageStyles.headings,
-            color: '#111827'
-          }}>
-            Management Team
-          </h2>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <p style={{ fontSize: '0.875rem', color: '#6b7280', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
-              Meet our distinguished leadership team who bring decades of expertise and dedication to educational excellence and institutional development.
-            </p>
-          </div>
-
-          <div className="management-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem' }}>
-            {[
-              { name: ' [Chairman Name]', position: 'Chairman & Correspondent', experience: '30+ Years', qualification: 'M.A., B.Ed.', description: 'Visionary leader with extensive experience in educational administration and institutional development.', color: '#dc2626', image: chairmanImage },
-              { name: 'Dr. [Principal Name]', position: 'Principal', experience: '25+ Years', qualification: 'Ph.D., M.Sc., B.Ed.', description: 'Distinguished educator with proven expertise in curriculum development and academic excellence.', color: '#dc2626', image: principalImage },
-              { name: 'Prof. [Vice Principal Name]', position: 'Vice Principal', experience: '20+ Years', qualification: 'M.Sc., M.Ed.', description: 'Experienced administrator focused on student development and academic quality assurance.', color: '#dc2626', image: vicePrincipalImage },
-            ].map((member, index) => (
-              <div key={index} style={{
-                background: '#ffffff',
-                borderRadius: '16px',
-                padding: '0',
-                boxShadow: '0 7px 25px -5px rgba(0, 0, 0, 0.1)',
-                border: `0px solid ${member.color}20`,
-                transition: 'all 0.3s ease',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.borderColor = member.color;
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.1)';
-                  e.currentTarget.style.borderColor = `${member.color}20`;
-                }}>
-                <div style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  width: '4px',
-                  background: `linear-gradient(to bottom, ${member.color}, ${member.color}dd)`
-                }}></div>
-
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  background: `linear-gradient(135deg, ${member.color}, ${member.color}dd)`,
-                  color: 'white',
-                  padding: '0.5rem 1rem',
-                  borderBottomLeftRadius: '12px',
-                  fontSize: '0.75rem',
-                  fontWeight: '600'
-                }}>
-                  {index === 2 ? 'Vice Principal' : member.position.split(' ')[0]}
-                </div>
-
-                <div style={{ width: '100%', borderRadius: '16px 16px 0 0', overflow: 'hidden', height: '200px' }}>
-                  <FallbackImage
-                    src={member.image}
-                    alt={member.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
-                  />
-                </div>
-
-                <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ fontSize: '1.0rem', fontWeight: '600', color: '#111827', marginBottom: '0.5rem', ...homePageStyles.headings }}>
-                    {member.name}
-                  </h3>
-
-                  <p style={{ color: member.color, fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.75rem', ...homePageStyles.body }}>
-                    {member.position}
-                  </p>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#6b7280', ...homePageStyles.body }}>{member.qualification}</span>
-                    <span style={{ fontSize: '0.85rem', color: '#6b7280', ...homePageStyles.body }}>{member.experience}</span>
-                  </div>
-
-                  <p style={{
-                    color: '#4b5563',
-                    lineHeight: '1.6',
-                    // fontSize: '0.9rem',
-                    textAlign: 'justify',
-                    hyphens: 'auto',
-                    WebkitHyphens: 'auto',
-                    wordSpacing: '-0.5px',
-                    fontSize: '12px'
-                  }}>
-                    {member.description}
-                  </p>
-                </div>
+            {/* VICE PRINCIPAL MESSAGE */}
+            <div className="leadership-card" style={{
+              background: '#f8f9fa',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              border: '2px solid rgba(217, 119, 6, 0.1)',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <div style={{
+                width: '100%',
+                height: '280px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#ffffff'
+              }}>
+                <FallbackImage
+                  src={vicePrincipalImage}
+                  alt="Vice Principal"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top'
+                  }}
+                />
               </div>
-            ))}
+
+              <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+                <div>
+                  <h3 style={{ fontSize: '1.0rem', fontWeight: '600', color: '#111827', marginBottom: '0.5rem', ...homePageStyles.headings }}>
+                    CEO's Message
+                  </h3>
+                  <p style={{ color: '#4b5563', fontSize: '0.9rem', fontWeight: '600', marginBottom: '1rem', ...homePageStyles.body }}>
+                    M.Rajeswara Reddy
+                                        <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: '400', color: '#6b7280', marginTop: '0.25rem' }}>Rtd. HOD.Statistics in B.T College</span>
+
+                  </p>
+
+                  <h4 style={{ fontSize: '1.0rem', fontWeight: '600', color: '#d97706', marginBottom: '1rem', ...homePageStyles.headings }}>
+                    Nurturing Academic Excellence
+                  </h4>
+                </div>
+
+                <p style={{ fontSize: '12px', lineHeight: '1.6', color: '#374151', textAlign: 'justify', ...homePageStyles.body }}>
+                  At Sai Chaitanya Junior College, we focus on creating a supportive learning environment that encourages both academic achievement and personal growth. Our dedicated faculty ensures each student reaches their full potential.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* AFFILIATION & RECOGNITION SECTION */}
       <section style={{
@@ -682,6 +681,218 @@ const AboutUs = () => {
         </div>
       </section>
 
+      {/* GOOGLE REVIEWS SECTION */}
+      <section style={{
+        padding: '4rem 0',
+        width: '100vw',
+        marginLeft: 'calc(-50vw + 50%)',
+        marginRight: 'calc(-50vw + 50%)',
+        background: '#f9fafb'
+      }}>
+        <style>
+          {`
+            @media (max-width: 768px) {
+              .reviews-section {
+                padding: 2rem 1rem !important;
+              }
+              .reviews-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+              }
+              .review-buttons {
+                flex-direction: column !important;
+                gap: 1rem !important;
+              }
+            }
+            @media (max-width: 480px) {
+              .reviews-section {
+                padding: 1.5rem 0.75rem !important;
+              }
+            }
+          `}
+        </style>
+        <div className="reviews-section" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="section-heading center-text" style={{
+              ...homePageStyles.headings,
+              color: '#111827',
+              fontSize: '2rem',
+              fontWeight: '700',
+              marginBottom: '1rem'
+            }}>
+              Student Testimonials
+            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+              <span style={{ color: '#fbbf24', fontSize: '1.5rem' }}>★★★★★</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: '600', color: '#111827' }}>4.8 Rating</span>
+              <span style={{ fontSize: '1rem', color: '#6b7280' }}>from 327 Google Reviews</span>
+            </div>
+            <p style={{ fontSize: '0.9rem', color: '#6b7280', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
+              Hear what our students and parents have to say about their experience at Sai Chaitanya Junior College
+            </p>
+          </div>
+
+          <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+            {[
+              {
+                rating: '★★★★★',
+                content: 'Excellent faculty and disciplined environment. The college provides great academic support and personal attention to each student.',
+                author: 'Rahul Kumar',
+                type: 'Google Review'
+              },
+              {
+                rating: '★★★★★',
+                content: 'Great academic support and infrastructure. The teachers are very supportive and the study materials are comprehensive.',
+                author: 'Sneha Reddy',
+                type: 'Google Review'
+              },
+              {
+                rating: '★★★★★',
+                content: 'Best guidance for competitive exams. The college helped me crack my entrance exams with their excellent coaching.',
+                author: 'Kiran Kumar',
+                type: 'Google Review'
+              }
+            ].map((review, index) => (
+              <div key={index} style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                padding: '2rem',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                border: '2px solid rgba(220, 38, 38, 0.1)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                height: '100%'
+              }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                }}>
+                <div style={{
+                  fontSize: '1.25rem',
+                  color: '#fbbf24',
+                  marginBottom: '1rem',
+                  letterSpacing: '2px'
+                }}>
+                  {review.rating}
+                </div>
+
+                <p style={{
+                  color: '#374151',
+                  lineHeight: '1.7',
+                  fontSize: '0.95rem',
+                  marginBottom: '1.5rem',
+                  fontStyle: 'italic'
+                }}>
+                  "{review.content}"
+                </p>
+
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: '1rem',
+                  borderTop: '1px solid #e5e7eb'
+                }}>
+                  <h4 style={{
+                    fontSize: '0.95rem',
+                    fontWeight: '600',
+                    color: '#111827',
+                    margin: 0
+                  }}>
+                    - {review.author}
+                  </h4>
+                  <span style={{
+                    fontSize: '0.75rem',
+                    color: '#6b7280',
+                    backgroundColor: '#f3f4f6',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '12px'
+                  }}>
+                    {review.type}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="review-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="https://share.google/KoiQjhUefyh0iG0vG"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: '#eb7932ff',
+                color: 'white',
+                padding: '0.875rem 2rem',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.3s ease',
+                border: '2px solid #eb7932ff'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = '#eb7932ff';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.3)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = '#eb7932ff';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+              </svg>
+              Read More Reviews on Google
+            </a>
+
+            <a
+              href="https://www.google.com/search?sca_esv=c9874bb074d0c29e&hl=en-IN&sxsrf=ANbL-n7h9iH9KuOE6wy4eukIfx36IrVoMg:1777024254771&kgmid=/g/11vjyffp37&q=SRI+SAI+CHAITANYA+JUNIOR+COLLEGE&shem=rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=b5047a6e39afebd8&utm_source=rimspwouoe,sh/x/loc/uni/m1/1#lrd=0x3bb267323a02b485:0x99a4090847f1dfdf,3,,,,"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: 'transparent',
+                color: '#dc2626',
+                padding: '0.875rem 2rem',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.3s ease',
+                border: '2px solid #eb7932ff'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = '#eb7932ff';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.3)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = '#dc2626';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+              </svg>
+              Leave Us a Review
+            </a>
+          </div>
+        </div>
+      </section>
 
 
 

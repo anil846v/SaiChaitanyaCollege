@@ -33,7 +33,7 @@ const getStudentImage = (year, name) => {
 export default function ResultsAchievements() {
 
   // ✅ DEFAULT YEAR FIX
-  const [selectedYear, setSelectedYear] = useState("2025");
+  const [selectedYear, setSelectedYear] = useState("2026");
 
   const homePageStyles = {
     headings: { fontFamily: "Poppins, sans-serif" },
@@ -41,30 +41,25 @@ export default function ResultsAchievements() {
   };
 
   const allToppers = [
-    { name: "Rukmini", rank: "State 7th", stream: "MEC", marks: "972/1000", year: "2023" },
-    { name: "Karthik", rank: "District 2nd", stream: "CEC", marks: "968/1000", year: "2023" },
-    { name: "Arun", rank: "State 5th", stream: "MEC", marks: "975/1000", year: "2023" },
-    { name: "Kirankumar", rank: "State 2nd", stream: "MPC", marks: "980/1000", year: "2023" },
-    { name: "Sneha", rank: "District 2nd", stream: "BiPC", marks: "976/1000", year: "2023" },
-
-    { name: "Arjun", rank: "District 1st", stream: "BiPC", marks: "978/1000", year: "2024" },
-    { name: "Rahul", rank: "State 1st", stream: "MPC", marks: "985/1000", year: "2024" },
-    { name: "Kavya Lahari", rank: "District 1st", stream: "BiPC", marks: "982/1000", year: "2024" },
-    { name: "Divya ", rank: "District 3rd", stream: "HEC", marks: "970/1000", year: "2024" },
-    { name: "Suresh", rank: "State 6th", stream: "CEC", marks: "969/1000", year: "2024" },
-
-    { name: "Ravi Kumar", rank: "State 8th", stream: "CEC", marks: "968/1000", year: "2025" },
-    { name: "Suresh Babu", rank: "State 4th", stream: "MPC", marks: "978/1000", year: "2025" },
-    { name: "Lakshmi Devi", rank: "District 1st", stream: "BiPC", marks: "974/1000", year: "2025" },
-    { name: "Rukmini", rank: "State 3rd", stream: "CEC", marks: "971/1000", year: "2025" },
-    { name: "Ramana", rank: "District 1st", stream: "MEC", marks: "973/1000", year: "2025" },
+    { name: "N Ashok", rank: "State 8th", stream: "MPC", marks: "458/470", year: "2026" },
+    { name: "S Nadeera Bhanu", rank: "State 4th", stream: "MPC", marks: "455/470", year: "2026" },
+    { name: "M Afraz", rank: "District 1st", stream: "MPC", marks: "451/470", year: "2026" },
+    { name: "Z Sumaya", rank: "State 3rd", stream: "MPC", marks: "451/470", year: "2026" },
+    { name: "S Zubiya", rank: "District 1st", stream: "BIPC", marks: "441/460", year: "2026" },
+    { name: "S Harshitha", rank: "District 2nd", stream: "BIPC", marks: "440/460", year: "2026" },
+    { name: "K Vedha Pravallika", rank: "State 5th", stream: "MBIPC", marks: "517/555", year: "2026" },
+    { name: "S Mamatha", rank: "District 3rd", stream: "MBIPC", marks: "461/555", year: "2026" },
+    { name: "G Sindhu", rank: "State 7th", stream: "CEC", marks: "483/500", year: "2026" },
+    { name: "P Shiva Kumar", rank: "District 2nd", stream: "CEC", marks: "478/500", year: "2026" },
+    { name: "K Sasindra Reddy", rank: "State 6th", stream: "CEC", marks: "477/500", year: "2026" },
+    { name: "V Pradeep", rank: "District 1st", stream: "CEC", marks: "474/500", year: "2026" },
   ];
 
   const filteredToppers = allToppers.filter(t => t.year === selectedYear);
 
   return (
     <div className="results-achievements-container">
-      <section className="results-achievements-strip" style={{ padding: '2rem 0', background: '#f8f9fa', marginTop: '80px' }}>
+      <section className="results-achievements-strip" style={{ padding: '2.2rem 0', background: '#f8f9fa', marginTop: '80px' }}>
 
         <div style={{maxWidth:'100% !important',margin:'0 75px !important',padding: '0 1.5rem'}}>
           <style>
@@ -86,11 +81,11 @@ export default function ResultsAchievements() {
               ...homePageStyles.headings,
               color: '#111827'
             }}>
-              Toppers & Rank Holders
+              IPE 2026 Toppers 1st Year
             </h2>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', margin: '0 0 2rem', padding: '0 1rem' }}>
-              {['2025', '2024', '2023'].map((year) => (
+              {['2026'].map((year) => (
                 <button key={year} onClick={() => setSelectedYear(year)}
                   style={{
                     background: selectedYear === year ? '#dc2626' : 'transparent',

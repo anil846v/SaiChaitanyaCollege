@@ -7,8 +7,7 @@ import { formatFolderName } from './utils/galleryUtils';
 const categoryDescriptions = {
   "campus and classrooms": "State-of-the-art learning environments equipped with modern teaching aids, interactive whiteboards, and comfortable seating arrangements designed to enhance student engagement and academic excellence.",
   "events & celebrations": "Vibrant campus celebrations, cultural festivals, and special events that foster community spirit, showcase student talents, and create memorable experiences throughout the academic year.",
-  "labs & facilities": "Well-equipped laboratories and modern facilities providing hands-on learning experiences in science, technology, and research to support practical education and innovation.",
-  "student activities": "Dynamic extracurricular programs, clubs, and student-led initiatives that develop leadership skills, creativity, and social engagement beyond the classroom environment."
+  "labs & facilities": "Well-equipped laboratories and modern facilities providing hands-on learning experiences in science, technology, and research to support practical education and innovation."
 };
 
 const allGalleryCategories = Object.entries(galleryData).map(([folderName, images]) => ({
@@ -21,7 +20,7 @@ const allGalleryCategories = Object.entries(galleryData).map(([folderName, image
 }));
 
 const headerGallery = allGalleryCategories.find(c => c.id === 'headergallery');
-const galleryCategories = allGalleryCategories.filter(c => c.id !== 'headergallery');
+const galleryCategories = allGalleryCategories.filter(c => c.id !== 'headergallery' && c.id !== 'student activities');
 
 const Gallery = () => {
   const { category } = useParams();
@@ -206,12 +205,14 @@ const Gallery = () => {
 
         {/* Gallery Header Section */}
         <div style={{
-          maxWidth: '1200px',
+          maxWidth: '100%',
           margin: '0 auto',
-          padding: '0.5rem rem',
-          textAlign: 'center'
+          padding: '1.8rem 1rem',
+          textAlign: 'center',
+
+
         }}>
-          <h2 className="section-heading center-text" style={{ ...galleryStyles.headings, color: '#111827' }}>Visit Our Gallery</h2>
+          <h2 className="section-heading center-text" style={{ ...galleryStyles.headings, color: '#111827', marginBottom: '1rem', }}>Visit Our Gallery</h2>
 
           {/* Featured Tagline */}
           <div style={{
@@ -220,7 +221,7 @@ const Gallery = () => {
             justifyContent: 'center',
             gap: '1rem',
             marginBottom: '1rem',
-            opacity: 0.8
+            opacity: 0.8,
           }}>
             <div style={{ height: '1px', width: '30px', background: '#dc2626' }}></div>
             <span style={{
@@ -472,7 +473,7 @@ const Gallery = () => {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
             gap: '2.5rem',
-            padding: '0 1rem 3rem',
+            padding: '0 1rem 10rem',
             maxWidth: '1400px',
             margin: '0 auto',
             minHeight: '60vh'
@@ -498,7 +499,7 @@ const Gallery = () => {
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.borderColor = '#dc2626';
+                  e.currentTarget.style.borderColor = '#eb7932ff';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
@@ -512,9 +513,9 @@ const Gallery = () => {
                   top: '-2px',
                   bottom: '-2px',
                   width: '4px',
-                  background: 'linear-gradient(to bottom, #dc2626, #dc2626dd)'
+                  background: 'linear-gradient(to bottom, #eb7932ff, #eb7932ff)'
                 }}></div>
-                <div style={{ height: '200px', overflow: 'hidden' }}>
+                <div style={{ height: '100%', overflow: 'hidden' }}>
                   <img
                     src={category.images[0]?.url || category.images[0]?.photoUrl || category.coverImage}
                     alt={category.name}
@@ -576,7 +577,7 @@ const Gallery = () => {
               padding: '0.75rem 1.5rem',
               fontSize: '0.875rem',
               fontWeight: '600',
-              color: '#B91C1C',
+              color: '#eb7932ff',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               position: 'relative',
@@ -588,7 +589,7 @@ const Gallery = () => {
             onMouseOver={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-              e.currentTarget.style.borderColor = '#dc2626';
+              e.currentTarget.style.borderColor = '#eb7932ff';
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
@@ -596,7 +597,7 @@ const Gallery = () => {
               e.currentTarget.style.borderColor = '#dc262620';
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#dc2626">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#eb7932ff">
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
             </svg>
             Back to All Categories
@@ -618,7 +619,7 @@ const Gallery = () => {
               padding: '0.75rem 1.5rem',
               fontSize: '0.875rem',
               fontWeight: '600',
-              color: '#B91C1C',
+              color: '#eb7932ff',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               position: 'relative',
@@ -630,7 +631,7 @@ const Gallery = () => {
             onMouseOver={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-              e.currentTarget.style.borderColor = '#dc2626';
+              e.currentTarget.style.borderColor = '#eb7932ff';
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
@@ -639,7 +640,7 @@ const Gallery = () => {
             }}
           >
             Next Category
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#dc2626">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#eb7932ff">
               <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
             </svg>
           </button>

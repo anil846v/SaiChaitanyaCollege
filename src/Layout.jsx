@@ -1,5 +1,4 @@
 import React from "react";
-import SocialHeader from "./SocialHeader";
 import Header from "./Header";
 import Footer from "./Footer";
 import MobileFloatingIcons from "./MobileFloatingIcons";
@@ -11,7 +10,6 @@ const Layout = ({ children }) => {
 
   return (
     <div>
-      <SocialHeader />
       <Header />
       <main style={{
         minHeight: "80vh"
