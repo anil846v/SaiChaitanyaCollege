@@ -279,7 +279,7 @@ export default function HomePage() {
         <MobileHeroSlider />
       </div>
     ) : (
-      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', marginTop: '115px', height: 'calc(100vh - 115px)', overflow: 'hidden', minHeight: '500px !important' }}>
+      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', marginTop: '115px', height: 'calc(100vh - 180px)', overflow: 'hidden', minHeight: '450px !important' }}>
         {/* Slideshow Background */}
         <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
           {slides.map((slide, index) => (

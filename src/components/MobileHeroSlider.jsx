@@ -75,7 +75,7 @@ const MobileHeroSlider = () => {
   return (
     <div style={{ position: 'relative', width: '100%' }}>
       {/* Hero Slider */}
-      <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 60px - 44px)', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 160px)', overflow: 'hidden', marginTop: '115px' }}>
         {slides.map((slide, index) => (
           <div
             key={index}
