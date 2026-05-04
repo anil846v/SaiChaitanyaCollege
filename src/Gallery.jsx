@@ -1,734 +1,1464 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+
 import { useParams } from 'react-router-dom';
+
 import { galleryData } from './utils/imageLoader';
+
 import { formatFolderName } from './utils/galleryUtils';
+
 import SEO from './components/SEO';
 
+
 // Generate gallery categories dynamically from available folders
+
 const categoryDescriptions = {
+
   "campus and classrooms": "State-of-the-art learning environments equipped with modern teaching aids, interactive whiteboards, and comfortable seating arrangements designed to enhance student engagement and academic excellence.",
-  "achievements & celebrations": "Vibrant campus celebrations, cultural festivals, and special events that foster community spirit, showcase student talents, and create memorable experiences throughout the academic year.",
+
+  "events & celebrations": "Vibrant campus celebrations, cultural festivals, and special events that foster community spirit, showcase student talents, and create memorable experiences throughout the academic year.",
+
   "labs & facilities": "Well-equipped laboratories and modern facilities providing hands-on learning experiences in science, technology, and research to support practical education and innovation."
+
 };
 
+
+
 const allGalleryCategories = Object.entries(galleryData).map(([folderName, images]) => ({
+
   id: folderName.toLowerCase(),
+
   name: formatFolderName(folderName),
+
   originalName: folderName,
+
   coverImage: images[0]?.url,
+
   images: images,
+
   description: categoryDescriptions[folderName.toLowerCase()] || "Explore our vibrant campus life and educational activities that shape well-rounded individuals prepared for future success."
+
 }));
 
+
+
 const headerGallery = allGalleryCategories.find(c => c.id === 'headergallery');
+
 const galleryCategories = allGalleryCategories.filter(c => c.id !== 'headergallery' && c.id !== 'student activities');
 
+
+
 const Gallery = () => {
+
   const { category } = useParams();
+
   const [currentView, setCurrentView] = useState(category || 'main');
+
   const [selectedCategory, setSelectedCategory] = useState(null);
+
   const [lightboxImage, setLightboxImage] = useState(null);
+
   const [lightboxIndex, setLightboxIndex] = useState(0);
+
   const [visibleImages, setVisibleImages] = useState(20);
+
   const [isLoading, setIsLoading] = useState(false);
 
+
+
   const [currentHeaderIndex, setCurrentHeaderIndex] = useState(0);
+
   const loadMoreRef = useRef();
 
+
+
   const galleryStyles = {
+
     headings: { fontFamily: 'Poppins, sans-serif' },
+
     body: { fontFamily: 'Inter, sans-serif' }
+
   };
 
+
+
   useEffect(() => {
+
     if (currentView === 'main' && headerGallery?.images?.length > 1) {
+
       const interval = setInterval(() => {
+
         setCurrentHeaderIndex(prev => (prev + 1) % headerGallery.images.length);
+
       }, 5000);
+
       return () => clearInterval(interval);
+
     }
+
   }, [currentView]);
 
+
+
   useEffect(() => {
+
     if (category && category !== 'main') {
+
       const cat = galleryCategories.find(c =>
+
         c.id === category || c.id === category.toLowerCase() || c.name.toLowerCase() === category.toLowerCase()
+
       );
+
       if (cat) {
+
         setCurrentView(cat.id);
+
         setSelectedCategory(cat);
+
       }
+
     }
+
   }, [category]);
 
+
+
   const loadMoreImages = useCallback(() => {
+
     if (isLoading) return;
+
     setIsLoading(true);
+
     setTimeout(() => {
+
       setVisibleImages(prev => prev + 20);
+
       setIsLoading(false);
+
     }, 500);
+
   }, [isLoading]);
 
+
+
   useEffect(() => {
+
     const observer = new IntersectionObserver(
+
       (entries) => {
+
         if (entries[0].isIntersecting && currentView !== 'main') {
+
           loadMoreImages();
+
         }
+
       },
+
       { threshold: 0.1 }
+
     );
 
+
+
     if (loadMoreRef.current) {
+
       observer.observe(loadMoreRef.current);
+
     }
 
+
+
     return () => observer.disconnect();
+
   }, [loadMoreImages, currentView]);
 
+
+
   const getFilteredImages = () => {
+
     if (currentView === 'main') return [];
 
+
+
     const category = galleryCategories.find(cat => cat.id === currentView);
+
     if (!category) return [];
 
+
+
     return category.images.slice(0, visibleImages);
+
   };
+
+
 
   const openLightbox = (image, index) => {
+
     setLightboxImage(image);
+
     setLightboxIndex(index);
+
   };
+
+
 
   const closeLightbox = () => {
+
     setLightboxImage(null);
+
   };
+
+
 
   const navigateLightbox = (direction) => {
+
     const filteredImages = getFilteredImages();
+
     const newIndex = direction === 'next'
+
       ? (lightboxIndex + 1) % filteredImages.length
+
       : (lightboxIndex - 1 + filteredImages.length) % filteredImages.length;
 
+
+
     setLightboxIndex(newIndex);
+
     setLightboxImage(filteredImages[newIndex]);
+
   };
 
+
+
   const handleKeyPress = useCallback((e) => {
+
     if (!lightboxImage) return;
 
+
+
     if (e.key === 'Escape') closeLightbox();
+
     if (e.key === 'ArrowLeft') navigateLightbox('prev');
+
     if (e.key === 'ArrowRight') navigateLightbox('next');
+
   }, [lightboxImage, lightboxIndex]);
 
+
+
   useEffect(() => {
+
     document.addEventListener('keydown', handleKeyPress);
+
     return () => document.removeEventListener('keydown', handleKeyPress);
+
   }, [handleKeyPress]);
 
+
+
   const renderMainGallery = () => {
+
     if (galleryCategories.length === 0) {
+
       return (
+
         <div style={{ textAlign: 'center', padding: '4rem 1rem', color: '#6b7280' }}>
+
           <h2>No gallery folders found</h2>
+
           <p>Add image folders to src/assets/Gallery/ to display them here</p>
 
 
+
+
+
         </div>
+
       );
+
     }
 
+
+
     return (
+
       <div className="gallery-container" style={{
+
         width: '100%',
+
         background: 'transparent',
+
         minHeight: '100vh',
+
         position: 'relative',
+
         padding: '5px 5%'
+
       }}>
+
         <style>
+
           {`
+
             @media (max-width: 768px) {
+
               .gallery-container {
+
                 padding: 5px 1rem !important;
+
               }
+
               .gallery-grid {
+
                 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+
                 gap: 1.5rem !important;
+
                 padding: 0 0.5rem 2rem !important;
+
               }
+
             }
+
+
 
             @media (max-width: 480px) {
+
               .category-buttons-container {
+
                 flex-direction: column !important;
+
                 align-items: stretch !important;
+
                 padding: 0 2rem !important;
+
               }
+
               .category-quick-button {
+
                 max-width: 100% !important;
+
                 width: 100% !important;
+
               }
+
             }
 
+
+
           `}
+
         </style>
+
         {/* Parallax Background Elements */}
+
         <div style={{
+
           position: 'absolute',
 
+
+
           top: 0,
+
           left: 0,
+
           right: 0,
+
           bottom: 0,
 
+
+
           backgroundImage: `
+
           radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.05) 0%, transparent 50%),
+
           radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+
           radial-gradient(circle at 40% 60%, rgba(220, 38, 38, 0.02) 0%, transparent 50%)
+
           
+
         `,
+
+
+
 
 
         }}></div>
 
+
+
         <style>
+
           {`
+
           @keyframes float {
+
             0%, 100% { transform: translateY(0px) rotate(0deg); }
+
             33% { transform: translateY(-10px) rotate(1deg); }
+
             66% { transform: translateY(5px) rotate(-1deg); }
+
           }
+
         `}
+
         </style>
 
+
+
         {/* Gallery Header Section */}
+
         <div style={{
+
           maxWidth: '100%',
+
           margin: '0 auto',
+
           padding: '1.8rem 1rem',
+
           textAlign: 'center',
 
 
+
+
+
         }}>
+
           <h2 className="section-heading center-text" style={{ ...galleryStyles.headings, color: '#111827', marginBottom: '1rem', }}>Visit Our Gallery</h2>
 
+
+
           {/* Featured Tagline */}
+
           <div style={{
+
             display: 'flex',
+
             alignItems: 'center',
+
             justifyContent: 'center',
+
             gap: '1rem',
+
             marginBottom: '1rem',
+
             opacity: 0.8,
+
           }}>
+
             <div style={{ height: '1px', width: '30px', background: '#dc2626' }}></div>
+
             <span style={{
+
               textTransform: 'uppercase',
+
               letterSpacing: '0.2em',
+
               fontSize: '0.75rem',
+
               fontWeight: '700',
+
               color: '#dc2626',
+
               ...galleryStyles.headings
+
             }}>Featured Highlights</span>
+
             <div style={{ height: '1px', width: '30px', background: '#dc2626' }}></div>
+
           </div>
+
+
 
           {/* 16:9 Header Slider Section */}
+
           {headerGallery && headerGallery.images.length > 0 && (
+
             <div style={{
+
               maxWidth: '1200px',
+
               margin: '0 auto 2rem',
+
               borderRadius: '20px',
+
               overflow: 'hidden',
+
               boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+
               position: 'relative',
+
               zIndex: 2
 
+
+
             }}>
+
               <div style={{
+
                 width: '100%',
+
                 paddingBottom: '45%', // Adjusted from 35% to 45% to reduce cropping
+
                 position: 'relative',
+
                 background: '#f3f4f6'
+
               }}>
+
                 {headerGallery.images.map((img, idx) => (
+
                   <div
+
                     key={idx}
+
                     style={{
+
                       position: 'absolute',
+
                       top: 0,
+
                       left: 0,
+
                       width: '100%',
+
                       height: '100%',
+
                       opacity: currentHeaderIndex === idx ? 1 : 0,
+
                       transition: 'opacity 1s ease-in-out',
+
                       zIndex: currentHeaderIndex === idx ? 1 : 0
 
+
+
                     }}
+
                   >
+
                     <img
+
                       src={img.url}
-                      alt={`Gallery Header ${idx + 1} - Sai Chaitanya Junior College Madanapalle`}
+
+                      alt={`Header ${idx}`}
+
                       style={{
+
                         width: '100%',
+
                         height: '100%',
+
                         objectFit: 'cover',
+
                         objectPosition: 'top'
+
                       }}
+
                     />
 
+
+
                     {/* Caption Overlay */}
+
                     <div style={{
+
                       position: 'absolute',
+
                       bottom: 0,
+
                       left: 0,
+
                       right: 0,
+
                       background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
+
                       padding: '2rem 1.5rem 1.5rem',
+
                       color: 'white',
+
                       textAlign: 'left'
+
                     }}>
+
                       <p style={{
+
                         fontSize: '1rem',
+
                         fontWeight: '500',
+
                         textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+
                         ...galleryStyles.body
+
                       }}>
+
                         {img.title || "Experience Sai Chaitanya"}
+
                       </p>
+
                     </div>
+
                   </div>
+
                 ))}
 
+
+
                 {/* Left/Right Navigation Buttons */}
+
                 {headerGallery.images.length > 1 && (
+
                   <>
+
                     <button
+
                       onClick={(e) => {
+
                         e.stopPropagation();
+
                         setCurrentHeaderIndex(prev => (prev - 1 + headerGallery.images.length) % headerGallery.images.length);
+
                       }}
+
                       style={{
+
                         position: 'absolute',
+
                         left: '1rem',
+
                         top: '50%',
+
                         transform: 'translateY(-50%)',
+
                         background: 'rgba(15, 15, 15, 0.3)',
+
                         backdropFilter: 'blur(4px)',
+
                         border: 'none',
+
                         color: 'white',
+
                         width: '3rem',
+
                         height: '3rem',
+
                         borderRadius: '50%',
+
                         display: 'flex',
+
                         alignItems: 'center',
+
                         justifyContent: 'center',
+
                         cursor: 'pointer',
+
                         zIndex: 10,
+
                         transition: 'all 0.3s ease'
+
                       }}
+
                       onMouseOver={(e) => {
+
                         e.currentTarget.style.background = 'rgba(14, 13, 13, 0.5)';
+
                         e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+
                       }}
+
                       onMouseOut={(e) => {
+
                         e.currentTarget.style.background = 'rgba(14, 13, 13, 0.3)';
+
                         e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+
                       }}
+
                     >
+
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+
                         <polyline points="15 18 9 12 15 6"></polyline>
+
                       </svg>
+
                     </button>
+
                     <button
+
                       onClick={(e) => {
+
                         e.stopPropagation();
+
                         setCurrentHeaderIndex(prev => (prev + 1) % headerGallery.images.length);
+
                       }}
+
                       style={{
+
                         position: 'absolute',
+
                         right: '1rem',
+
                         top: '50%',
+
                         transform: 'translateY(-50%)',
+
                         background: 'rgba(16, 16, 16, 0.3)',
+
                         backdropFilter: 'blur(4px)',
+
                         border: 'none',
+
                         color: 'white',
+
                         width: '3rem',
+
                         height: '3rem',
+
                         borderRadius: '50%',
+
                         display: 'flex',
+
                         alignItems: 'center',
+
                         justifyContent: 'center',
+
                         cursor: 'pointer',
+
                         zIndex: 10,
+
                         transition: 'all 0.3s ease'
+
                       }}
+
                       onMouseOver={(e) => {
+
                         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
+
                         e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+
                       }}
+
                       onMouseOut={(e) => {
+
                         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+
                         e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+
                       }}
+
                     >
+
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+
                         <polyline points="9 18 15 12 9 6"></polyline>
+
                       </svg>
+
                     </button>
+
                   </>
+
                 )}
+
+
 
                 {/* Dots for navigation */}
+
                 {headerGallery.images.length > 1 && (
+
                   <div style={{
+
                     position: 'absolute',
+
                     bottom: '1rem',
+
                     right: '1.5rem',
+
                     display: 'flex',
+
                     gap: '0.5rem',
+
                     zIndex: 10
+
                   }}>
+
                     {headerGallery.images.map((_, idx) => (
+
                       <div
+
                         key={idx}
+
                         onClick={() => setCurrentHeaderIndex(idx)}
+
                         style={{
+
                           width: '8px',
+
                           height: '8px',
+
                           borderRadius: '50%',
+
                           background: currentHeaderIndex === idx ? '#9b2c2c' : 'rgba(255,255,255,0.4)',
+
                           cursor: 'pointer',
+
                           transition: 'all 0.3s'
+
                         }}
+
                       />
+
                     ))}
+
                   </div>
+
                 )}
+
               </div>
+
             </div>
+
           )}
 
+
+
           {/* Category Quick Access Buttons */}
+
           <div className="category-buttons-container" style={{
+
             display: 'flex',
+
             flexDirection: 'row',
+
             gap: '1rem',
+
             justifyContent: 'center',
+
             flexWrap: 'wrap',
+
             margin: '2rem 0 3rem',
+
             padding: '0 1rem'
+
           }}>
+
             {galleryCategories.map((category) => (
+
               <button
+
                 key={category.id}
+
                 className="category-quick-button"
+
                 onClick={() => {
+
                   setCurrentView(category.id);
+
                   setSelectedCategory(category);
+
                   setVisibleImages(20);
+
                 }}
+
                 style={{
+
                   background: 'transparent',
+
                   border: '2px solid #dc262620',
+
                   borderRadius: '12px',
+
                   padding: '0.75rem 1.5rem',
+
                   fontSize: '0.875rem',
+
                   fontWeight: '600',
+
                   color: '#B91C1C',
+
                   cursor: 'pointer',
+
                   transition: 'all 0.3s ease',
+
                   position: 'relative',
+
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+
                   display: 'flex',
+
                   alignItems: 'center',
+
                   gap: '0.5rem',
+
                   width: '100%',          // optional: full width of container
+
                   maxWidth: '300px'
 
+
+
                 }}
+
                 onMouseOver={(e) => {
+
                   e.currentTarget.style.transform = 'translateY(-2px)';
+
                   e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
+
                   e.currentTarget.style.borderColor = '#dc2626';
+
                 }}
+
                 onMouseOut={(e) => {
+
                   e.currentTarget.style.transform = 'translateY(0)';
+
                   e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+
                   e.currentTarget.style.borderColor = '#dc262620';
+
                 }}
+
               >
+
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="#dc2626">
+
                   <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+
                 </svg>
+
                 {category.name}
+
               </button>
+
             ))}
+
           </div>
+
+
 
           <div style={{
+
             display: 'grid',
+
             gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+
             gap: '2.5rem',
+
             padding: '0 1rem 10rem',
+
             maxWidth: '1400px',
+
             margin: '0 auto',
+
             minHeight: '60vh'
+
           }}>
+
             {galleryCategories.map((category) => (
+
               <div
+
                 key={category.id}
+
                 className="category-button"
+
                 style={{
+
                   background: '#ffffff', borderRadius: '12px', overflow: 'hidden',
+
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', cursor: 'pointer',
+
                   transition: 'all 0.3s ease',
+
                   border: '2px solid #dc262620', position: 'relative',
+
                   backgroundImage: 'linear-gradient(135deg, #fefcf8 0%, #faf7f0 100%)',
+
                   display: 'flex',
+
                   flexDirection: 'column'
+
                 }}
+
                 onClick={() => {
+
                   setCurrentView(category.id);
+
                   setSelectedCategory(category);
+
                   setVisibleImages(20);
+
                 }}
+
                 onMouseOver={(e) => {
+
                   e.currentTarget.style.transform = 'translateY(-4px)';
+
                   e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
+
                   e.currentTarget.style.borderColor = '#eb7932ff';
+
                 }}
+
                 onMouseOut={(e) => {
+
                   e.currentTarget.style.transform = 'translateY(0)';
+
                   e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+
                   e.currentTarget.style.borderColor = '#dc262620';
+
                 }}
+
               >
+
                 <div style={{
+
                   position: 'absolute',
+
                   left: '-2px',
+
                   top: '-2px',
+
                   bottom: '-2px',
+
                   width: '4px',
+
                   background: 'linear-gradient(to bottom, #eb7932ff, #eb7932ff)'
+
                 }}></div>
+
                 <div style={{ height: '100%', overflow: 'hidden' }}>
+
                   <img
+
                     src={category.images[0]?.url || category.images[0]?.photoUrl || category.coverImage}
+
                     alt={category.name}
+
                     loading="lazy"
+
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+
                   />
+
                 </div>
+
                 <div style={{ padding: '1rem', textAlign: 'center' }}>
+
                   <h3 style={{ fontSize: '0.9rem', fontWeight: '500', color: '#111827', margin: '0', ...galleryStyles.headings }}>{category.name}</h3>
+
                 </div>
+
               </div>
+
             ))}
+
           </div>
+
         </div>
+
       </div >
+
     );
+
   };
 
+
+
   const renderCategoryView = () => {
+
     const filteredImages = getFilteredImages();
 
+
+
     return (
+
       <div style={{
+
         maxWidth: '1400px',
+
         margin: '0 auto',
+
         padding: '0.5rem',
+
         width: '100%',
+
         background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+
         minHeight: '100vh',
+
         borderRadius: '0'
+
       }}>
+
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 0', fontSize: '0.875rem', color: '#6b7280', flexWrap: 'wrap' }}>
+
           <button onClick={() => setCurrentView('main')} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', textDecoration: 'underline' }}>Home</button>
+
           <span>›</span>
+
           <button onClick={() => setCurrentView('main')} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', textDecoration: 'underline' }}>Gallery</button>
+
           <span>›</span>
+
           <span style={{ color: '#111827', fontWeight: '500' }}>{selectedCategory?.name}</span>
+
         </nav>
 
+
+
         <div style={{ position: 'relative', width: '100%', height: '40vh', minHeight: '250px', borderRadius: '12px', overflow: 'hidden', marginBottom: '2rem' }}>
+
           <img
+
             src={selectedCategory?.coverImage}
+
             alt={selectedCategory?.name}
+
             loading="lazy"
+
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+
           />
+
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.7))', padding: '2rem 1rem 1rem', color: 'white' }}>
+
             <h1 style={{ fontSize: '2rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.5)', ...galleryStyles.headings }}>{selectedCategory?.name}</h1>
+
           </div>
+
         </div>
+
+
 
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => setCurrentView('main')}
-            style={{
-              background: 'transparent',
-              border: '2px solid #dc262620',
-              borderRadius: '12px',
-              padding: '0.75rem 1.5rem',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              color: '#eb7932ff',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
-              e.currentTarget.style.borderColor = '#eb7932ff';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-              e.currentTarget.style.borderColor = '#dc262620';
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#eb7932ff">
-              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-            </svg>
-            Back to All Categories
-          </button>
 
           <button
-            onClick={() => {
-              const currentIndex = galleryCategories.findIndex(cat => cat.id === selectedCategory?.id);
-              const nextIndex = (currentIndex + 1) % galleryCategories.length;
-              const nextCategory = galleryCategories[nextIndex];
-              setCurrentView(nextCategory.id);
-              setSelectedCategory(nextCategory);
-              setVisibleImages(20);
-            }}
+
+            onClick={() => setCurrentView('main')}
+
             style={{
+
               background: 'transparent',
+
               border: '2px solid #dc262620',
+
               borderRadius: '12px',
+
               padding: '0.75rem 1.5rem',
+
               fontSize: '0.875rem',
+
               fontWeight: '600',
+
               color: '#eb7932ff',
+
               cursor: 'pointer',
+
               transition: 'all 0.3s ease',
+
               position: 'relative',
+
               boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+
               display: 'flex',
+
               alignItems: 'center',
+
               gap: '0.5rem'
+
             }}
+
             onMouseOver={(e) => {
+
               e.currentTarget.style.transform = 'translateY(-2px)';
+
               e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
+
               e.currentTarget.style.borderColor = '#eb7932ff';
+
             }}
+
             onMouseOut={(e) => {
+
               e.currentTarget.style.transform = 'translateY(0)';
+
               e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+
               e.currentTarget.style.borderColor = '#dc262620';
+
             }}
+
           >
-            Next Category
+
             <svg width="16" height="16" viewBox="0 0 24 24" fill="#eb7932ff">
-              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+
             </svg>
+
+            Back to All Categories
+
           </button>
+
+
+
+          <button
+
+            onClick={() => {
+
+              const currentIndex = galleryCategories.findIndex(cat => cat.id === selectedCategory?.id);
+
+              const nextIndex = (currentIndex + 1) % galleryCategories.length;
+
+              const nextCategory = galleryCategories[nextIndex];
+
+              setCurrentView(nextCategory.id);
+
+              setSelectedCategory(nextCategory);
+
+              setVisibleImages(20);
+
+            }}
+
+            style={{
+
+              background: 'transparent',
+
+              border: '2px solid #dc262620',
+
+              borderRadius: '12px',
+
+              padding: '0.75rem 1.5rem',
+
+              fontSize: '0.875rem',
+
+              fontWeight: '600',
+
+              color: '#eb7932ff',
+
+              cursor: 'pointer',
+
+              transition: 'all 0.3s ease',
+
+              position: 'relative',
+
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+
+              display: 'flex',
+
+              alignItems: 'center',
+
+              gap: '0.5rem'
+
+            }}
+
+            onMouseOver={(e) => {
+
+              e.currentTarget.style.transform = 'translateY(-2px)';
+
+              e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
+
+              e.currentTarget.style.borderColor = '#eb7932ff';
+
+            }}
+
+            onMouseOut={(e) => {
+
+              e.currentTarget.style.transform = 'translateY(0)';
+
+              e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+
+              e.currentTarget.style.borderColor = '#dc262620';
+
+            }}
+
+          >
+
+            Next Category
+
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#eb7932ff">
+
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+
+            </svg>
+
+          </button>
+
         </div>
+
+
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+
           {filteredImages.map((image, index) => (
+
             <div
+
               key={image.id}
+
               style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', cursor: 'pointer', transition: 'transform 0.3s ease' }}
+
               onClick={() => openLightbox(image, index)}
+
             >
+
               <img
+
                 src={image.url || image.photoUrl}
+
                 alt={image.title}
+
                 loading="lazy"
+
                 style={{ width: '100%', height: '20rem', objectFit: 'cover', display: 'block' }}
+
               />
+
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.8))', color: 'white', padding: '1rem' }}>
+
                 <h4 style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>{image.title || image.caption}</h4>
+
                 <span style={{ fontSize: '0.75rem', opacity: 0.9 }}>{image.date}</span>
+
               </div>
+
             </div>
+
           ))}
+
         </div>
 
+
+
         {visibleImages < selectedCategory?.images.length && (
+
           <div ref={loadMoreRef} style={{ textAlign: 'center', padding: '2rem' }}>
+
             {isLoading && <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>Loading...</div>}
+
           </div>
+
         )}
+
+
 
         {/* View All Categories Button */}
 
+
+
       </div>
+
     );
+
   };
+
+
 
   const renderLightbox = () => {
+
     if (!lightboxImage) return null;
 
+
+
     return (
+
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.95)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={closeLightbox}>
+
         <div style={{ position: 'relative', width: '90vw', height: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} onClick={(e) => e.stopPropagation()}>
-          <button
-            onClick={closeLightbox}
-            style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0, 0, 0, 0.5)', border: 'none', color: 'white', fontSize: '2rem', cursor: 'pointer', zIndex: 1001, width: '3rem', height: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}
-          >
-            ×
-          </button>
 
           <button
-            onClick={() => navigateLightbox('prev')}
-            style={{ position: 'absolute', top: '50%', left: '1rem', transform: 'translateY(-50%)', background: 'rgba(0, 0, 0, 0.5)', border: 'none', color: 'white', fontSize: '2rem', cursor: 'pointer', width: '3rem', height: '3rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1001 }}
+
+            onClick={closeLightbox}
+
+            style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0, 0, 0, 0.5)', border: 'none', color: 'white', fontSize: '2rem', cursor: 'pointer', zIndex: 1001, width: '3rem', height: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}
+
           >
-            ‹
+
+            ×
+
           </button>
+
+
+
+          <button
+
+            onClick={() => navigateLightbox('prev')}
+
+            style={{ position: 'absolute', top: '50%', left: '1rem', transform: 'translateY(-50%)', background: 'rgba(0, 0, 0, 0.5)', border: 'none', color: 'white', fontSize: '2rem', cursor: 'pointer', width: '3rem', height: '3rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1001 }}
+
+          >
+
+            ‹
+
+          </button>
+
+
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+
             <img
+
               src={lightboxImage.url || lightboxImage.photoUrl}
+
               alt={lightboxImage.title}
+
               style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '8px' }}
+
             />
+
           </div>
 
+
+
           <button
+
             onClick={() => navigateLightbox('next')}
+
             style={{ position: 'absolute', top: '50%', right: '1rem', transform: 'translateY(-50%)', background: 'rgba(0, 0, 0, 0.5)', border: 'none', color: 'white', fontSize: '2rem', cursor: 'pointer', width: '3rem', height: '3rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1001 }}
+
           >
+
             ›
+
           </button>
+
         </div>
+
       </div>
+
     );
+
   };
 
+
+
   return (
+
     <div style={{
+
       fontFamily: 'Inter, Roboto, sans-serif',
+
       color: '#333',
+
       background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+
       minHeight: '100vh',
+
       width: '100%',
+
       paddingTop: '80px',
+
       position: 'relative'
+
     }}>
+
       <SEO
         title="Gallery"
         description="Explore Sai Chaitanya Junior College's vibrant campus life. View photos of our modern facilities, classrooms, labs, events, celebrations, and student activities in Madanapalle, AP."
@@ -738,23 +1468,43 @@ const Gallery = () => {
       />
 
       {/* Background Pattern */}
+
       <div style={{
+
         position: 'fixed',
+
         top: 0,
+
         left: 0,
+
         right: 0,
+
         bottom: 0,
+
         backgroundImage: `
+
           radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+
           radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.02) 0%, transparent 50%),
+
           radial-gradient(circle at 40% 60%, rgba(220, 38, 38, 0.01) 0%, transparent 50%)
+
         `,
+
         zIndex: -1
+
       }}></div>
+
       {currentView === 'main' ? renderMainGallery() : renderCategoryView()}
+
       {renderLightbox()}
+
     </div>
+
   );
+
 };
+
+
 
 export default Gallery;

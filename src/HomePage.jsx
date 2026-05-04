@@ -1,51 +1,29 @@
 import React, { useState, useEffect } from "react";
-
 import "./assets/styles.css";
-
 import { heroSliderData, aboutContent, visionMissionData, featuresData } from "./data/staticData";
-
 import { Link } from "react-router-dom";
-
 import image0 from "./assets/Heroic/image0.png";
-
 import image from "./assets/Heroic/image.png";
-
 import image1 from "./assets/Heroic/image1.png";
-
 import image2 from "./assets/Heroic/image2.png";
-
-import image3 from "./assets/Heroic/image11.png";
-
 import image4 from "./assets/Heroic/image4.png";
-
+import image11 from "./assets/Heroic/image11.png";
 import image5 from "./assets/Heroic/image5.jpeg";
-
 import ceoImage from "./assets/Photos/AboutUs/ceo.png";
-
 import image10 from "./assets/Heroic/image10.png";
-
 import image611 from "./assets/Heroic/image611.png";
-
 import image100 from "./assets/Heroic/image100.png";
-
 import { galleryData } from "./utils/imageLoader";
-
 import MobileHeroSlider from "./components/MobileHeroSlider";
-
 import { useResponsive } from "./hooks/useResponsive";
 import SEO from "./components/SEO";
-
 
 export default function HomePage() {
 
   const [formData, setFormData] = useState({
-
     name: '',
-
     email: '',
-
     phone: '',
-
     message: ''
 
   });
@@ -60,7 +38,7 @@ export default function HomePage() {
 
   const [statsAnimated, setStatsAnimated] = useState(false);
 
-  const [statCounts, setStatCounts] = useState({ years: 19, students: 528, faculty: 35, success: 100 });
+  const [statCounts, setStatCounts] = useState({ years: 19, students: 800, faculty: 35, success: 100 });
 
   const [tickerPosition, setTickerPosition] = useState(0);
 
@@ -83,11 +61,8 @@ export default function HomePage() {
       cta: "Explore Excellence",
 
       ctaLink: "/academics",
-
       badge: "Premium Quality"
-
     },
-
     {
 
       image: image4,
@@ -162,7 +137,7 @@ export default function HomePage() {
 
     {
 
-      image: image3,
+      image: image11,
 
       title: "Holistic Development",
 
@@ -340,7 +315,7 @@ export default function HomePage() {
 
   const animateStats = () => {
 
-    const targets = { years: 19, students: 528, faculty: 35, success: 100 };
+    const targets = { years: 19, students: 800, faculty: 35, success: 100 };
 
     const duration = 2000;
 
@@ -468,9 +443,8 @@ export default function HomePage() {
   return (
 
   <div className="homepage-container">
-
     <SEO
-      title="Sai Chaitanya Junior College, Madanapalle | MPC, BiPC, MBiPC, MEC, CEC"
+      title="Best Junior College in Madanapalle & Annamayya District | Sai Chaitanya Junior College"
       description="Sai Chaitanya Junior College - Premium education in Madanapalle, Andhra Pradesh. 19 years of excellence with 800+ students and 35+ experienced faculty. Offering MPC, BiPC, MBiPC, MEC, and CEC courses."
       keywords="Sai Chaitanya Junior College, Madanapalle, Intermediate College, MPC BiPC MBiPC MEC CEC, NEET Coaching, JEE Coaching, Best Intermediate Junior College AP, Best Intermediate Junior College Madanapalle"
       ogUrl="https://saichaitanyacollege.com"
@@ -529,7 +503,7 @@ export default function HomePage() {
 
                 src={slide.image}
 
-                alt={`${slide.title} - Sai Chaitanya Junior College Madanapalle`}
+                alt={slide.title}
 
                 loading={index <= 1 ? "eager" : "lazy"}
 
@@ -1333,11 +1307,11 @@ export default function HomePage() {
 
               <div style={{ marginBottom: '2rem' }}>
 
-                <h1 style={{
+                <h3 style={{
 
                   ...homePageStyles.headings,
 
-                  fontSize: '22px',
+                  fontSize: '18px',
 
                   color: '#111827',
 
@@ -1345,13 +1319,13 @@ export default function HomePage() {
 
                   lineHeight: '1.3',
 
-                  fontWeight: '700'
+                  fontWeight: '600'
 
                 }}>
 
-                  Sai Chaitanya Junior College, Madanapalle - Shaping Tomorrow's Leaders Through Academic Excellence
+                  Shaping Tomorrow's Leaders Through Academic Excellence
 
-                </h1>
+                </h3>
 
                 <p style={{
 
@@ -1390,16 +1364,23 @@ export default function HomePage() {
                   Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges. Our approach combines rigorous academic training with personal mentorship to ensure every student reaches their full potential.
 
                 </p>
+                {/* SEO Content - Natural Keyword Integration */}
+                <p style={{
+                  ...homePageStyles.body,
+                  fontSize: '12px',
+                  lineHeight: '1.8',
+                  color: '#4b5563',
+                  marginTop: '1rem',
+                  textAlign: 'justify'
+                }}>
+                  Sai Chaitanya Junior College in Madanapalle is recognized as one of the best intermediate junior colleges in Annamayya district, providing quality education in MPC, BiPC, MBiPC, MEC, and CEC streams. Whether you are looking for the best college for MPC in Madanapalle or seeking a top junior college in Annamayya district for NEET and JEE coaching, our institution offers comprehensive programs designed for student success. As a leading intermediate college in Madanapalle, we combine academic excellence with competitive exam preparation.
+                </p>
 
               </div>
 
 
 
               {/* Key Features */}
-
-
-
-
 
 
 
@@ -1879,364 +1860,18 @@ export default function HomePage() {
 
 
 
-      {/* LATEST NOTICES / ANNOUNCEMENTS STRIP */}
-
-      {/* <section className="notices-strip" style={{ background: '#f8f9fa', padding: '3rem 0' }}>
-
-        <div className="strip-container">
-
-        <h2 className="section-heading center-text" style={homePageStyles.headings}>Latest Notices & Announcements</h2>
-
-          <style>
-
-            {`
-
-              @media (max-width: 768px) {
-
-                .notices-grid {
-
-                  display: flex !important;
-
-                  overflow-x: auto !important;
-
-                  gap: 1rem !important;
-
-                  padding-bottom: 1rem !important;
-
-                }
-
-                .notice-card {
-
-                  min-width: 300px !important;
-
-                  flex-shrink: 0 !important;
-
-                }
-
-              }
-
-            `}
-
-          </style>
-
-          <div className="notices-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
-
-            {[
-
-              {
-
-                type: 'URGENT',
-
-                title: 'Admission Process 2025-26 Started',
-
-                content: 'Online applications are now open for Intermediate First Year admissions. Last date for submission is March 15, 2025. Required documents: SSC marks memo, TC, caste certificate.',
-
-                date: '2025-01-15',
-
-                priority: 'high'
-
-              },
-
-              {
-
-                type: 'EXAM',
-
-                title: 'Mid-Term Examination Schedule',
-
-                content: 'Mid-term examinations for all streams (MPC, BiPC, CEC, HEC, MEC) will commence from February 10, 2025. Time table available on notice board and website.',
-
-                date: '2025-01-12',
-
-                priority: 'medium'
-
-              },
-
-              {
-
-                type: 'EVENT',
-
-                title: 'Annual Science Exhibition 2025',
-
-                content: 'Students are invited to participate in the Annual Science Exhibition. Registration deadline: January 25, 2025. Prizes worth ₹50,000 for winners.',
-
-                date: '2025-01-10',
-
-                priority: 'medium'
-
-              },
-
-              {
-
-                type: 'ACADEMIC',
-
-                title: 'Special Coaching Classes for NEET/JEE',
-
-                content: 'Additional coaching sessions for NEET and JEE preparation starting from January 20, 2025. Limited seats available. Contact office for registration.',
-
-                date: '2025-01-08',
-
-                priority: 'medium'
-
-              },
-
-              {
-
-                type: 'HOLIDAY',
-
-                title: 'Republic Day Celebration',
-
-                content: 'College will remain closed on January 26, 2025 for Republic Day. Flag hoisting ceremony at 9:00 AM. All students and staff are invited.',
-
-                date: '2025-01-05',
-
-                priority: 'low'
-
-              },
-
-              {
-
-                type: 'FEE',
-
-                title: 'Fee Payment Reminder',
-
-                content: 'Second installment fee payment due date is January 31, 2025. Late fee of ₹500 will be charged after the due date. Pay online or at college office.',
-
-                date: '2025-01-03',
-
-                priority: 'high'
-
-              }
-
-            ].map((notice, index) => (
-
-              <div key={index} className="notice-card" style={{
-
-                background: '#ffffff',
-
-                borderRadius: '12px',
-
-                padding: '1.5rem',
-
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-
-                border: `3px solid ${notice.priority === 'high' ? '#dc2626' : notice.priority === 'medium' ? '#f59e0b' : '#10b981'}`,
-
-                position: 'relative',
-
-                transition: 'transform 0.3s ease'
-
-              }}
-
-              onMouseOver={(e) => {
-
-                e.currentTarget.style.transform = 'translateY(-5px)';
-
-              }}
-
-              onMouseOut={(e) => {
-
-                e.currentTarget.style.transform = 'translateY(0)';
-
-              }}>
-
-                <div style={{
-
-                  position: 'absolute',
-
-                  top: '-1px',
-
-                  right: '-1px',
-
-                  background: notice.priority === 'high' ? '#dc2626' : notice.priority === 'medium' ? '#f59e0b' : '#10b981',
-
-                  color: 'white',
-
-                  padding: '0.25rem 0.75rem',
-
-                  borderRadius: '0 12px 0 12px',
-
-                  fontSize: '0.75rem',
-
-                  fontWeight: '600'
-
-                }}>
-
-                  {notice.type}
-
-                </div>
-
-                
-
-                <div style={{ marginTop: '0.5rem' }}>
-
-                  <h3 style={{ ...homePageStyles.headings, fontSize: '1rem', color: '#111827', marginBottom: '0.75rem' }}>
-
-                    {notice.title}
-
-                  </h3>
-
-                  
-
-                  <p style={{ ...homePageStyles.body, fontSize: '0.75rem', color: '#4b5563', lineHeight: '1.6', marginBottom: '1rem' }}>
-
-                    {notice.content}
-
-                  </p>
-
-                  
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-
-                    <span style={{ ...homePageStyles.body, fontSize: '0.875rem', color: '#6b7280', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-
-                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-
-                      </svg>
-
-                      {new Date(notice.date).toLocaleDateString('en-IN', { 
-
-                        year: 'numeric', 
-
-                        month: 'long', 
-
-                        day: 'numeric' 
-
-                      })}
-
-                    </span>
-
-                    {notice.priority === 'high' && (
-
-                      <span style={{
-
-                        background: '#fef2f2',
-
-                        color: '#dc2626',
-
-                        padding: '0.25rem 0.5rem',
-
-                        borderRadius: '6px',
-
-                        fontSize: '0.75rem',
-
-                        fontWeight: '600',
-
-                        display: 'flex',
-
-                        alignItems: 'center',
-
-                        gap: '0.25rem'
-
-                      }}>
-
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-
-                          <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-
-                        </svg>
-
-                        URGENT
-
-                      </span>
-
-                    )}
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
-
-          
-
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-
-            <Link 
-
-              to="/announcements"
-
-              style={{
-
-                padding: '0.75rem 2rem',
-
-                background: '#dc2626',
-
-                color: 'white',
-
-                border: 'none',
-
-                borderRadius: '8px',
-
-                fontSize: '1rem',
-
-                fontWeight: '600',
-
-                textDecoration: 'none',
-
-                display: 'inline-block',
-
-                transition: 'all 0.3s ease'
-
-              }}
-
-              onMouseOver={(e) => {
-
-                e.target.style.background = '#b91c1c';
-
-              }}
-
-              onMouseOut={(e) => {
-
-                e.target.style.background = '#dc2626';
-
-              }}
-
-              
-
-            >
-
-              View All Announcements →
-
-            </Link>
-
-          </div>
-
-        </div> */}
-
-      {/* </section> */}
-
-
-
       {/* FINAL CTA STRIP */}
-
       <section className="cta-strip" style={{
-
         padding: '3rem 0',
-
         background: '#ffffff'
-
       }}>
-
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-
             <h2 className="section-heading center-text" style={{
-
               ...homePageStyles.headings,
-
               color: '#111827'
-
             }}>
-
               Ready to Join Us?
-
             </h2>
 
           </div>
