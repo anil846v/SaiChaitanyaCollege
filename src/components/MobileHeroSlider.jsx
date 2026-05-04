@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import image1 from '../assets/Heroic/image100.png';
-import image2 from '../assets/Heroic/image4.png';
-import image3 from '../assets/Heroic/image10.png';
-import image4 from '../assets/Heroic/image.png';
-import image5 from '../assets/Heroic/image611.png';
-import image6 from '../assets/Heroic/image3.png';
+import image1 from '../assets/MobileHeroic/image1.png';
+import image2 from '../assets/MobileHeroic/image2.png';
+import image3 from '../assets/MobileHeroic/image3.png';
+import image4 from '../assets/MobileHeroic/image4.png';
+import image5 from '../assets/Heroic/image10.png';
+import image6 from '../assets/MobileHeroic/image3.png';
 
 const MobileHeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -92,7 +92,7 @@ const MobileHeroSlider = () => {
           >
             <img
               src={slide.image}
-              alt={slide.title}
+              alt={`${slide.title} - Sai Chaitanya Junior College Madanapalle`}
               loading={index <= 1 ? "eager" : "lazy"}
               style={{
                 width: '100%',

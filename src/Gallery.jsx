@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { galleryData } from './utils/imageLoader';
 import { formatFolderName } from './utils/galleryUtils';
+import SEO from './components/SEO';
 
 // Generate gallery categories dynamically from available folders
 const categoryDescriptions = {
   "campus and classrooms": "State-of-the-art learning environments equipped with modern teaching aids, interactive whiteboards, and comfortable seating arrangements designed to enhance student engagement and academic excellence.",
-  "events & celebrations": "Vibrant campus celebrations, cultural festivals, and special events that foster community spirit, showcase student talents, and create memorable experiences throughout the academic year.",
+  "achievements & celebrations": "Vibrant campus celebrations, cultural festivals, and special events that foster community spirit, showcase student talents, and create memorable experiences throughout the academic year.",
   "labs & facilities": "Well-equipped laboratories and modern facilities providing hands-on learning experiences in science, technology, and research to support practical education and innovation."
 };
 
@@ -270,7 +271,7 @@ const Gallery = () => {
                   >
                     <img
                       src={img.url}
-                      alt={`Header ${idx}`}
+                      alt={`Gallery Header ${idx + 1} - Sai Chaitanya Junior College Madanapalle`}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -728,6 +729,14 @@ const Gallery = () => {
       paddingTop: '80px',
       position: 'relative'
     }}>
+      <SEO
+        title="Gallery"
+        description="Explore Sai Chaitanya Junior College's vibrant campus life. View photos of our modern facilities, classrooms, labs, events, celebrations, and student activities in Madanapalle, AP."
+        keywords="College Gallery, Campus Photos, Madanapalle Junior College, School Facilities, College Events, Student Activities, Lab Photos"
+        ogUrl="https://saichaitanyacollege.com/gallery"
+        canonical="https://saichaitanyacollege.com/gallery"
+      />
+
       {/* Background Pattern */}
       <div style={{
         position: 'fixed',

@@ -70,7 +70,7 @@ const HeroSlideshow = ({ style, className }) => {
         <img
           key={index}
           src={image}
-          alt={`Hero slide ${index + 1}`}
+          alt={`Sai Chaitanya Junior College Campus View ${index + 1} - Madanapalle`}
           style={{
             position: 'absolute',
             top: 0,

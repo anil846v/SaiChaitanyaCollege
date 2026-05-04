@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./assets/styles.css";
+import SEO from "./components/SEO";
 
 /* 🔥 Auto import all student photos */
 const images = import.meta.glob(
@@ -59,6 +60,14 @@ export default function ResultsAchievements() {
 
   return (
     <div className="results-achievements-container">
+     <SEO
+      title="Results & Achievements | Sai Chaitanya Junior College, Madanapalle"
+      description="Explore Sai Chaitanya Junior College results and achievements. View student academic performance, top ranks, pass percentages, and success stories in Intermediate education at Madanapalle, Andhra Pradesh."
+      keywords="Sai Chaitanya Results, College Achievements Madanapalle, Inter Results AP, Top Rankers Junior College, Student Performance, Intermediate Results, Best Junior College Results"
+      ogUrl="https://saichaitanyacollege.com/results"
+      canonical="https://saichaitanyacollege.com/results"
+     />
+
       <section className="results-achievements-strip" style={{ padding: '2.2rem 0', background: '#f8f9fa', marginTop: '80px' }}>
 
         <div style={{maxWidth:'100% !important',margin:'0 75px !important',padding: '0 1.5rem'}}>

@@ -6,6 +6,7 @@ import classroomBg from "./assets/Gallery/Campus and Classrooms/image.png";
 import image1 from "./assets/Heroic/image1.png";
 
 import teachingImage1 from "./assets/Photos/Teaching Methdodolgy/image.png";
+import SEO from "./components/SEO";
 // Dynamic image loading for Academic courses
 const academicImages = import.meta.glob('./assets/Academics/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 
@@ -56,8 +57,8 @@ export default function Academic() {
   const groupsOffered = [
     {
       title: "MPC",
-      subtitle: "Mathematics, Physics, Chemistry",
-      description: "Ideal for students aiming for Engineering, IIT-JEE, Architecture, and pure sciences. Strong focus on problem-solving and competitive exam preparation.",
+      subtitle: "Mathematics, Physics, Chemistry (EAPCET,JEE Coaching)",
+      description: "Ideal for students aiming for Engineering, IIT-JEE, Architecture, and pure sciences. Strong focus on problem-solving and competitive exam preparation and with EAPCET,JEE Coaching",
       medium: "English / Telugu Medium",
       strength: "Multiple sections available",
       features: ["IIT-JEE Coaching", "Advanced Labs", "Problem Solving"],
@@ -66,13 +67,23 @@ export default function Academic() {
     },
     {
       title: "BiPC",
-      subtitle: "Biology, Physics, Chemistry",
-      description: "Perfect for aspiring medical professionals – prepares for NEET, EAMCET (Medical), Biotechnology, Pharmacy, and allied health sciences.",
+      subtitle: "Biology, Physics, Chemistry (NEET Coaching)",
+      description: "Perfect for aspiring medical professionals – prepares for NEET, EAMCET (Medical), Biotechnology, Pharmacy, and allied health sciences.and with NEET Coaching.",
       medium: "English / Telugu Medium",
       strength: "Multiple sections available",
       features: ["NEET Preparation", "Medical Labs", "Clinical Training"],
       color: "#dc2626",
       backgroundImage: getCourseImage("BiPC")
+    },
+    {
+      title: "MBiPC",
+      subtitle: "Mathematics, Biology, Physics, Chemistry (NEET,EAPCET Coaching)" ,
+      description: "A unique combination of Maths and Biology, ideal for students interested in both engineering and medical-related fields. Suitable for careers in Biotechnology, Bioinformatics, Pharmacy, Agriculture, and interdisciplinary sciences and with EAPCET,NEET Coaching",
+      medium: "English / Telugu Medium",
+      strength: "Available sections",
+      features: ["Biotechnology Foundation", "Analytical Thinking", "Lab & Research Skills"],
+      color: "#dc2626",
+      backgroundImage: getCourseImage("MBIPC")
     },
     {
       title: "MEC",
@@ -94,22 +105,20 @@ export default function Academic() {
       features: ["CA Foundation", "Business Skills", "Accounting"],
       color: "#dc2626",
       backgroundImage: getCourseImage("CEC")
-    },
-     {
-      title: "HEC",
-      subtitle: "History, Economics, Civics",
-      description: "Suited for humanities, social sciences, civil services (UPSC/APPSC), law, journalism, and teaching careers.",
-      medium: "English / Telugu Medium",
-      strength: "Available sections",
-      features: ["UPSC Guidance", "Research Skills", "Essay Writing"],
-      color: "#dc2626",
-      backgroundImage: getCourseImage("HEC")
-    },
+    }
     
   ];
 
   return (
     <div className="academic-container">
+      <SEO
+        title="Academics"
+        description="Sai Chaitanya Junior College offers MPC, BiPC, MBiPC, MEC, and CEC courses with NEET, JEE, and IPMAT coaching. Experienced faculty, advanced labs, and proven teaching methodologies in Madanapalle, AP."
+        keywords="MPC BiPC MEC CEC,EAPCET, Intermediate Courses, NEET Coaching, JEE Coaching, IPMAT Preparation, Madanapalle Junior College, Best Intermediate College AP,Best Intermediate College In Madanapalle"
+        ogUrl="https://saichaitanyacollege.com/academics"
+        canonical="https://saichaitanyacollege.com/academics"
+      />
+
       {/* COURSES OFFERED STRIP */}
       <section id="courses-section" className="courses-strip" style={{ background: '#f8f9fa', padding: '2rem 0', marginTop: '80px' }}>
         <style>
@@ -316,6 +325,228 @@ export default function Academic() {
               e.target.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
             }}>
             Apply for Admission
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+
+      {/* SUMMER COACHING PROGRAMS STRIP */}
+      <section id="summer-coaching" className="summer-coaching-strip" style={{ background: '#ffffff', padding: '3rem 0', borderTop: '1px solid #e5e7eb', borderBottom: '1px solid #e5e7eb' }}>
+        <style>
+          {`
+            @media (max-width: 768px) {
+              .summer-coaching-strip {
+                padding: 2rem 0 !important;
+              }
+              .summer-coaching-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+                padding: 0 1rem !important;
+              }
+              .summer-card {
+                min-width: unset !important;
+              }
+            }
+          `}
+        </style>
+        <div className="strip-container">
+          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <h2 className="section-heading center-text" style={{
+              ...homePageStyles.headings,
+              color: '#111827'
+            }}>
+              Summer Coaching Programs
+            </h2>
+          </div>
+          <p style={{ ...homePageStyles.body, fontSize: '0.875rem', color: '#6b7280', width: '100%', textAlign: 'center', margin: '0 0 3rem 0', lineHeight: '1.6' }}>
+            Intensive entrance exam coaching for Intermediate completed students - EAPCET, JEE & NEET Preparation
+          </p>
+        </div>
+
+        <div className="summer-coaching-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '2rem',
+          width: '100%',
+          padding: '5px 39px',
+          boxSizing: 'border-box'
+        }}>
+          {[{
+            title: "EAPCET",
+            subtitle: "Engineering & Agriculture Entrance",
+            description: "Intensive summer coaching for AP EAPCET exam. Covers Mathematics, Physics, Chemistry with problem-solving techniques for Engineering and Agriculture streams.",
+            eligibility: "MPC / MBiPC Completed",
+            features: ["4-Week Program", "Daily Tests", "Doubt Clearing"],
+            color: "#dc2626",
+            backgroundImage: groupsOffered[0]?.backgroundImage
+          },
+          {
+            title: "JEE",
+            subtitle: "IIT-JEE Foundation Course", 
+            description: "Foundation course for IIT-JEE aspirants. Advanced Mathematics, Physics, Chemistry concepts with shortcut methods and MCQ practice for top engineering colleges.",
+            eligibility: "MPC / MBiPC Completed",
+            features: ["3-Week Program", "MCQ Practice", "Shortcut Methods"],
+            color: "#dc2626",
+            backgroundImage: groupsOffered[0]?.backgroundImage
+          },
+          {
+            title: "NEET",
+            subtitle: "Medical Entrance Preparation",
+            description: "Comprehensive NEET preparation covering Biology, Physics, Chemistry with NCERT focus, diagram practice and mock tests for medical college admissions.",
+            eligibility: "BiPC / MBiPC Completed",
+            features: ["3-Week Program", "NCERT Focus", "Mock Tests"],
+            color: "#dc2626",
+            backgroundImage: groupsOffered[1]?.backgroundImage
+          }].map((course, index) => (
+            <div key={index}
+              className="summer-card"
+              style={{
+                borderRadius: '16px',
+                boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1)',
+                border: `0.5px solid ${course.color}20`,
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+                background: '#ffffff',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.borderColor = course.color;
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.borderColor = `${course.color}20`;
+              }}
+            >
+              {/* Top Half: Image */}
+              <div style={{
+                width: '100%',
+                height: '200px',
+                position: 'relative',
+                background: '#f3f4f6'
+              }}>
+                {course.backgroundImage ? (
+                  <img 
+                    src={course.backgroundImage} 
+                    alt={course.title} 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#9ca3af',
+                    fontSize: '0.875rem',
+                    fontWeight: '500'
+                  }}>
+                    Photo coming soon
+                  </div>
+                )}
+                <div style={{
+                  position: 'absolute',
+                  top: '0',
+                  left: '0',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  background: 'rgba(0,0,0,0.4)'
+                }}>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>{course.title}</h3>
+                </div>
+              </div>
+
+              {/* Bottom Half: Text Details */}
+              <div style={{ 
+                padding: '1.5rem', 
+                position: 'relative', 
+                flex: 1, 
+                display: 'flex', 
+                flexDirection: 'column' 
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: '4px',
+                  background: `linear-gradient(to bottom, ${course.color}, ${course.color}dd)`
+                }}></div>
+
+                <div style={{ paddingLeft: '0.5rem' }}>
+                  <h3 className="process-title" style={{ ...homePageStyles.headings, fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '0.5rem' }}>
+                    {course.subtitle}
+                  </h3>
+
+                  <p className="process-description" style={{
+                    ...homePageStyles.body,
+                    fontSize: '12px',
+                    color: '#4b5563',
+                    lineHeight: '1.6',
+                    marginBottom: '1.5rem'
+                  }}>
+                    {course.description}
+                  </p>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ color: course.color, fontWeight: '600', fontSize: '0.875rem' }}>Eligible:</span>
+                    <span style={{ color: '#374151', fontSize: '0.875rem' }}>{course.eligibility}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Register Button */}
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <Link
+            to="/contact#contact-form"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/contact#contact-form';
+            }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              background: 'linear-gradient(135deg, #eb7932ff, #eb7932ff)',
+              color: 'white',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+            }}
+          >
+            Register Now
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
             </svg>

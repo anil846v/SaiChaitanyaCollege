@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./assets/styles.css";
 import jsPDF from 'jspdf';
+import emailjs from '@emailjs/browser';
 import logoImage from "./assets/logo.png";
+import SEO from "./components/SEO";
 import mpcImage from "./assets/Academics/mpc.png";
 import bipcImage from "./assets/Academics/bipc.png";
 import cecImage from "./assets/Academics/cec.png";
 import mecImage from "./assets/Academics/mec.png";
 import hecImage from "./assets/Academics/hec.png";
 import vocationalImage from "./assets/Gallery/Campus and Classrooms/image.png";
+
+// EmailJS Configuration
+const EMAILJS_PUBLIC_KEY = 'ZCvlhG7N7mzONX1uG';
+const EMAILJS_SERVICE_ID = 'service_s68431x';
+const EMAILJS_TEMPLATE_ID = 'template_91q93qi';
+
+// Initialize EmailJS
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
 // PDF generation function with enhanced logo, title and tabular formatting
 const generatePDF = () => {
@@ -152,6 +162,7 @@ const Contact = () => {
     name: '',
     email: '',
     phone: '',
+    group: '',
     message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
@@ -176,28 +187,62 @@ const Contact = () => {
   };
 
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    
+    // Phone field: only allow digits, max 10 characters
+    if (name === 'phone') {
+      const digitsOnly = value.replace(/\D/g, '').slice(0, 10);
+      setFormData({
+        ...formData,
+        [name]: digitsOnly
+      });
+      return;
+    }
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simulate form submission
-    try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Show success message
-      setSuccessMessage('Thank you for contacting us! Your message has been received successfully. Please Call us at 8309440507 for any further assistance.');
+    // Validate phone number - must be exactly 10 digits
+    const phoneRegex = /^\d{10}$/;
+    if (formData.phone && !phoneRegex.test(formData.phone)) {
+      setSuccessMessage('Please enter a valid 10-digit phone number.');
       setShowSuccess(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      return;
+    }
+
+    try {
+      // Send email using EmailJS
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        group: formData.group,
+        message: formData.message,
+      };
+
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
+
+      if (response.status === 200) {
+        setSuccessMessage('Thank you for contacting us! Your message has been sent successfully. We will get back to you soon.');
+        setShowSuccess(true);
+        setFormData({ name: '', email: '', phone: '', group: '', message: '' });
+      } else {
+        throw new Error('Email send failed');
+      }
 
     } catch (error) {
       console.error('Form submission failed:', error);
-      setSuccessMessage('Failed to send message. Please try again or call us directly.');
+      setSuccessMessage('Failed to send message. Please try again or call us at 8309440507.');
       setShowSuccess(true);
     }
   };
@@ -214,6 +259,13 @@ const Contact = () => {
 
   return (
     <div style={{ fontFamily: 'Inter, Roboto, sans-serif', color: '#333', background: '#ffffff', minHeight: 'calc(100vh - 160px)', paddingTop: '2rem' }}>
+      <SEO
+        title="Contact Us"
+        description="Contact Sai Chaitanya Junior College, Madanapalle for admissions and inquiries. Call us at +91 8309440507 or email srisaichaitanya222@gmail.com. Visit our campus at Sai Raghavendra Nagar, Madanapalle - 517325."
+        keywords="Contact Sai Chaitanya, Madanapalle College Contact, Junior College Admissions, Phone Number, Email Address, College Location"
+        ogUrl="https://saichaitanyacollege.com/contact"
+        canonical="https://saichaitanyacollege.com/contact"
+      />
 
       <style>
         {`
@@ -408,42 +460,42 @@ const Contact = () => {
           <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: '#111827' }}>Eligibility Criteria</h2>
           <div className="eligibility-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
-              <img src={mpcImage} alt="MPC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <img src={mpcImage} alt="MPC Course Eligibility - Sai Chaitanya Junior College Madanapalle" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
               <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>MPC</h3>
                 <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 60% in Class 10th • Age: 15-17 years</p>
               </div>
             </div>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
-              <img src={bipcImage} alt="BiPC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <img src={bipcImage} alt="BiPC Course Eligibility - Sai Chaitanya Junior College Madanapalle" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
               <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>BiPC</h3>
                 <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 60% in Class 10th • Age: 15-17 years</p>
               </div>
             </div>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
-              <img src={cecImage} alt="CEC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <img src={cecImage} alt="CEC Course Eligibility - Sai Chaitanya Junior College Madanapalle" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
               <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>CEC</h3>
                 <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 55% in Class 10th • Age: 15-17 years</p>
               </div>
             </div>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
-              <img src={mecImage} alt="MEC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <img src={mecImage} alt="MEC Course Eligibility - Sai Chaitanya Junior College Madanapalle" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
               <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>MEC</h3>
                 <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 55% in Class 10th • Age: 15-17 years</p>
               </div>
             </div>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px' }}>
-              <img src={hecImage} alt="HEC" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <img src={hecImage} alt="HEC Course Eligibility - Sai Chaitanya Junior College Madanapalle" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
               <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>HEC</h3>
                 <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 50% in Class 10th • Age: 15-17 years</p>
               </div>
             </div>
             <div className="eligibility-card" style={{ background: '#f8f9fa', padding: '0', borderRadius: '12px', border: '2px solid #dc262620', position: 'relative', overflow: 'hidden', height: '200px', opacity: '0.8' }}>
-              <img src={vocationalImage} alt="Vocational" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
+              <img src={vocationalImage} alt="Vocational Course Eligibility - Sai Chaitanya Junior College Madanapalle" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: '0', left: '0' }} />
               <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Vocational</h3>
                 <p style={{ fontSize: '0.875rem', color: 'white', lineHeight: '1.4', textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'center', padding: '0 1rem' }}>Min 50% in Class 10th • Age: 15-17 years</p>
@@ -457,43 +509,110 @@ const Contact = () => {
       <section style={{ padding: '2rem 0', background: '#eb7932ff', color: 'white', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', textAlign: 'center' }}>
           <h2 className="section-heading center-text" style={{ ...contactStyles.headings, color: 'white' }}>Fee Structure 2026-27</h2>
-          <p style={{ fontSize: '1rem', marginBottom: '2rem', opacity: '0.9' }}>Course-wise fee details</p>
+          <p style={{ fontSize: '1rem', marginBottom: '2rem', opacity: '0.9' }}>Detailed course-wise fee structure</p>
 
-          {/* Course-wise Fee Grid */}
-          <div className="fee-structure-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>MPC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹35,000</p>
-              <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
+          {/* Unified Fee Grid */}
+          <div className="fee-structure-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.75rem', maxWidth: '1200px', margin: '0 auto' }}>
+            {/* MPC Cards */}
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE / JEE</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>M21 - ELITE Prime</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹40,000</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>BiPC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹35,000</p>
-              <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE / EAMCET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>M22 - GOLD (Boys)</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹35,000</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>CEC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹18,000</p>
-              <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE / EAMCET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>M22 - GOLD (Girls)</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹35,000</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>MEC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹27,000</p>
-              <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE / EAMCET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>M23 - TITAN</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹30,000</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>HEC</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹22,500</p>
-              <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>M24 - PLATINUM</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹25,000</p>
             </div>
-            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '12px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Vocational</h3>
-              <p style={{ fontSize: '1.25rem', fontWeight: '700' }}>₹21,500</p>
-              <p style={{ fontSize: '0.75rem', opacity: '0.8' }}>Tuition + Lab</p>
+
+            {/* MBiPC Card */}
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MBiPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE / EAPCET / JEE / NEET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>MB21 - ELITE BIO</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹40,000</p>
+            </div>
+
+            {/* BiPC Cards */}
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>BiPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE + NEET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>B21 - NOVA</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹40,000</p>
+            </div>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>BiPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE + EAPCET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>B22 - BIO (Girls)</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹35,000</p>
+            </div>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>BiPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE + EAPCET</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>B22 - BIO (Boys)</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹35,000</p>
+            </div>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>BiPC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>B23 - STARS</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹25,000</p>
+            </div>
+
+            {/* CEC Cards */}
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>CEC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>ARTS</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>C21 - ALFA (Girls)</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹18,000</p>
+            </div>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>CEC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>ARTS</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>C21 - ALFA (Boys)</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹20,000</p>
+            </div>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>CEC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>ARTS</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>C22 - NEXT</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹16,000</p>
+            </div>
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>CEC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>ARTS</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>C23 - EDGE</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹16,000</p>
+            </div>
+
+            {/* MEC Card */}
+            <div className="fee-structure-card" style={{ background: 'rgba(255,255,255,0.15)', padding: '0.75rem', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.3)', textAlign: 'center' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'white', marginBottom: '0.3rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: '0.2rem' }}>MEC</span>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.15rem', opacity: '0.9' }}>IPE</h4>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.25rem' }}>ME21 - COMMERCE ELITE</h3>
+              <p style={{ fontSize: '1.1rem', fontWeight: '700' }}>₹20,000</p>
             </div>
           </div>
-
-
 
           <button
             onClick={() => {
@@ -518,7 +637,8 @@ const Contact = () => {
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+              boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+              marginTop: '1.25rem'
             }}
             onMouseOver={(e) => {
               e.target.style.transform = 'translateY(-2px)';
@@ -574,7 +694,7 @@ const Contact = () => {
                   <span style={{ fontSize: '1.25rem' }}>✉️</span>
                   <div>
                     <p style={{ ...contactStyles.body, fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>Email</p>
-                    <a href="mailto:info@saichaitanyajuniorcollege.edu.in" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>srisaichaitanya222@gmail.com</a>
+                    <a href="mailto:srisaichaitanya222@gmail.com" style={{ ...contactStyles.body, fontSize: '1rem', color: 'white', textDecoration: 'none' }}>srisaichaitanya222@gmail.com</a>
                   </div>
                 </div>
 
@@ -657,6 +777,24 @@ const Contact = () => {
                       style={{ width: '100%', padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '1rem' }}
                       placeholder="Enter your phone number"
                     />
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                    <label style={{ ...contactStyles.body, display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>Select Group *</label>
+                    <select
+                      name="group"
+                      value={formData.group}
+                      onChange={handleInputChange}
+                      required
+                      style={{ width: '100%', padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '1rem', backgroundColor: 'white' }}
+                    >
+                      <option value="">Select a group</option>
+                      <option value="MPC">MPC (Mathematics, Physics, Chemistry)</option>
+                      <option value="MBiPC">MBiPC (Mathematics,Biology, Physics, Chemistry)</option>
+                      <option value="BiPC">BiPC (Biology, Physics, Chemistry)</option>   
+                     <option value="MEC">MEC (Mathematics, Economics, Commerce)</option>
+                      <option value="CEC">CEC (Commerce, Economics, Civics)</option>
+                    </select>
                   </div>
 
                   <div className="form-group" style={{ marginBottom: '2rem' }}>

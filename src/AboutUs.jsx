@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./assets/styles.css";
 import FallbackImage from "./components/FallbackImage";
+import SEO from "./components/SEO";
 // import logo from "./assets/logo.png";
 import heroicImage from "./assets/Heroic/image2.png";
 // Management team images will be added when available
@@ -123,6 +124,13 @@ const AboutUs = () => {
   };
   return (
     <div style={{ fontFamily: 'Inter, Roboto, sans-serif', color: '#333', background: '#ffffff', minHeight: 'calc(100vh - 160px)' }}>
+      <SEO
+        title="About Us"
+        description="Learn about Sai Chaitanya Junior College's 19 years of excellence in education. Our vision, mission, and commitment to shaping future leaders in Madanapalle, Andhra Pradesh."
+        keywords="About Sai Chaitanya, College History, Vision Mission, Educational Excellence, Madanapalle College, Junior College AP"
+        ogUrl="https://saichaitanyacollege.com/about"
+        canonical="https://saichaitanyacollege.com/about"
+      />
 
       {/* HERO SECTION */}
       <section className="hero-section" style={{
@@ -191,7 +199,7 @@ const AboutUs = () => {
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <FallbackImage
             src={heroicImage}
-            alt="About Us Hero"
+            alt="Sai Chaitanya Junior College Campus - About Us"
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
           <div style={{
@@ -447,7 +455,7 @@ const AboutUs = () => {
               }}>
                 <FallbackImage
                   src={chairmanImage}
-                  alt="Chairman"
+                  alt="Dr. K. Nirmal Reddy - Chairman of Sai Chaitanya Junior College"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -497,7 +505,7 @@ const AboutUs = () => {
               }}>
                 <FallbackImage
                   src={principalImage}
-                  alt="Principal"
+                  alt="R. Dhananjaya Reddy - Principal of Sai Chaitanya Junior College Madanapalle"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -547,7 +555,7 @@ const AboutUs = () => {
               }}>
                 <FallbackImage
                   src={vicePrincipalImage}
-                  alt="Vice Principal"
+                  alt="Vice Principal - Sai Chaitanya Junior College Leadership Team"
                   style={{
                     width: '100%',
                     height: '100%',
