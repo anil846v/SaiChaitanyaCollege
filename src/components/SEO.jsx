@@ -14,7 +14,7 @@ const SEO = ({
   schema = null
 }) => {
   const siteName = 'Sai Chaitanya Junior College';
-  const defaultDescription = 'Premium education in Madanapalle, Andhra Pradesh. Offering MPC, BiPC, MBiPC, MEC, and CEC courses with experienced faculty and excellent results.';
+  const defaultDescription = 'Best Intermediate College in Madanapalle, Andhra Pradesh. Offering MPC, BiPC, MBiPC, MEC, and CEC courses with experienced faculty and excellent results.';
   const defaultImage = 'https://saichaitanyacollege.com/logo.png';
 
   return (
