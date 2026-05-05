@@ -490,7 +490,7 @@ const AboutUs = () => {
 
             to a premier intermediate college in Madanapalle, consistently delivering exceptional
 
-            academic results and holistic student development.Education is the key to cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's setbacks and challenges .
+            academic results and holistic student development.Sai Chaithanya Junior College is one of the best intermediate college in Madanapalle.Education is the key to cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's setbacks and challenges .
 
 
 

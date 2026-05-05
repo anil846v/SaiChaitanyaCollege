@@ -446,7 +446,7 @@ export default function HomePage() {
     <SEO
       title="Best Junior College in Madanapalle & Annamayya District | Sai Chaitanya Junior College"
       description="Sai Chaitanya Junior College - Premium education in Madanapalle, Andhra Pradesh. 19 years of excellence with 800+ students and 35+ experienced faculty. Offering MPC, BiPC, MBiPC, MEC, and CEC courses."
-      keywords="Sai Chaitanya Junior College, Madanapalle, Intermediate College, MPC BiPC MBiPC MEC CEC, NEET Coaching, JEE Coaching, Best Intermediate Junior College AP, Best Intermediate Junior College Madanapalle"
+      keywords="Sai Chaitanya Junior College, Sai Chaithanya Junior College, Sai Chaitanya College Madanapalle, Sai Chaithanya College, Best Intermediate College Madanapalle, Best Intermediate College Madanapalle, Best Junior College Madanapalle, Best Junior College Madanapalle, Intermediate College Madanapalle, Intermediate College Madanapalle, Junior College Madanapalle, Junior College Madanapalle, MPC BiPC MBiPC MEC CEC, NEET Coaching Madanapalle, JEE Coaching Madanapalle, Annamayya District Junior College"
       ogUrl="https://saichaitanyacollege.com"
       canonical="https://saichaitanyacollege.com"
     />
@@ -944,183 +944,96 @@ export default function HomePage() {
                 rel="noopener noreferrer"
 
                 style={{
-
                   color: '#ffffff',
-
                   textDecoration: 'none',
-
                   fontWeight: '700',
-
                   padding: '0.25rem 0.75rem',
-
                   background: 'rgba(255, 255, 255, 0.2)',
-
                   borderRadius: '4px',
-
                   transition: 'all 0.3s ease'
-
                 }}
-
                 onMouseOver={(e) => {
-
                   e.target.style.background = 'rgba(255, 255, 255, 0.3)';
-
                   e.target.style.transform = 'scale(1.05)';
-
                 }}
-
                 onMouseOut={(e) => {
-
                   e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-
                   e.target.style.transform = 'scale(1)';
-
                 }}
-
               >
-
                 BIEAP Official
-
               </a>
-
               <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
-
             </span>
-
           </div>
-
         </div>
-
       </section>
-
     )}
-
-
-
     {/* STATS STRIP - Acts as a divider between Hero and About */}
 
     <section className="stats-strip" style={{
-
       padding: '2.5rem 0',
-
       background: '#ffffff',
-
       borderBottom: '1px solid #e5e7eb'
-
     }}>
 
       <div className="strip-container">
-
         <div className="stats-grid">
-
           <div className="stat-card">
-
             <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
-
             <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
-
           </div>
-
           <div className="stat-card">
-
             <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
-
             <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
-
           </div>
-
           <div className="stat-card">
-
             <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
-
             <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
-
           </div>
-
           <div className="stat-card">
-
             <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
-
             <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
-
 
 
     {/* ABOUT STRIP */}
 
     <section className="about-strip" style={{
-
       padding: '50px 30px',
-
       background: '#fcfaf6',
-
       width: '100%'
-
     }}>
-
       <div className="strip-container">
-
-
-
           {/* Main Content Layout */}
-
           <style>
-
             {`
-
               @media (max-width: 768px) {
-
                 .about-content-grid {
-
                   grid-template-columns: 1fr !important;
-
                   gap: 2rem !important;
-
                 }
-
                 .about-image {
-
                   order: 2; /* Move image below text on mobile */
-
                 }
-
                 .about-text {
-
                   order: 1;
-
                 }
-
               }
-
             `}
-
           </style>
-
           <div className="about-content-grid" style={{
-
             display: 'grid',
-
             gridTemplateColumns: '1fr 1fr',
-
             gap: '4rem',
-
             alignItems: 'center', // Center vertically and keep natural heights
-
             maxWidth: '1200px',
-
             margin: '0 auto'
-
           }}>
-
             {/* Left Side - Image */}
-
             <div className="about-image" style={{ display: 'flex', position: 'relative' }}>
 
               {/* Industry Style Decorative Background Border */}
@@ -1345,25 +1258,7 @@ export default function HomePage() {
 
                 </p>
 
-                <p style={{
-
-                  ...homePageStyles.body,
-
-                  fontSize: '12px',
-
-                  lineHeight: '1.8',
-
-                  color: '#4b5563',
-
-                  marginTop: '1rem',
-
-                  textAlign: 'justify'
-
-                }}>
-
-                  Education is the cornerstone of progress. At Sai Chaitanya Junior College, we are committed to providing an educational experience that nurtures young minds and prepares students for tomorrow's challenges. Our approach combines rigorous academic training with personal mentorship to ensure every student reaches their full potential.
-
-                </p>
+                
                 {/* SEO Content - Natural Keyword Integration */}
                 <p style={{
                   ...homePageStyles.body,
@@ -1373,7 +1268,7 @@ export default function HomePage() {
                   marginTop: '1rem',
                   textAlign: 'justify'
                 }}>
-                  Sai Chaitanya Junior College in Madanapalle is recognized as one of the best intermediate junior colleges in Annamayya district, providing quality education in MPC, BiPC, MBiPC, MEC, and CEC streams. Whether you are looking for the best college for MPC in Madanapalle or seeking a top junior college in Annamayya district for NEET and JEE coaching, our institution offers comprehensive programs designed for student success. As a leading intermediate college in Madanapalle, we combine academic excellence with competitive exam preparation.
+                  Sai Chaitanya Junior College in Madanapalle is recognized as one of the best intermediate junior colleges in Madanapalle, providing quality education in MPC, BiPC, MBiPC, MEC, and CEC streams. Whether you are looking for the best college for MPC in Madanapalle or seeking a top junior college in Annamayya district for NEET and JEE coaching, our institution offers comprehensive programs designed for student success. As a leading intermediate college in Madanapalle, we combine academic excellence with competitive exam preparation.
                 </p>
 
               </div>
