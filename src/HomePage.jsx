@@ -357,82 +357,82 @@ export default function HomePage() {
 
   return (
 
-  <div className="homepage-container">
-    <SEO
-      title="Best Intermediate Junior College in Madanapalle & Annamayya District | Sai Chaitanya Junior College"
-      description="Sai Chaitanya Junior College - Premium education in Madanapalle, Andhra Pradesh. 19 years of excellence with 800+ students and 35+ experienced faculty. Offering MPC, BiPC, MBiPC, MEC, and CEC courses."
-      keywords="Sai Chaitanya Junior College, Junior College in Madanapalle, Best Intermediate College in Madanapalle, Top Intermediate Junior College in Madanapalle,EAPCET coaching in Madanapalle, NEET coaching in Madanapalle, JEE coaching in Madanapalle, Intermediate college in Annamayya district, integrated coaching college AP"    
-      canonical="https://saichaitanyacollege.com"
-    />
+    <div className="homepage-container">
+      <SEO
+        title="Sai Chaitanya Junior College | Best Intermediate Junior College in Madanapalle & Annamayya District"
+        description="Sai Chaitanya Junior College - Premium education in Madanapalle, Andhra Pradesh. 19 years of excellence with 800+ students and 35+ experienced faculty. Offering MPC, BiPC, MBiPC, MEC, and CEC courses."
+        keywords="Sai Chaitanya Junior College, Junior College in Madanapalle, Best Intermediate College in Madanapalle, Top Intermediate Junior College in Madanapalle,EAPCET coaching in Madanapalle, NEET coaching in Madanapalle, JEE coaching in Madanapalle, Intermediate college in Annamayya district, integrated coaching college AP"
+        canonical="https://saichaitanyacollege.com"
+      />
 
-    {/* HERO SECTION - Responsive Component Switch */}
-    {isMobile ? (
-      <div style={{ marginTop: '60px' }}>
-        <MobileHeroSlider />
-      </div>
-    ) : (
-      <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', marginTop: '115px', height: 'calc(100vh - 180px)', overflow: 'hidden', minHeight: '450px !important' }}>
-        {/* Slideshow Background */}
-        <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0,  width: '100%', height: '100%' }}>
-          {slides.map((slide, index) => (
-            <div
-              key={index}
-              className="slide"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                opacity: currentSlide === index ? 1 : 0,
-                transition: 'opacity 1s ease-in-out',
-                zIndex: currentSlide === index ? 1 : 0
-              }}
-            >
-              <img
-                src={slide.image}
-                alt={slide.title}
-                loading={index <= 1 ? "eager" : "lazy"}
+      {/* HERO SECTION - Responsive Component Switch */}
+      {isMobile ? (
+        <div style={{ marginTop: '60px' }}>
+          <MobileHeroSlider />
+        </div>
+      ) : (
+        <section className="hero-strip" style={{ position: 'relative', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', marginTop: '115px', height: 'calc(100vh - 180px)', overflow: 'hidden', minHeight: '450px !important' }}>
+          {/* Slideshow Background */}
+          <div className="hero-slideshow" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className="slide"
                 style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
                   width: '100%',
                   height: '100%',
-                  objectFit: 'fill',
-                  objectPosition: 'top'
+                  opacity: currentSlide === index ? 1 : 0,
+                  transition: 'opacity 1s ease-in-out',
+                  zIndex: currentSlide === index ? 1 : 0
                 }}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-    )}
+              >
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  loading={index <= 1 ? "eager" : "lazy"}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'fill',
+                    objectPosition: 'top'
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
 
 
-    {/* RESULTS TICKER - Only show on desktop */}
+      {/* RESULTS TICKER - Only show on desktop */}
 
-    {!isMobile && (
+      {!isMobile && (
 
-      <section className="results-ticker" style={{
+        <section className="results-ticker" style={{
 
-        height: '60px',
+          height: '60px',
 
-        background: 'linear-gradient(135deg, #dc2626, #eb7932ff)',
+          background: 'linear-gradient(135deg, #dc2626, #eb7932ff)',
 
-        position: 'relative',
+          position: 'relative',
 
-        overflow: 'hidden',
+          overflow: 'hidden',
 
-        display: 'flex',
+          display: 'flex',
 
-        alignItems: 'center',
+          alignItems: 'center',
 
-        borderBottom: '2px solid rgba(255, 255, 255, 0.2)'
+          borderBottom: '2px solid rgba(255, 255, 255, 0.2)'
 
-      }}>
+        }}>
 
-        <style>
+          <style>
 
-          {`
+            {`
 
             .ticker-content {
 
@@ -446,443 +446,443 @@ export default function HomePage() {
 
           `}
 
-        </style>
+          </style>
 
 
 
-        {/* Static Label */}
+          {/* Static Label */}
 
-        <div style={{
+          <div style={{
 
-          position: 'absolute',
+            position: 'absolute',
 
-          left: '0',
+            left: '0',
 
-          top: '0',
+            top: '0',
 
-          height: '100%',
+            height: '100%',
 
-          background: 'rgba(0, 0, 0, 0.3)',
-
-          display: 'flex',
-
-          alignItems: 'center',
-
-          padding: '0 1rem',
-
-          zIndex: '10',
-
-          backdropFilter: 'blur(5px)'
-
-        }}>
-
-          <span style={{
-
-            color: 'white',
-
-            fontWeight: '700',
-
-            fontSize: '16px',
-
-            fontFamily: 'Poppins, sans-serif',
-
-            textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
-
-          }}>
-
-            🏆AP RESULTS 2026
-
-          </span>
-
-        </div>
-
-
-
-        {/* Scrolling Content */}
-
-        <div style={{
-
-          display: 'flex',
-
-          alignItems: 'center',
-
-          width: '100%',
-
-          paddingLeft: '120px'
-
-        }}>
-
-          <div className="ticker-content" style={{
+            background: 'rgba(0, 0, 0, 0.3)',
 
             display: 'flex',
 
             alignItems: 'center',
 
-            gap: '4rem',
+            padding: '0 1rem',
 
-            color: 'white',
+            zIndex: '10',
 
-            fontSize: '14px',
-
-            fontFamily: 'Inter, sans-serif',
-
-            fontWeight: '500'
+            backdropFilter: 'blur(5px)'
 
           }}>
 
-            {/* AP 10th Results */}
+            <span style={{
 
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              color: 'white',
 
-              🏫 <strong>AP 10th (SSC) Results 2026:</strong>
+              fontWeight: '700',
 
-              <a
+              fontSize: '16px',
 
-                href="https://bse.ap.gov.in"
+              fontFamily: 'Poppins, sans-serif',
 
-                target="_blank"
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
 
-                rel="noopener noreferrer"
+            }}>
 
-                style={{
-
-                  color: '#ffffff',
-
-                  textDecoration: 'none',
-
-                  fontWeight: '700',
-
-                  padding: '0.25rem 0.75rem',
-
-                  background: 'rgba(255, 255, 255, 0.2)',
-
-                  borderRadius: '4px',
-
-                  transition: 'all 0.3s ease'
-
-                }}
-
-                onMouseOver={(e) => {
-
-                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
-
-                  e.target.style.transform = 'scale(1.05)';
-
-                }}
-
-                onMouseOut={(e) => {
-
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-
-                  e.target.style.transform = 'scale(1)';
-
-                }}
-
-              >
-
-                BSEAP Official
-
-              </a>
-
-              <a
-
-                href="https://results.bse.ap.gov.in"
-
-                target="_blank"
-
-                rel="noopener noreferrer"
-
-                style={{
-
-                  color: '#ffffff',
-
-                  textDecoration: 'none',
-
-                  fontWeight: '700',
-
-                  padding: '0.25rem 0.75rem',
-
-                  background: 'rgba(255, 255, 255, 0.2)',
-
-                  borderRadius: '4px',
-
-                  transition: 'all 0.3s ease'
-
-                }}
-
-                onMouseOver={(e) => {
-
-                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
-
-                  e.target.style.transform = 'scale(1.05)';
-
-                }}
-
-                onMouseOut={(e) => {
-
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-
-                  e.target.style.transform = 'scale(1)';
-
-                }}
-
-              >
-
-                Results Portal
-
-              </a>
-
-              <span style={{ opacity: '0.8' }}>| Expected: April 23, 2026</span>
+              🏆AP RESULTS 2026
 
             </span>
 
+          </div>
 
 
-            {/* AP Intermediate Results */}
 
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {/* Scrolling Content */}
 
-              🎓 <strong>AP Intermediate (1st & 2nd Year) Results 2026:</strong>
+          <div style={{
 
-              <a
+            display: 'flex',
 
-                href="https://bie.ap.gov.in/"
+            alignItems: 'center',
 
-                target="_blank"
+            width: '100%',
 
-                rel="noopener noreferrer"
+            paddingLeft: '120px'
 
-                style={{
+          }}>
 
-                  color: '#ffffff',
+            <div className="ticker-content" style={{
 
-                  textDecoration: 'none',
+              display: 'flex',
 
-                  fontWeight: '700',
+              alignItems: 'center',
 
-                  padding: '0.25rem 0.75rem',
+              gap: '4rem',
 
-                  background: 'rgba(255, 255, 255, 0.2)',
+              color: 'white',
 
-                  borderRadius: '4px',
+              fontSize: '14px',
 
-                  transition: 'all 0.3s ease'
+              fontFamily: 'Inter, sans-serif',
 
-                }}
+              fontWeight: '500'
 
-                onMouseOver={(e) => {
+            }}>
 
-                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+              {/* AP 10th Results */}
 
-                  e.target.style.transform = 'scale(1.05)';
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
 
-                }}
+                🏫 <strong>AP 10th (SSC) Results 2026:</strong>
 
-                onMouseOut={(e) => {
+                <a
 
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  href="https://bse.ap.gov.in"
 
-                  e.target.style.transform = 'scale(1)';
+                  target="_blank"
 
-                }}
+                  rel="noopener noreferrer"
 
-              >
+                  style={{
 
-                BIEAP Official
+                    color: '#ffffff',
 
-              </a>
+                    textDecoration: 'none',
 
-              <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
+                    fontWeight: '700',
 
-            </span>
+                    padding: '0.25rem 0.75rem',
 
+                    background: 'rgba(255, 255, 255, 0.2)',
 
+                    borderRadius: '4px',
 
-            {/* Repeat for continuous scrolling */}
+                    transition: 'all 0.3s ease'
 
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  }}
 
-              🏫 <strong>AP 10th (SSC) Results 2026:</strong>
+                  onMouseOver={(e) => {
 
-              <a
+                    e.target.style.background = 'rgba(255, 255, 255, 0.3)';
 
-                href="https://bse.ap.gov.in"
+                    e.target.style.transform = 'scale(1.05)';
 
-                target="_blank"
+                  }}
 
-                rel="noopener noreferrer"
+                  onMouseOut={(e) => {
 
-                style={{
+                    e.target.style.background = 'rgba(255, 255, 255, 0.2)';
 
-                  color: '#ffffff',
+                    e.target.style.transform = 'scale(1)';
 
-                  textDecoration: 'none',
+                  }}
 
-                  fontWeight: '700',
+                >
 
-                  padding: '0.25rem 0.75rem',
+                  BSEAP Official
 
-                  background: 'rgba(255, 255, 255, 0.2)',
+                </a>
 
-                  borderRadius: '4px',
+                <a
 
-                  transition: 'all 0.3s ease'
+                  href="https://results.bse.ap.gov.in"
 
-                }}
+                  target="_blank"
 
-                onMouseOver={(e) => {
+                  rel="noopener noreferrer"
 
-                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                  style={{
 
-                  e.target.style.transform = 'scale(1.05)';
+                    color: '#ffffff',
 
-                }}
+                    textDecoration: 'none',
 
-                onMouseOut={(e) => {
+                    fontWeight: '700',
 
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                    padding: '0.25rem 0.75rem',
 
-                  e.target.style.transform = 'scale(1)';
+                    background: 'rgba(255, 255, 255, 0.2)',
 
-                }}
+                    borderRadius: '4px',
 
-              >
+                    transition: 'all 0.3s ease'
 
-                BSEAP Official
+                  }}
 
-              </a>
+                  onMouseOver={(e) => {
 
-              <a
+                    e.target.style.background = 'rgba(255, 255, 255, 0.3)';
 
-                href="https://results.bse.ap.gov.in"
+                    e.target.style.transform = 'scale(1.05)';
 
-                target="_blank"
+                  }}
 
-                rel="noopener noreferrer"
+                  onMouseOut={(e) => {
 
-                style={{
+                    e.target.style.background = 'rgba(255, 255, 255, 0.2)';
 
-                  color: '#ffffff',
+                    e.target.style.transform = 'scale(1)';
 
-                  textDecoration: 'none',
+                  }}
 
-                  fontWeight: '700',
+                >
 
-                  padding: '0.25rem 0.75rem',
+                  Results Portal
 
-                  background: 'rgba(255, 255, 255, 0.2)',
+                </a>
 
-                  borderRadius: '4px',
+                <span style={{ opacity: '0.8' }}>| Expected: April 23, 2026</span>
 
-                  transition: 'all 0.3s ease'
+              </span>
 
-                }}
 
-                onMouseOver={(e) => {
 
-                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+              {/* AP Intermediate Results */}
 
-                  e.target.style.transform = 'scale(1.05)';
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
 
-                }}
+                🎓 <strong>AP Intermediate (1st & 2nd Year) Results 2026:</strong>
 
-                onMouseOut={(e) => {
+                <a
 
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  href="https://bie.ap.gov.in/"
 
-                  e.target.style.transform = 'scale(1)';
+                  target="_blank"
 
-                }}
+                  rel="noopener noreferrer"
 
-              >
+                  style={{
 
-                Results Portal
+                    color: '#ffffff',
 
-              </a>
+                    textDecoration: 'none',
 
-              <span style={{ opacity: '0.8' }}>| Expected: April 23, 2026</span>
+                    fontWeight: '700',
 
-            </span>
+                    padding: '0.25rem 0.75rem',
 
+                    background: 'rgba(255, 255, 255, 0.2)',
 
+                    borderRadius: '4px',
 
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    transition: 'all 0.3s ease'
 
-              🎓 <strong>AP Intermediate (1st & 2nd Year) Results 2026:</strong>
+                  }}
 
-              <a
+                  onMouseOver={(e) => {
 
-                href="https://bie.ap.gov.in/"
+                    e.target.style.background = 'rgba(255, 255, 255, 0.3)';
 
-                target="_blank"
+                    e.target.style.transform = 'scale(1.05)';
 
-                rel="noopener noreferrer"
+                  }}
 
-                style={{
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  fontWeight: '700',
-                  padding: '0.25rem 0.75rem',
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  borderRadius: '4px',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.background = 'rgba(255, 255, 255, 0.3)';
-                  e.target.style.transform = 'scale(1.05)';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-                  e.target.style.transform = 'scale(1)';
-                }}
-              >
-                BIEAP Official
-              </a>
-              <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
-            </span>
+                  onMouseOut={(e) => {
+
+                    e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+
+                    e.target.style.transform = 'scale(1)';
+
+                  }}
+
+                >
+
+                  BIEAP Official
+
+                </a>
+
+                <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
+
+              </span>
+
+
+
+              {/* Repeat for continuous scrolling */}
+
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+
+                🏫 <strong>AP 10th (SSC) Results 2026:</strong>
+
+                <a
+
+                  href="https://bse.ap.gov.in"
+
+                  target="_blank"
+
+                  rel="noopener noreferrer"
+
+                  style={{
+
+                    color: '#ffffff',
+
+                    textDecoration: 'none',
+
+                    fontWeight: '700',
+
+                    padding: '0.25rem 0.75rem',
+
+                    background: 'rgba(255, 255, 255, 0.2)',
+
+                    borderRadius: '4px',
+
+                    transition: 'all 0.3s ease'
+
+                  }}
+
+                  onMouseOver={(e) => {
+
+                    e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+
+                    e.target.style.transform = 'scale(1.05)';
+
+                  }}
+
+                  onMouseOut={(e) => {
+
+                    e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+
+                    e.target.style.transform = 'scale(1)';
+
+                  }}
+
+                >
+
+                  BSEAP Official
+
+                </a>
+
+                <a
+
+                  href="https://results.bse.ap.gov.in"
+
+                  target="_blank"
+
+                  rel="noopener noreferrer"
+
+                  style={{
+
+                    color: '#ffffff',
+
+                    textDecoration: 'none',
+
+                    fontWeight: '700',
+
+                    padding: '0.25rem 0.75rem',
+
+                    background: 'rgba(255, 255, 255, 0.2)',
+
+                    borderRadius: '4px',
+
+                    transition: 'all 0.3s ease'
+
+                  }}
+
+                  onMouseOver={(e) => {
+
+                    e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+
+                    e.target.style.transform = 'scale(1.05)';
+
+                  }}
+
+                  onMouseOut={(e) => {
+
+                    e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+
+                    e.target.style.transform = 'scale(1)';
+
+                  }}
+
+                >
+
+                  Results Portal
+
+                </a>
+
+                <span style={{ opacity: '0.8' }}>| Expected: April 23, 2026</span>
+
+              </span>
+
+
+
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+
+                🎓 <strong>AP Intermediate (1st & 2nd Year) Results 2026:</strong>
+
+                <a
+
+                  href="https://bie.ap.gov.in/"
+
+                  target="_blank"
+
+                  rel="noopener noreferrer"
+
+                  style={{
+                    color: '#ffffff',
+                    textDecoration: 'none',
+                    fontWeight: '700',
+                    padding: '0.25rem 0.75rem',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '4px',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                    e.target.style.transform = 'scale(1)';
+                  }}
+                >
+                  BIEAP Official
+                </a>
+                <span style={{ opacity: '0.8' }}>| Expected: April 2026 (after SSC)</span>
+              </span>
+            </div>
+          </div>
+        </section>
+      )}
+      {/* STATS STRIP - Acts as a divider between Hero and About */}
+
+      <section className="stats-strip" style={{
+        padding: '2.5rem 0',
+        background: '#ffffff',
+        borderBottom: '1px solid #e5e7eb'
+      }}>
+
+        <div className="strip-container">
+          <div className="stats-grid">
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
+              <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
+              <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
+              <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
+              <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
+            </div>
           </div>
         </div>
       </section>
-    )}
-    {/* STATS STRIP - Acts as a divider between Hero and About */}
-
-    <section className="stats-strip" style={{
-      padding: '2.5rem 0',
-      background: '#ffffff',
-      borderBottom: '1px solid #e5e7eb'
-    }}>
-
-      <div className="strip-container">
-        <div className="stats-grid">
-          <div className="stat-card">
-            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.years}+</h3>
-            <p className="stat-label" style={homePageStyles.body}>Years of Excellence</p>
-          </div>
-          <div className="stat-card">
-            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.students}+</h3>
-            <p className="stat-label" style={homePageStyles.body}>Happy Students</p>
-          </div>
-          <div className="stat-card">
-            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.faculty}+</h3>
-            <p className="stat-label" style={homePageStyles.body}>Expert Faculty</p>
-          </div>
-          <div className="stat-card">
-            <h3 className="stat-number" style={homePageStyles.headings}>{statCounts.success}%</h3>
-            <p className="stat-label" style={homePageStyles.body}>Success Rate</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
-    {/* ABOUT STRIP */}
+      {/* ABOUT STRIP */}
 
-    <section className="about-strip" style={{
-      padding: '50px 30px',
-      background: '#fcfaf6',
-      width: '100%'
-    }}>
-      <div className="strip-container">
+      <section className="about-strip" style={{
+        padding: '50px 30px',
+        background: '#fcfaf6',
+        width: '100%'
+      }}>
+        <div className="strip-container">
           {/* Main Content Layout */}
           <style>
             {`
@@ -1133,7 +1133,7 @@ export default function HomePage() {
 
                 </p>
 
-                
+
                 {/* SEO Content - Natural Keyword Integration */}
                 <p style={{
                   ...homePageStyles.body,
@@ -1380,7 +1380,7 @@ export default function HomePage() {
                   transition: 'all 0.3s ease'
                 }}>
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-                    <path d="M8 5v14l11-7z"/>
+                    <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
               </div>
@@ -1437,7 +1437,7 @@ export default function HomePage() {
                 e.target.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
               }}
             >
-             View Campus Photos
+              View Campus Photos
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
               </svg>
@@ -1445,7 +1445,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
+
 
 
 
